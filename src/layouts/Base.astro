@@ -50,6 +50,7 @@ const openGraphImage = site
   ? absoluteUrl(site, base, openGraphPath)
   : `${base}${openGraphPath}`;
 const personUrl = site ? absoluteUrl(site, base, "") : undefined;
+const isHomepage = routeKey === "" || routeKey === "en";
 const personSchema = {
   "@context": "https://schema.org",
   "@type": "Person",
@@ -114,14 +115,34 @@ const isProject = page?.path.startsWith(
     <div class="blueprint-grid" aria-hidden="true"></div>
     <div class="site-shell">
       <header class="site-header">
-        <a class="wordmark" href={homeHref}>
-          {data.person.name}
-        </a>
-        <div class="header-tools">
-          <LangSwitch lang={lang} />
-          <CommandPalette lang={lang} />
-          <ThemeToggle lang={lang} />
+        <div class="header-main">
+          <a class="wordmark" href={homeHref}>
+            {data.person.name}
+          </a>
+          <div class="header-tools">
+            <LangSwitch lang={lang} />
+            <CommandPalette lang={lang} />
+            <ThemeToggle lang={lang} />
+          </div>
         </div>
+        {isHomepage && (
+          <nav
+            class="section-nav mono"
+            aria-label={
+              lang === "fr" ? "Navigation principale" : "Main navigation"
+            }
+          >
+            <a href={`${homeHref}#skills`}>
+              <span>01</span> {lang === "fr" ? "Compétences" : "Skills"}
+            </a>
+            <a href={`${homeHref}#experience`}>
+              <span>02</span> {lang === "fr" ? "Expériences" : "Experience"}
+            </a>
+            <a href={`${homeHref}#projects`}>
+              <span>03</span> {lang === "fr" ? "Projets" : "Projects"}
+            </a>
+          </nav>
+        )}
       </header>
       <main id="main" tabindex="-1">
         <slot />

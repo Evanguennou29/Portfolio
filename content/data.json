@@ -1,6 +1,13 @@
 {
   "person": {
     "name": "Evan Guennou",
+    "portrait": {
+      "src": "img/evan-guennou.webp",
+      "alt": {
+        "fr": "Portrait d'Evan Guennou",
+        "en": "Portrait of Evan Guennou"
+      }
+    },
     "title": {
       "fr": "AI Engineer",
       "en": "AI Engineer"
@@ -10,8 +17,8 @@
       "en": "1 year of experience"
     },
     "tagline": {
-      "fr": "Je conçois des produits d'IA générative, de la donnée brute à l'interface.",
-      "en": "I build generative AI products, from raw data to the interface."
+      "fr": "Je conçois des produits à base d'intelligence artificielle, de la donnée brute à l'interface.",
+      "en": "I build products powered by artificial intelligence, from raw data to the interface."
     },
     "location": {
       "fr": "Paris, France",
@@ -27,8 +34,8 @@
       "en": "Available from October 2026"
     },
     "contract": {
-      "fr": "CDI",
-      "en": "Permanent contract (CDI)"
+      "fr": "CDI, freelance",
+      "en": "Permanent contract (CDI) or freelance"
     },
     "mobility": {
       "fr": "France, avec une préférence pour l’Île-de-France. Mobilité envisageable.",
@@ -141,11 +148,7 @@
         "Few-shot",
         "GitLab"
       ],
-      "roles": [
-        "ai-engineer",
-        "ml-engineer",
-        "data-engineer"
-      ]
+      "roles": ["ai-engineer", "ml-engineer", "data-engineer"]
     },
     {
       "company": "CANAL+",
@@ -191,11 +194,7 @@
         "Dataiku",
         "Excel"
       ],
-      "roles": [
-        "data-scientist",
-        "data-analyst",
-        "ml-engineer"
-      ]
+      "roles": ["data-scientist", "data-analyst", "ml-engineer"]
     }
   ],
   "projects": [
@@ -256,11 +255,7 @@
       "media": {
         "gif": "https://raw.githubusercontent.com/Evanguennou29/eco2mix-elt/main/docs/eco2mix-dashboard-demo.gif"
       },
-      "roles": [
-        "data-engineer",
-        "data-analyst",
-        "data-scientist"
-      ]
+      "roles": ["data-engineer", "data-analyst", "data-scientist"]
     },
     {
       "slug": "syntho-crowd",
@@ -306,10 +301,7 @@
         "repo": "",
         "demo": ""
       },
-      "roles": [
-        "ai-engineer",
-        "ml-engineer"
-      ]
+      "roles": ["ai-engineer", "ml-engineer"]
     },
     {
       "slug": "pulv-chatbot",
@@ -342,20 +334,12 @@
           "Docker packaging for a reproducible demo."
         ]
       },
-      "stack": [
-        "Python",
-        "watsonx.ai",
-        "LangChain",
-        "ChromaDB",
-        "Docker"
-      ],
+      "stack": ["Python", "watsonx.ai", "LangChain", "ChromaDB", "Docker"],
       "links": {
         "repo": "https://github.com/Evanguennou29/Chatbot-PULV-Hackaton-IBM",
         "demo": ""
       },
-      "roles": [
-        "ai-engineer"
-      ]
+      "roles": ["ai-engineer"]
     },
     {
       "slug": "species-reintroduction",
@@ -370,20 +354,12 @@
         "fr": "Outil prédictif et cartographique pour aider à choisir des zones de réintroduction d'espèces menacées.",
         "en": "Predictive and mapping tool to help choose reintroduction areas for endangered species."
       },
-      "stack": [
-        "Scikit-Learn",
-        "GeoPandas",
-        "Plotly"
-      ],
+      "stack": ["Scikit-Learn", "GeoPandas", "Plotly"],
       "links": {
         "repo": "",
         "demo": ""
       },
-      "roles": [
-        "data-scientist",
-        "ml-engineer",
-        "data-analyst"
-      ]
+      "roles": ["data-scientist", "ml-engineer", "data-analyst"]
     },
     {
       "slug": "signia",
@@ -395,32 +371,16 @@
         "fr": "Traduction de la langue des signes française en texte par vision par ordinateur, avec une application mobile.",
         "en": "French Sign Language to text translation using computer vision, with a mobile app."
       },
-      "stack": [
-        "PyTorch",
-        "OpenCV",
-        "MediaPipe",
-        "Dart"
-      ],
+      "stack": ["PyTorch", "OpenCV", "MediaPipe", "Dart"],
       "links": {
         "repo": "",
         "demo": ""
       },
-      "roles": [
-        "ml-engineer",
-        "ai-engineer",
-        "data-scientist"
-      ]
+      "roles": ["ml-engineer", "ai-engineer", "data-scientist"]
     },
     {
       "title": "DECP Copilot",
-      "stack": [
-        "Python",
-        "DuckDB",
-        "FastAPI",
-        "React",
-        "BM25",
-        "Embeddings"
-      ],
+      "stack": ["Python", "DuckDB", "FastAPI", "React", "BM25", "Embeddings"],
       "status": "live",
       "year": 2026,
       "slug": "decp-copilot",
@@ -433,12 +393,7 @@
         "fr": "Recherche hybride dans les marchés publics français, avec filtres structurés et évaluation de la qualité de recherche.",
         "en": "Hybrid search across French public procurement awards, with structured filters and measured retrieval quality."
       },
-      "roles": [
-        "ai-engineer",
-        "ml-engineer",
-        "data-engineer",
-        "data-scientist"
-      ]
+      "roles": ["ai-engineer", "ml-engineer", "data-engineer", "data-scientist"]
     },
     {
       "title": "Intelligent Document Processing",
@@ -463,10 +418,7 @@
         "fr": "Pipeline multimodal de traitement de documents qui combine OCR, extraction structurée par LLM et validation par schémas, avec un moteur cloud ou local.",
         "en": "Multimodal document processing pipeline combining OCR, LLM-based structured extraction and schema validation, with cloud or local backends."
       },
-      "roles": [
-        "ai-engineer",
-        "ml-engineer"
-      ]
+      "roles": ["ai-engineer", "ml-engineer"]
     }
   ],
   "skills": [
@@ -489,10 +441,7 @@
         "IBM watsonx.ai",
         "API Gemini"
       ],
-      "roles": [
-        "ai-engineer",
-        "ml-engineer"
-      ]
+      "roles": ["ai-engineer", "ml-engineer"]
     },
     {
       "domain": {
@@ -508,10 +457,7 @@
         "Classification et ranking",
         "Analyse de survie"
       ],
-      "roles": [
-        "ml-engineer",
-        "data-scientist"
-      ]
+      "roles": ["ml-engineer", "data-scientist"]
     },
     {
       "domain": {
@@ -528,9 +474,7 @@
         "Dagster",
         "Parquet"
       ],
-      "roles": [
-        "data-engineer"
-      ]
+      "roles": ["data-engineer"]
     },
     {
       "domain": {
@@ -545,10 +489,7 @@
         "Plotly",
         "Streamlit"
       ],
-      "roles": [
-        "data-analyst",
-        "data-scientist"
-      ]
+      "roles": ["data-analyst", "data-scientist"]
     },
     {
       "domain": {
@@ -569,23 +510,14 @@
         "GitHub Actions",
         "Artifactory"
       ],
-      "roles": [
-        "ai-engineer",
-        "ml-engineer",
-        "data-engineer"
-      ]
+      "roles": ["ai-engineer", "ml-engineer", "data-engineer"]
     },
     {
       "domain": {
         "fr": "Méthodes",
         "en": "Methods"
       },
-      "items": [
-        "Agile",
-        "Scrum",
-        "Design Thinking",
-        "Team building"
-      ],
+      "items": ["Agile", "Scrum", "Design Thinking", "Team building"],
       "roles": []
     }
   ],

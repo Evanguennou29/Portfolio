@@ -36,11 +36,187 @@ const validLink = (value: string) =>
     aria-hidden="true"
     transition:name={`project-media-${project.slug}`}
   >
-    <div class="mark-frame">
-      <span></span>
-      <span></span>
-      <span></span>
-    </div>
+    <svg class="project-illustration" viewBox="0 0 240 180" fill="none">
+      {project.slug === "eco2mix-elt" && (
+        <>
+          <path
+            class="illustration-guide"
+            d="M22 34H218M22 74H218M22 114H218M22 154H218"
+          />
+          <path
+            class="illustration-guide"
+            d="M22 24V158M72 24V158M122 24V158M172 24V158M218 24V158"
+          />
+          <path
+            class="illustration-flow"
+            d="m24 126 27-8 25 3 24-36 23 15 24-30 25 11 21-46 25 16"
+          />
+          <circle class="illustration-node" cx="172" cy="81" r="4" />
+          <circle class="illustration-node" cx="193" cy="35" r="4" />
+        </>
+      )}
+      {project.slug === "syntho-crowd" && (
+        <>
+          <path
+            class="illustration-guide"
+            d="M120 88 52 42m68 46 69-46m-69 46-77 54m77-54 77 54m-77-54v-61"
+          />
+          <rect
+            class="illustration-panel"
+            x="88"
+            y="23"
+            width="64"
+            height="42"
+            rx="2"
+          />
+          <rect
+            class="illustration-panel"
+            x="22"
+            y="22"
+            width="54"
+            height="38"
+            rx="2"
+          />
+          <rect
+            class="illustration-panel"
+            x="164"
+            y="22"
+            width="54"
+            height="38"
+            rx="2"
+          />
+          <rect
+            class="illustration-panel"
+            x="17"
+            y="126"
+            width="62"
+            height="38"
+            rx="2"
+          />
+          <rect
+            class="illustration-panel"
+            x="161"
+            y="126"
+            width="62"
+            height="38"
+            rx="2"
+          />
+          <circle class="illustration-node" cx="120" cy="88" r="13" />
+          <circle class="illustration-node" cx="52" cy="42" r="4" />
+          <circle class="illustration-node" cx="189" cy="42" r="4" />
+          <circle class="illustration-node" cx="48" cy="145" r="4" />
+          <circle class="illustration-node" cx="192" cy="145" r="4" />
+        </>
+      )}
+      {project.slug === "pulv-chatbot" && (
+        <>
+          <rect
+            class="illustration-panel"
+            x="18"
+            y="35"
+            width="42"
+            height="60"
+            rx="2"
+          />
+          <rect
+            class="illustration-panel"
+            x="29"
+            y="47"
+            width="42"
+            height="60"
+            rx="2"
+          />
+          <path
+            class="illustration-flow"
+            d="M71 77H104m0 0-9-9m9 9-9 9m9-9h33m0 0-9-9m9 9-9 9m9-9h22"
+          />
+          <circle class="illustration-node" cx="119" cy="77" r="17" />
+          <rect
+            class="illustration-panel"
+            x="161"
+            y="48"
+            width="60"
+            height="58"
+            rx="2"
+          />
+          <path class="illustration-guide" d="M172 64h37m-37 12h28m-28 12h34" />
+          <path class="illustration-guide" d="M178 128h34l-11 14v-14" />
+        </>
+      )}
+      {project.slug === "species-reintroduction" && (
+        <>
+          <path
+            class="illustration-flow"
+            d="M27 85c12-36 42-54 81-46 34 7 31 26 66 16 22-6 39 7 40 27 1 23-24 30-30 52-8 27-38 31-61 13-23-18-34 5-63 1-36-5-47-32-33-63Z"
+          />
+          <path
+            class="illustration-guide"
+            d="M42 88c16-25 36-34 61-27 28 8 35 26 65 14 15-6 28 3 27 17-1 17-22 25-28 43-8 18-27 20-46 7-24-16-38 2-59 0-25-3-34-28-20-54Z"
+          />
+          <circle class="illustration-node" cx="142" cy="82" r="6" />
+          <circle class="illustration-node" cx="83" cy="120" r="4" />
+        </>
+      )}
+      {project.slug === "signia" && (
+        <>
+          <path
+            class="illustration-guide"
+            d="M43 42V25h26m102 0h26v26M43 137v18h26m102 0h26v-26"
+          />
+          <path
+            class="illustration-flow"
+            d="M88 137v-31c0-7 11-7 11 0V83c0-7 11-7 11 0V68c0-7 11-7 11 0v17-8c0-7 11-7 11 0v34c0 18-10 31-28 31H98c-5 0-10-2-14-5l-15-17c-5-6 3-14 9-9l10 9Z"
+          />
+          <circle class="illustration-node" cx="159" cy="65" r="4" />
+          <circle class="illustration-node" cx="174" cy="83" r="3" />
+        </>
+      )}
+      {project.slug === "decp-copilot" && (
+        <>
+          <rect
+            class="illustration-panel"
+            x="21"
+            y="31"
+            width="154"
+            height="118"
+            rx="2"
+          />
+          <path
+            class="illustration-guide"
+            d="M21 59h154m-154 29h154m-154 29h154M72 59v90m52-90v90"
+          />
+          <path
+            class="illustration-flow"
+            d="M48 73h14m-14 29h14m-14 29h14m39-58h21m-21 29h32m-32 29h18"
+          />
+          <circle class="illustration-node" cx="183" cy="117" r="20" />
+          <path class="illustration-flow" d="m198 132 20 20" />
+        </>
+      )}
+      {project.slug === "idp-multimodal" && (
+        <>
+          <path class="illustration-panel" d="M26 35h44l17 17v74H26z" />
+          <path
+            class="illustration-guide"
+            d="M70 35v19h17m-48 12h32m-32 12h28m-28 12h31"
+          />
+          <path class="illustration-flow" d="M91 89h42m0 0-9-9m9 9-9 9" />
+          <rect
+            class="illustration-panel"
+            x="145"
+            y="45"
+            width="72"
+            height="88"
+            rx="2"
+          />
+          <path
+            class="illustration-guide"
+            d="M158 66h45m-45 15h45m-45 15h31m-31 15h40"
+          />
+          <circle class="illustration-node" cx="189" cy="145" r="4" />
+        </>
+      )}
+    </svg>
     <span class="mark-coordinate mono">
       {String(index + 1).padStart(2, "0")}
     </span>
@@ -98,6 +274,10 @@ const validLink = (value: string) =>
     transition:
       border-color 180ms ease,
       background-color 180ms ease;
+  }
+
+  .project-card[data-featured="true"] {
+    grid-column: span 4;
   }
 
   .project-card:hover {
@@ -190,35 +370,73 @@ const validLink = (value: string) =>
 
   .project-mark {
     position: absolute;
-    top: 60px;
-    right: var(--space-4);
-    width: 40%;
-    max-width: 190px;
-    aspect-ratio: 1;
-    opacity: 0.58;
+    top: 54px;
+    right: var(--space-5);
+    width: min(46%, 250px);
+    aspect-ratio: 4 / 3;
+    opacity: 0.72;
   }
 
-  .mark-frame {
+  .project-illustration {
     position: absolute;
-    inset: 8%;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 8%;
-    transform: rotate(45deg);
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
   }
 
-  .mark-frame span {
-    border: 1px solid color-mix(in srgb, var(--accent) 62%, var(--line));
-    background: repeating-linear-gradient(
-      0deg,
-      transparent 0,
-      transparent 9px,
-      color-mix(in srgb, var(--accent) 18%, transparent) 10px
-    );
+  .illustration-guide,
+  .illustration-flow,
+  .illustration-panel {
+    stroke: color-mix(in srgb, var(--accent) 58%, var(--muted));
+    stroke-width: 1.4;
   }
 
-  .mark-frame span:nth-child(2) {
-    transform: translateY(-12%);
+  .illustration-guide {
+    stroke: var(--line);
+  }
+
+  .illustration-flow {
+    stroke: var(--accent);
+    stroke-dasharray: 280;
+    stroke-dashoffset: 0;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .illustration-panel {
+    fill: color-mix(in srgb, var(--surface) 82%, transparent);
+  }
+
+  .illustration-node {
+    fill: var(--surface);
+    stroke: var(--accent);
+    stroke-width: 1.7;
+    transform-box: fill-box;
+    transform-origin: center;
+  }
+
+  .project-card:hover .illustration-flow {
+    animation: blueprint-flow 900ms ease-out both;
+  }
+
+  .project-card:hover .illustration-node {
+    animation: blueprint-pulse 520ms ease-out both;
+  }
+
+  @keyframes blueprint-flow {
+    from {
+      stroke-dashoffset: 280;
+    }
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+
+  @keyframes blueprint-pulse {
+    50% {
+      transform: scale(1.4);
+    }
   }
 
   .mark-coordinate {
@@ -304,13 +522,27 @@ const validLink = (value: string) =>
     transform: translate(2px, -2px);
   }
 
+  @media (max-width: 800px) {
+    .project-card[data-featured="true"] {
+      grid-column: span 6;
+    }
+
+    .project-card[data-featured="true"][data-card-index="03"] {
+      grid-column: 1 / -1;
+    }
+  }
+
   @media (max-width: 640px) {
     .project-card {
       min-height: 340px;
     }
 
+    .project-card[data-featured="true"] {
+      grid-column: 1 / -1;
+    }
+
     .project-mark {
-      width: 34%;
+      width: 38%;
     }
 
     .project-copy {

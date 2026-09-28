@@ -65,11 +65,55 @@ a:hover {
 }
 
 .site-header {
+  position: sticky;
+  z-index: 8;
+  top: 0;
+  margin-inline: calc(var(--gutter) * -1);
+  padding-inline: var(--gutter);
+  border-bottom: 1px solid var(--line);
+  background: var(--bg);
+}
+
+.header-main {
   display: flex;
-  min-height: 88px;
+  min-height: 64px;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 1px solid var(--line);
+  gap: var(--space-4);
+}
+
+.header-tools {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.section-nav {
+  display: flex;
+  min-height: 44px;
+  align-items: center;
+  gap: clamp(var(--space-4), 5vw, var(--space-12));
+}
+
+.section-nav a {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--muted);
+  font-size: 0.68rem;
+  letter-spacing: 0.025em;
+  text-decoration: none;
+  transition: color 160ms ease;
+}
+
+.section-nav a span {
+  color: var(--accent);
+}
+
+.section-nav a:hover,
+.section-nav a:focus-visible {
+  color: var(--text);
 }
 
 .wordmark {
@@ -80,8 +124,62 @@ a:hover {
   text-decoration: none;
 }
 
+.hero-identity {
+  display: flex;
+  min-height: 76px;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  margin-block-end: var(--space-4);
+}
+
+.hero-identity .hero-name {
+  margin: 0;
+}
+
+.hero-portrait {
+  width: 76px;
+  height: 76px;
+  flex: 0 0 auto;
+  border: 1px solid var(--accent);
+  border-radius: 50%;
+  background: var(--surface);
+  object-fit: cover;
+  object-position: center 38%;
+}
+
 main {
-  min-height: calc(100vh - 89px);
+  min-height: calc(100vh - 109px);
+}
+
+@media (max-width: 640px) {
+  .header-main {
+    min-height: 60px;
+    gap: var(--space-2);
+  }
+
+  .header-tools {
+    gap: var(--space-2);
+  }
+
+  .section-nav {
+    gap: var(--space-6);
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .section-nav::-webkit-scrollbar {
+    display: none;
+  }
+
+  .section-nav a {
+    flex: 0 0 auto;
+  }
+
+  .hero-portrait {
+    width: 64px;
+    height: 64px;
+  }
 }
 
 .skip-link {

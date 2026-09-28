@@ -12,9 +12,15 @@ const localized = (value: string | { fr: string; en: string }) =>
 const homeHref = `${base}${lang === "en" ? "en/" : ""}`;
 const queryFor = (id: string) =>
   id === "ai-engineer" ? "ai" : id === "ml-engineer" ? "ml" : id;
-const localPath = Astro.url.pathname.startsWith(base)
-  ? Astro.url.pathname.slice(base.length)
-  : Astro.url.pathname.slice(1);
+const pathname = Astro.url.pathname.replace(/^\/+/, "");
+const basePath = base.replace(/^\/+|\/+$/g, "");
+const localPath = basePath
+  ? pathname.toLowerCase() === basePath.toLowerCase()
+    ? ""
+    : pathname.toLowerCase().startsWith(`${basePath.toLowerCase()}/`)
+      ? pathname.slice(basePath.length + 1)
+      : pathname
+  : pathname;
 const normalizedPath = localPath.replace(/^\/+|\/+$/g, "");
 const projectSlug = normalizedPath.startsWith("en/projects/")
   ? normalizedPath.slice("en/projects/".length)
@@ -40,9 +46,9 @@ const labels =
         close: "Fermer",
         hint: "Flèches pour naviguer, Entrée pour ouvrir, Échap pour fermer",
         sections: [
-          "Projets",
-          "Expérience",
           "Compétences",
+          "Expérience",
+          "Projets",
           "Parcours",
           "Au-delà du code",
           "Contact",
@@ -70,9 +76,9 @@ const labels =
         close: "Close",
         hint: "Arrow keys to navigate, Enter to open, Escape to close",
         sections: [
-          "Projects",
-          "Experience",
           "Skills",
+          "Experience",
+          "Projects",
           "Education",
           "Beyond code",
           "Contact",
@@ -93,9 +99,9 @@ const labels =
         action: "Action",
       };
 const sectionIds = [
-  "projects",
-  "experience",
   "skills",
+  "experience",
+  "projects",
   "education",
   "beyond",
   "contact",

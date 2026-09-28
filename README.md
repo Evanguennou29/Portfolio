@@ -4,6 +4,8 @@ A bilingual portfolio for exploring selected AI, machine learning and data proje
 
 ![Portfolio homepage](docs/homepage.png)
 
+![Featured project cards](docs/project-cards.png)
+
 ![Project case study](docs/project-case.png)
 
 ## Stack

@@ -23,7 +23,18 @@ const formatMonth = (date: string) =>
 <Base lang="en">
   <section class="hero" aria-labelledby="hero-title">
     <div class="hero-copy">
-      <p class="hero-name mono">{data.person.name}</p>
+      <div class="hero-identity">
+        <p class="hero-name mono">{data.person.name}</p>
+        <img
+          class="hero-portrait"
+          src={`${base}${data.person.portrait.src}`}
+          alt={data.person.portrait.alt.en}
+          width="76"
+          height="76"
+          fetchpriority="high"
+          decoding="async"
+        />
+      </div>
       <h1 id="hero-title">{data.person.title.en}</h1>
       <p class="hero-tagline">{data.person.tagline.en}</p>
       <p class="role-pitch" aria-hidden="true">
@@ -39,11 +50,13 @@ const formatMonth = (date: string) =>
       <RoleSwitcher lang="en" />
       <div class="hero-actions">
         <a
-          class="button button-primary"
+          class="button button-primary cv-download"
           data-cv-download
           href={`${base}cv/evan-guennou-ai-engineer-en.pdf`}
         >
-          Download my CV <span aria-hidden="true">↓</span>
+          <span>Download my CV</span>
+          <span class="cv-format mono">PDF</span>
+          <span aria-hidden="true">↓</span>
         </a>
         <a
           class="button button-secondary"
@@ -148,19 +161,26 @@ const formatMonth = (date: string) =>
   </section>
 
   <section
-    class="content-section projects-section"
-    id="projects"
-    aria-labelledby="projects-title"
+    class="content-section skills-section"
+    id="skills"
+    aria-labelledby="skills-title"
   >
-    <SectionHeading number="01" title="Projects" id="projects-title" />
-    <div class="project-collection" data-project-collection>
-      {data.projects.map((project, index) => (
-        <ProjectCard
-          project={project}
-          index={index}
-          featured={featuredSet.has(project.slug)}
-          lang="en"
-        />
+    <SectionHeading number="01" title="Skills" id="skills-title" />
+    <div class="skills-matrix">
+      {data.skills.map((group, index) => (
+        <article
+          class="skill-group"
+          data-skill-group
+          data-roles={group.roles.join(" ")}
+        >
+          <p class="skill-index mono">{String(index + 1).padStart(2, "0")}</p>
+          <h3>{group.domain.en}</h3>
+          <ul class="skill-list">
+            {group.items.map((item) => (
+              <li>{item}</li>
+            ))}
+          </ul>
+        </article>
       ))}
     </div>
   </section>
@@ -203,26 +223,19 @@ const formatMonth = (date: string) =>
   </section>
 
   <section
-    class="content-section skills-section"
-    id="skills"
-    aria-labelledby="skills-title"
+    class="content-section projects-section"
+    id="projects"
+    aria-labelledby="projects-title"
   >
-    <SectionHeading number="03" title="Skills" id="skills-title" />
-    <div class="skills-matrix">
-      {data.skills.map((group, index) => (
-        <article
-          class="skill-group"
-          data-skill-group
-          data-roles={group.roles.join(" ")}
-        >
-          <p class="skill-index mono">{String(index + 1).padStart(2, "0")}</p>
-          <h3>{group.domain.en}</h3>
-          <ul class="skill-list">
-            {group.items.map((item) => (
-              <li>{item}</li>
-            ))}
-          </ul>
-        </article>
+    <SectionHeading number="03" title="Projects" id="projects-title" />
+    <div class="project-collection" data-project-collection>
+      {data.projects.map((project, index) => (
+        <ProjectCard
+          project={project}
+          index={index}
+          featured={featuredSet.has(project.slug)}
+          lang="en"
+        />
       ))}
     </div>
   </section>
@@ -401,12 +414,14 @@ const formatMonth = (date: string) =>
     transition:
       background-color 160ms ease,
       border-color 160ms ease,
-      color 160ms ease;
+      color 160ms ease,
+      box-shadow 160ms ease,
+      transform 160ms ease;
   }
 
   .button-primary {
     border-color: var(--accent);
-    color: #fff;
+    color: #0b0d10;
     background: var(--accent);
   }
 
@@ -414,8 +429,34 @@ const formatMonth = (date: string) =>
     color: #fff;
   }
 
+  @media (prefers-color-scheme: light) {
+    :root:not([data-theme]) .button-primary {
+      color: #fff;
+    }
+  }
+
   .button-primary:hover {
     background: color-mix(in srgb, var(--accent) 82%, var(--text));
+  }
+
+  .cv-download {
+    min-height: 54px;
+    gap: var(--space-3);
+    padding-inline: var(--space-6);
+    box-shadow: 0 5px 18px color-mix(in srgb, var(--accent) 24%, transparent);
+  }
+
+  .cv-download:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px color-mix(in srgb, var(--accent) 34%, transparent);
+  }
+
+  .cv-format {
+    padding: 0 5px;
+    border: 1px solid currentColor;
+    font-size: 0.58rem;
+    letter-spacing: 0.08em;
+    line-height: 1.5;
   }
 
   .button-secondary {
@@ -560,25 +601,13 @@ const formatMonth = (date: string) =>
 
   .content-section {
     margin-block-end: var(--space-24);
-    scroll-margin-top: var(--space-8);
+    scroll-margin-top: calc(120px + var(--space-4));
   }
 
   .project-collection {
     display: grid;
     grid-template-columns: repeat(12, minmax(0, 1fr));
     gap: var(--space-4);
-  }
-
-  .project-collection > :nth-child(3n + 1)[data-featured="true"] {
-    grid-column: span 7;
-  }
-
-  .project-collection > :nth-child(3n + 2)[data-featured="true"] {
-    grid-column: span 5;
-  }
-
-  .project-collection > :nth-child(3n)[data-featured="true"] {
-    grid-column: span 12;
   }
 
   .timeline {
@@ -689,10 +718,6 @@ const formatMonth = (date: string) =>
 
   .skill-group[data-relevant="true"] {
     box-shadow: inset 0 2px 0 var(--accent);
-  }
-
-  .skill-group[data-relevant="false"] {
-    opacity: 0.48;
   }
 
   .skill-list li {
@@ -876,10 +901,6 @@ const formatMonth = (date: string) =>
 
     .project-collection {
       grid-template-columns: minmax(0, 1fr);
-    }
-
-    .project-collection > [data-featured="true"] {
-      grid-column: 1;
     }
 
     .timeline-entry {

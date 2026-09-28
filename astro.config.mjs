@@ -10,4 +10,5 @@ export default defineConfig({
     ? `https://${owner}.github.io`
     : "https://evanguennou29.github.io",
   base: owner && name && !isUserSite ? `/${name}` : "/",
+  trailingSlash: "always",
 });
