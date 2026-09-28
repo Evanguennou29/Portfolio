@@ -7,6 +7,7 @@ import "../styles/tokens.css";
 import "../styles/base.css";
 import "../styles/grid.css";
 import ThemeToggle from "../components/ThemeToggle.astro";
+import CommandPalette from "../components/CommandPalette.astro";
 import { ClientRouter } from "astro:transitions";
 
 interface Props {
@@ -40,7 +41,10 @@ const homeHref = `${import.meta.env.BASE_URL}${lang === "en" ? "en/" : ""}`;
         <a class="wordmark" href={homeHref}>
           {data.person.name}
         </a>
-        <ThemeToggle lang={lang} />
+        <div class="header-tools">
+          <CommandPalette lang={lang} />
+          <ThemeToggle lang={lang} />
+        </div>
       </header>
       <main id="main" tabindex="-1">
         <slot />
@@ -48,3 +52,18 @@ const homeHref = `${import.meta.env.BASE_URL}${lang === "en" ? "en/" : ""}`;
     </div>
   </body>
 </html>
+
+<script>
+  import { initializeMotion } from "../scripts/motion";
+
+  initializeMotion();
+  document.addEventListener("astro:page-load", initializeMotion);
+</script>
+
+<style>
+  .header-tools {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+  }
+</style>

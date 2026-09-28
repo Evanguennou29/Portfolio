@@ -1,0 +1,589 @@
+---
+import data from "../../content/data.json";
+
+interface Props {
+  lang: "fr" | "en";
+}
+
+const { lang } = Astro.props;
+const base = import.meta.env.BASE_URL;
+const localized = (value: string | { fr: string; en: string }) =>
+  typeof value === "string" ? value : value[lang];
+const homeHref = `${base}${lang === "en" ? "en/" : ""}`;
+const queryFor = (id: string) =>
+  id === "ai-engineer" ? "ai" : id === "ml-engineer" ? "ml" : id;
+const localPath = Astro.url.pathname.startsWith(base)
+  ? Astro.url.pathname.slice(base.length)
+  : Astro.url.pathname.slice(1);
+const normalizedPath = localPath.replace(/^\/+|\/+$/g, "");
+const projectSlug = normalizedPath.startsWith("en/projects/")
+  ? normalizedPath.slice("en/projects/".length)
+  : normalizedPath.startsWith("projets/")
+    ? normalizedPath.slice("projets/".length)
+    : "";
+const localePath =
+  lang === "fr"
+    ? projectSlug
+      ? `en/projects/${projectSlug}/`
+      : "en/"
+    : projectSlug
+      ? `projets/${projectSlug}/`
+      : "";
+const localeHref = `${base}${localePath}${Astro.url.search}`;
+const labels =
+  lang === "fr"
+    ? {
+        open: "Ouvrir la palette de commandes",
+        title: "Palette de commandes",
+        placeholder: "Rechercher une action…",
+        search: "Rechercher dans la palette",
+        close: "Fermer",
+        hint: "Flèches pour naviguer, Entrée pour ouvrir, Échap pour fermer",
+        sections: [
+          "Projets",
+          "Expérience",
+          "Compétences",
+          "Parcours",
+          "Au-delà du code",
+          "Contact",
+        ],
+        allProjects: "Tous les projets",
+        switchRole: "Rôle",
+        language: "Langue",
+        nextLanguage: "English",
+        theme: "Basculer le thème",
+        copy: "Copier l'email",
+        emailCopied: "Email copié",
+        noResults: "Aucun résultat",
+        cv: "Télécharger le CV",
+        github: "Ouvrir GitHub",
+        project: "Projet",
+        role: "Rôle cible",
+        section: "Section",
+        action: "Action",
+      }
+    : {
+        open: "Open command palette",
+        title: "Command palette",
+        placeholder: "Search actions…",
+        search: "Search the command palette",
+        close: "Close",
+        hint: "Arrow keys to navigate, Enter to open, Escape to close",
+        sections: [
+          "Projects",
+          "Experience",
+          "Skills",
+          "Education",
+          "Beyond code",
+          "Contact",
+        ],
+        allProjects: "All projects",
+        switchRole: "Role",
+        language: "Language",
+        nextLanguage: "Français",
+        theme: "Toggle theme",
+        copy: "Copy email",
+        emailCopied: "Email copied",
+        noResults: "No results",
+        cv: "Download CV",
+        github: "Open GitHub",
+        project: "Project",
+        role: "Target role",
+        section: "Section",
+        action: "Action",
+      };
+const sectionIds = [
+  "projects",
+  "experience",
+  "skills",
+  "education",
+  "beyond",
+  "contact",
+];
+const commands = [
+  ...labels.sections.map((label, index) => ({
+    kind: labels.section,
+    label,
+    href: `${homeHref}#${sectionIds[index]}`,
+  })),
+  ...data.projects.map((project) => ({
+    kind: labels.project,
+    label: localized(project.title),
+    href:
+      lang === "fr"
+        ? `${base}projets/${project.slug}/`
+        : `${base}en/projects/${project.slug}/`,
+  })),
+  ...data.roles.map((role) => ({
+    kind: labels.role,
+    label: role.label,
+    href: `${homeHref}?role=${queryFor(role.id)}`,
+  })),
+  { kind: labels.language, label: labels.nextLanguage, href: localeHref },
+  {
+    kind: labels.action,
+    label: labels.theme,
+    action: "theme",
+  },
+  { kind: labels.action, label: labels.copy, action: "copy" },
+  {
+    kind: lang === "fr" ? "Document" : "Document",
+    label: labels.cv,
+    href: `${base}cv/evan-guennou-ai-engineer-${lang}.pdf`,
+  },
+  {
+    kind: lang === "fr" ? "Lien" : "Link",
+    label: labels.github,
+    href: data.person.links.github,
+    external: true,
+  },
+];
+---
+
+<div class="command-tools">
+  <button
+    class="command-trigger mono"
+    type="button"
+    aria-label={labels.open}
+    aria-keyshortcuts="Control+K Meta+K"
+    data-command-open
+  >
+    <span aria-hidden="true">Ctrl / ⌘ K</span>
+  </button>
+  <dialog
+    class="command-dialog"
+    aria-labelledby="command-title"
+    data-command-dialog
+    data-copied-label={labels.emailCopied}
+    data-no-results-label={labels.noResults}
+    data-email={data.person.email}
+  >
+    <div class="command-panel">
+      <div class="command-heading">
+        <h2 id="command-title">{labels.title}</h2>
+        <button
+          class="command-close mono"
+          type="button"
+          data-command-close
+          aria-label={labels.close}
+        >
+          ESC
+        </button>
+      </div>
+      <label class="visually-hidden" for="command-search">
+        {labels.search}
+      </label>
+      <input
+        id="command-search"
+        class="command-search"
+        type="search"
+        placeholder={labels.placeholder}
+        autocomplete="off"
+        role="combobox"
+        aria-expanded="false"
+        aria-controls="command-results"
+        aria-autocomplete="list"
+        data-command-search
+      />
+      <p class="command-hint mono">{labels.hint}</p>
+      <div
+        class="command-results"
+        id="command-results"
+        role="listbox"
+        aria-label={labels.title}
+        data-command-results
+      >
+        {commands.map((command, index) =>
+          "href" in command && command.href ? (
+            <a
+              class="command-entry"
+              href={command.href}
+              id={`command-option-${index}`}
+              role="option"
+              tabindex="-1"
+              aria-selected="false"
+              data-command-entry
+              data-search-text={`${command.kind} ${command.label}`}
+              target={
+                "external" in command && command.external ? "_blank" : undefined
+              }
+              rel={
+                "external" in command && command.external
+                  ? "noreferrer"
+                  : undefined
+              }
+            >
+              <span>{command.label}</span>
+              <span class="command-kind mono">{command.kind}</span>
+            </a>
+          ) : (
+            <button
+              class="command-entry"
+              id={`command-option-${index}`}
+              type="button"
+              role="option"
+              tabindex="-1"
+              aria-selected="false"
+              data-command-entry
+              data-search-text={`${command.kind} ${command.label}`}
+              data-command-action={
+                "action" in command ? command.action : undefined
+              }
+            >
+              <span>{command.label}</span>
+              <span class="command-kind mono">{command.kind}</span>
+            </button>
+          ),
+        )}
+      </div>
+      <p class="command-empty mono" data-command-empty hidden>
+        {labels.noResults}
+      </p>
+      <p class="visually-hidden" aria-live="polite" data-command-status></p>
+    </div>
+  </dialog>
+</div>
+
+<script>
+  let activeIndex = 0;
+  let returnFocus: HTMLElement | null = null;
+
+  function normalize(value: string) {
+    return value
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .toLowerCase();
+  }
+
+  function fuzzyScore(query: string, candidate: string) {
+    if (!query) return 0;
+    if (candidate.includes(query)) return candidate.indexOf(query);
+    let queryIndex = 0;
+    let score = 0;
+    let previous = -2;
+    for (
+      let index = 0;
+      index < candidate.length && queryIndex < query.length;
+      index += 1
+    ) {
+      if (candidate[index] === query[queryIndex]) {
+        score += index === previous + 1 ? 0 : 1;
+        previous = index;
+        queryIndex += 1;
+      }
+    }
+    return queryIndex === query.length ? 50 + score : Number.POSITIVE_INFINITY;
+  }
+
+  function visibleEntries(entries: HTMLElement[]) {
+    return entries.filter((entry) => !entry.hidden);
+  }
+
+  function setActive(
+    index: number,
+    entries: HTMLElement[],
+    input: HTMLInputElement,
+  ) {
+    const visible = visibleEntries(entries);
+    if (visible.length === 0) {
+      activeIndex = 0;
+      input.removeAttribute("aria-activedescendant");
+      return;
+    }
+    activeIndex = (index + visible.length) % visible.length;
+    entries.forEach((entry) => entry.setAttribute("aria-selected", "false"));
+    const active = visible[activeIndex];
+    if (!active) return;
+    active.setAttribute("aria-selected", "true");
+    input.setAttribute("aria-activedescendant", active.id);
+    active.scrollIntoView({ block: "nearest" });
+  }
+
+  function filterEntries(input: HTMLInputElement, entries: HTMLElement[]) {
+    const query = normalize(input.value.trim());
+    const ranked = entries
+      .map((entry, order) => ({
+        entry,
+        order,
+        score: fuzzyScore(query, normalize(entry.dataset.searchText ?? "")),
+      }))
+      .filter((result) => Number.isFinite(result.score))
+      .sort(
+        (left, right) => left.score - right.score || left.order - right.order,
+      );
+    entries.forEach((entry) => {
+      entry.hidden = !ranked.some((result) => result.entry === entry);
+    });
+    const emptyState = input
+      .closest("dialog")
+      ?.querySelector<HTMLElement>("[data-command-empty]");
+    if (emptyState) emptyState.hidden = ranked.length > 0;
+    const list = input
+      .closest("dialog")
+      ?.querySelector<HTMLElement>("[data-command-results]");
+    ranked.forEach(({ entry }) => list?.append(entry));
+    setActive(0, entries, input);
+  }
+
+  function openPalette() {
+    const dialog = document.querySelector<HTMLDialogElement>(
+      "[data-command-dialog]",
+    );
+    const input = dialog?.querySelector<HTMLInputElement>(
+      "[data-command-search]",
+    );
+    if (!dialog || dialog.open) return;
+    returnFocus =
+      document.activeElement instanceof HTMLElement
+        ? document.activeElement
+        : null;
+    dialog.showModal();
+    if (input) {
+      input.setAttribute("aria-expanded", "true");
+      input.value = "";
+      filterEntries(
+        input,
+        Array.from(
+          dialog.querySelectorAll<HTMLElement>("[data-command-entry]"),
+        ),
+      );
+      input.focus();
+    }
+  }
+
+  function closePalette() {
+    const dialog = document.querySelector<HTMLDialogElement>(
+      "[data-command-dialog]",
+    );
+    if (dialog?.open) dialog.close();
+  }
+
+  function initializePalette() {
+    const dialog = document.querySelector<HTMLDialogElement>(
+      "[data-command-dialog]",
+    );
+    const input = dialog?.querySelector<HTMLInputElement>(
+      "[data-command-search]",
+    );
+    if (!dialog || !input || dialog.dataset.initialized) return;
+    dialog.dataset.initialized = "true";
+    const entries = Array.from(
+      dialog.querySelectorAll<HTMLElement>("[data-command-entry]"),
+    );
+
+    dialog.addEventListener("close", () => {
+      input.setAttribute("aria-expanded", "false");
+      returnFocus?.focus();
+      returnFocus = null;
+    });
+    dialog.addEventListener("click", (event) => {
+      if (event.target === dialog) closePalette();
+    });
+    input.addEventListener("input", () => filterEntries(input, entries));
+    input.addEventListener("keydown", (event) => {
+      if (event.key === "ArrowDown") {
+        event.preventDefault();
+        setActive(activeIndex + 1, entries, input);
+      } else if (event.key === "ArrowUp") {
+        event.preventDefault();
+        setActive(activeIndex - 1, entries, input);
+      } else if (event.key === "Enter") {
+        event.preventDefault();
+        visibleEntries(entries)[activeIndex]?.click();
+      }
+    });
+    filterEntries(input, entries);
+  }
+
+  document.addEventListener("click", (event) => {
+    const target = event.target;
+    if (!(target instanceof Element)) return;
+    if (target.closest("[data-command-open]")) openPalette();
+    if (target.closest("[data-command-close]")) closePalette();
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k") {
+      event.preventDefault();
+      const dialog = document.querySelector<HTMLDialogElement>(
+        "[data-command-dialog]",
+      );
+      if (dialog?.open) closePalette();
+      else openPalette();
+    }
+  });
+
+  document.addEventListener("click", async (event) => {
+    const target = event.target;
+    if (!(target instanceof Element)) return;
+    const action = target.closest<HTMLButtonElement>("[data-command-action]");
+    if (!action) return;
+
+    if (action.dataset.commandAction === "theme") {
+      document.querySelector<HTMLButtonElement>(".theme-toggle")?.click();
+      closePalette();
+    } else if (action.dataset.commandAction === "copy") {
+      try {
+        const dialog = document.querySelector<HTMLDialogElement>(
+          "[data-command-dialog]",
+        );
+        const email = dialog?.dataset.email;
+        if (!email) return;
+        await navigator.clipboard.writeText(email);
+        const status = document.querySelector<HTMLElement>(
+          "[data-command-status]",
+        );
+        if (status) status.textContent = dialog?.dataset.copiedLabel ?? "";
+      } catch {
+        const dialog = document.querySelector<HTMLDialogElement>(
+          "[data-command-dialog]",
+        );
+        const email = dialog?.dataset.email;
+        if (email) window.location.href = `mailto:${email}`;
+        closePalette();
+      }
+    }
+  });
+
+  initializePalette();
+  document.addEventListener("astro:page-load", initializePalette);
+</script>
+
+<style>
+  .command-tools {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+  }
+  .command-trigger,
+  .command-close {
+    min-height: 40px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    color: var(--muted);
+    background: var(--surface);
+    cursor: pointer;
+  }
+  .command-trigger {
+    min-width: 52px;
+    padding: 0 var(--space-2);
+    font-size: 0.7rem;
+  }
+  .command-trigger:hover,
+  .command-close:hover {
+    border-color: var(--accent);
+    color: var(--text);
+  }
+  .command-dialog {
+    width: min(640px, calc(100vw - 32px));
+    max-width: none;
+    max-height: min(740px, calc(100dvh - 48px));
+    padding: 0;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    color: var(--text);
+    background: var(--surface);
+    box-shadow: 0 24px 80px rgb(0 0 0 / 0.42);
+  }
+  .command-dialog::backdrop {
+    background: rgb(4 6 9 / 0.76);
+    backdrop-filter: blur(2px);
+  }
+  .command-panel {
+    display: flex;
+    max-height: min(740px, calc(100dvh - 48px));
+    flex-direction: column;
+    padding: var(--space-4);
+  }
+  .command-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+  }
+  .command-heading h2 {
+    margin: 0;
+    font-size: 1rem;
+    letter-spacing: 0;
+  }
+  .command-close {
+    min-width: 40px;
+    padding: 0 var(--space-2);
+    font-size: 0.65rem;
+  }
+  .command-search {
+    width: 100%;
+    min-height: 52px;
+    margin-top: var(--space-4);
+    padding: 0 var(--space-3);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    color: var(--text);
+    background: var(--bg);
+    font: inherit;
+  }
+  .command-search:focus {
+    outline: 2px solid var(--accent);
+    outline-offset: 1px;
+  }
+  .command-hint {
+    margin: var(--space-2) 0;
+    color: var(--muted);
+    font-size: 0.62rem;
+  }
+  .command-empty {
+    margin: var(--space-4) 0;
+    color: var(--muted);
+    font-size: 0.75rem;
+  }
+  .command-results {
+    display: grid;
+    gap: 2px;
+    overflow-y: auto;
+    padding: var(--space-1) 0 0;
+    overscroll-behavior: contain;
+  }
+  .command-entry[hidden] {
+    display: none;
+  }
+  .command-entry {
+    display: flex;
+    width: 100%;
+    min-height: 46px;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+    padding: var(--space-2) var(--space-3);
+    border: 0;
+    color: var(--text);
+    background: transparent;
+    text-align: left;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  .command-entry:hover,
+  .command-entry[aria-selected="true"] {
+    background: color-mix(in srgb, var(--accent) 12%, var(--surface));
+  }
+  .command-kind {
+    flex: none;
+    color: var(--muted);
+    font-size: 0.62rem;
+    text-transform: uppercase;
+  }
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    clip-path: inset(50%);
+  }
+  @media (max-width: 520px) {
+    .command-hint {
+      font-size: 0.56rem;
+    }
+  }
+</style>

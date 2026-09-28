@@ -127,6 +127,22 @@ kbd {
   font-weight: 400;
 }
 
+:root[data-motion-enabled="true"] [data-reveal][data-revealed="false"] {
+  opacity: 0;
+  transform: translateY(12px);
+}
+
+[data-reveal] {
+  transition:
+    opacity 300ms ease,
+    transform 300ms ease;
+}
+
+[data-reveal][data-revealed="true"] {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
