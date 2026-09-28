@@ -7,6 +7,7 @@ import "../styles/tokens.css";
 import "../styles/base.css";
 import "../styles/grid.css";
 import ThemeToggle from "../components/ThemeToggle.astro";
+import { ClientRouter } from "astro:transitions";
 
 interface Props {
   lang?: "fr" | "en";
@@ -26,6 +27,7 @@ const homeHref = `${import.meta.env.BASE_URL}${lang === "en" ? "en/" : ""}`;
     <meta name="theme-color" content="#0b0d10" />
     {description && <meta name="description" content={description} />}
     <title>{title}</title>
+    <ClientRouter />
     <slot name="head" />
   </head>
   <body>

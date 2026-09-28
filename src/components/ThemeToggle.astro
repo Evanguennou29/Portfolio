@@ -28,7 +28,6 @@ const labels =
 
 <script>
   const root = document.documentElement;
-  const toggle = document.querySelector<HTMLButtonElement>(".theme-toggle");
   const preferenceKey = "portfolio-theme";
   const systemTheme = window.matchMedia("(prefers-color-scheme: dark)");
 
@@ -44,7 +43,9 @@ const labels =
     return root.dataset.theme ?? (systemTheme.matches ? "dark" : "light");
   }
 
-  function updateToggle() {
+  function updateToggle(
+    toggle = document.querySelector<HTMLButtonElement>(".theme-toggle"),
+  ) {
     if (!toggle) return;
     const theme = currentTheme();
     toggle.dataset.activeTheme = theme;
@@ -60,9 +61,14 @@ const labels =
   if (savedTheme === "dark" || savedTheme === "light") {
     root.dataset.theme = savedTheme;
   }
-  updateToggle();
+  function initializeThemeToggle() {
+    updateToggle();
+  }
 
-  toggle?.addEventListener("click", () => {
+  document.addEventListener("click", (event) => {
+    const target = event.target;
+    if (!(target instanceof Element) || !target.closest(".theme-toggle"))
+      return;
     const nextTheme = currentTheme() === "dark" ? "light" : "dark";
     root.dataset.theme = nextTheme;
     try {
@@ -72,6 +78,8 @@ const labels =
     }
     updateToggle();
   });
+  initializeThemeToggle();
+  document.addEventListener("astro:page-load", initializeThemeToggle);
 
   systemTheme.addEventListener("change", () => {
     if (readPreference() === null) updateToggle();

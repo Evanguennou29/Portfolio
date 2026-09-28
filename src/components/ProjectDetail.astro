@@ -1,0 +1,453 @@
+---
+import data from "../../content/data.json";
+import Base from "../layouts/Base.astro";
+
+type Localized = string | { fr: string; en: string };
+export type Project = {
+  slug: string;
+  title: Localized;
+  year: number;
+  period?: Localized;
+  context?: Localized;
+  question?: Localized;
+  summary?: Localized;
+  highlights?: { fr: string[]; en: string[] };
+  findings?: { fr: string[]; en: string[] };
+  status: string;
+  roles: string[];
+  stack: string[];
+  links: { repo?: string; demo?: string };
+  media?: { gif?: string };
+};
+
+interface Props {
+  project: Project;
+  previous: Project;
+  next: Project;
+  lang: "fr" | "en";
+}
+
+const { project, previous, next, lang } = Astro.props;
+const base = import.meta.env.BASE_URL;
+const text = (value: Localized | undefined) =>
+  typeof value === "string" ? value : value?.[lang];
+const title = text(project.title) ?? project.slug;
+const summary = text(project.summary) ?? "";
+const casePath = (slug: string) =>
+  lang === "fr" ? `${base}projets/${slug}/` : `${base}en/projects/${slug}/`;
+const homePath = `${base}${lang === "en" ? "en/" : ""}`;
+const validLink = (value?: string) =>
+  Boolean(value && !value.toLowerCase().includes("todo"));
+const labels =
+  lang === "fr"
+    ? {
+        all: "Tous les projets",
+        live: "En ligne",
+        done: "Terminé",
+        context: "Contexte et problème",
+        approach: "Approche",
+        findings: "Constats",
+        stack: "Technologies",
+        repo: "Voir le dépôt",
+        demo: "Voir la démo",
+        previous: "Projet précédent",
+        next: "Projet suivant",
+        visual: "Visuel du projet",
+        diagram: "Schéma du projet",
+      }
+    : {
+        all: "All projects",
+        live: "Live",
+        done: "Complete",
+        context: "Context and problem",
+        approach: "Approach",
+        findings: "Findings",
+        stack: "Technologies",
+        repo: "View repository",
+        demo: "View demo",
+        previous: "Previous project",
+        next: "Next project",
+        visual: "Project visual",
+        diagram: "Project diagram",
+      };
+const status = project.status === "live" ? labels.live : labels.done;
+const roles = project.roles
+  .map((roleId) => data.roles.find((role) => role.id === roleId)?.label)
+  .filter((role): role is string => Boolean(role));
+const image = project.media?.gif;
+---
+
+<Base
+  lang={lang}
+  title={`${title} | ${data.person.name}`}
+  description={summary}
+>
+  <article class="case-study">
+    <a class="back-link mono" href={homePath}>
+      <span aria-hidden="true">←</span> {labels.all}
+    </a>
+
+    <header class="case-header">
+      <div class="case-meta mono">
+        <span>{String(project.year)}</span>
+        {project.period && <span>{text(project.period)}</span>}
+        <span
+          class:list={["case-status", project.status === "live" && "is-live"]}
+        >
+          {status}
+        </span>
+      </div>
+      <h1 transition:name={`project-title-${project.slug}`}>{title}</h1>
+      {roles.length > 0 && (
+        <p class="case-roles">
+          {roles.map((role, index) => (
+            <span>
+              {index > 0 && <span aria-hidden="true"> · </span>}
+              {role}
+            </span>
+          ))}
+        </p>
+      )}
+      {summary && <p class="case-summary">{summary}</p>}
+      <div class="case-links">
+        {validLink(project.links.repo) && (
+          <a href={project.links.repo} target="_blank" rel="noreferrer">
+            {labels.repo} <span aria-hidden="true">↗</span>
+          </a>
+        )}
+        {validLink(project.links.demo) && (
+          <a href={project.links.demo} target="_blank" rel="noreferrer">
+            {labels.demo} <span aria-hidden="true">↗</span>
+          </a>
+        )}
+      </div>
+    </header>
+
+    <div class="case-grid">
+      {(project.context || project.question) && (
+        <section class="case-section case-context">
+          <p class="section-index mono">01</p>
+          <h2>{labels.context}</h2>
+          {text(project.context) && <p>{text(project.context)}</p>}
+          {text(project.question) && (
+            <blockquote>{text(project.question)}</blockquote>
+          )}
+        </section>
+      )}
+
+      {project.highlights && project.highlights[lang].length > 0 && (
+        <section class="case-section case-approach">
+          <p class="section-index mono">02</p>
+          <h2>{labels.approach}</h2>
+          <ol class="highlight-list">
+            {project.highlights[lang].map((item, index) => (
+              <li>
+                <span class="mono">{String(index + 1).padStart(2, "0")}</span>
+                {item}
+              </li>
+            ))}
+          </ol>
+        </section>
+      )}
+
+      <figure
+        class="case-visual"
+        transition:name={`project-media-${project.slug}`}
+      >
+        {image ? (
+          <img src={image} alt={`${labels.visual} : ${title}`} loading="lazy" />
+        ) : (
+          <svg viewBox="0 0 720 300" role="img" aria-label={labels.diagram}>
+            <rect
+              x="1"
+              y="1"
+              width="718"
+              height="298"
+              fill="none"
+              stroke="currentColor"
+            />
+            <path
+              d="M1 75h718M1 150h718M1 225h718M120 1v298M240 1v298M360 1v298M480 1v298M600 1v298"
+              fill="none"
+              stroke="currentColor"
+              stroke-opacity=".3"
+            />
+            <path
+              d="M32 32h56v43H32zM152 107h56v43h-56zM272 182h56v43h-56zM392 107h56v43h-56zM512 32h56v43h-56zM632 182h56v43h-56z"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            />
+            <circle cx="360" cy="150" r="8" fill="currentColor" />
+          </svg>
+        )}
+        <figcaption class="mono">
+          {project.slug.toUpperCase()} / {project.year}
+        </figcaption>
+      </figure>
+
+      {project.findings && project.findings[lang].length > 0 && (
+        <section class="case-section case-findings">
+          <p class="section-index mono">03</p>
+          <h2>{labels.findings}</h2>
+          <ul>
+            {project.findings[lang].map((item) => (
+              <li>{item}</li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      {project.stack.length > 0 && (
+        <section class="case-section case-stack">
+          <p class="section-index mono">04</p>
+          <h2>{labels.stack}</h2>
+          <ul class="stack-list">
+            {project.stack.map((item) => (
+              <li class="mono">{item}</li>
+            ))}
+          </ul>
+        </section>
+      )}
+    </div>
+
+    <nav
+      class="project-pagination"
+      aria-label={
+        lang === "fr" ? "Navigation entre projets" : "Project navigation"
+      }
+    >
+      <a href={casePath(previous.slug)}>
+        <span class="mono">← {labels.previous}</span>
+        <strong>{text(previous.title)}</strong>
+      </a>
+      <a href={casePath(next.slug)}>
+        <span class="mono">{labels.next} →</span>
+        <strong>{text(next.title)}</strong>
+      </a>
+    </nav>
+  </article>
+</Base>
+
+<style>
+  .case-study {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: var(--space-12) 0 var(--space-24);
+  }
+
+  .back-link,
+  .case-links a {
+    color: var(--accent);
+    text-decoration: none;
+  }
+
+  .back-link {
+    display: inline-flex;
+    gap: var(--space-2);
+    align-items: center;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  .case-header {
+    padding: var(--space-12) 0 var(--space-8);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .case-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-4);
+    color: var(--muted);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+  }
+
+  .case-status.is-live {
+    color: var(--signal);
+  }
+
+  h1 {
+    max-width: 14ch;
+    margin: var(--space-4) 0;
+    font-size: clamp(2.8rem, 8vw, 6rem);
+    line-height: 0.98;
+    letter-spacing: -0.055em;
+  }
+
+  .case-roles,
+  .case-summary {
+    max-width: 66ch;
+  }
+  .case-roles {
+    color: var(--accent);
+    font-size: 0.9rem;
+  }
+  .case-summary {
+    color: var(--muted);
+    font-size: 1.15rem;
+    line-height: 1.65;
+  }
+
+  .case-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-5);
+    margin-top: var(--space-6);
+  }
+  .case-links a {
+    font-size: 0.9rem;
+    font-weight: 600;
+  }
+
+  .case-grid {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+  }
+  .case-section {
+    padding: var(--space-8) 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .case-section h2 {
+    margin: var(--space-2) 0 var(--space-4);
+    font-size: clamp(1.45rem, 3vw, 2rem);
+  }
+  .case-section > p:not(.section-index) {
+    max-width: 68ch;
+    line-height: 1.7;
+  }
+  .section-index {
+    margin: 0;
+    color: var(--accent);
+    font-size: 0.72rem;
+  }
+  .case-context,
+  .case-approach,
+  .case-findings {
+    grid-column: 1 / 9;
+  }
+  .case-stack {
+    grid-column: 9 / -1;
+    grid-row: 2;
+    border-left: 1px solid var(--line);
+    padding-left: var(--space-6);
+  }
+  .case-visual {
+    grid-column: 1 / -1;
+    grid-row: 3;
+    margin: var(--space-8) 0 0;
+    border: 1px solid var(--line);
+    background: var(--surface);
+  }
+  .case-visual img,
+  .case-visual svg {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+  .case-visual svg {
+    color: var(--accent);
+  }
+  .case-visual figcaption {
+    padding: var(--space-2) var(--space-3);
+    color: var(--muted);
+    font-size: 0.66rem;
+    letter-spacing: 0.08em;
+  }
+  blockquote {
+    margin: var(--space-5) 0 0;
+    padding-left: var(--space-4);
+    border-left: 2px solid var(--accent);
+    font-size: 1.05rem;
+    line-height: 1.6;
+  }
+  .highlight-list,
+  .case-findings ul {
+    display: grid;
+    gap: var(--space-4);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .highlight-list li {
+    display: grid;
+    grid-template-columns: 2.5rem minmax(0, 1fr);
+    gap: var(--space-3);
+    line-height: 1.65;
+  }
+  .highlight-list li span {
+    color: var(--accent);
+  }
+  .case-findings li {
+    padding-left: var(--space-4);
+    border-left: 1px solid var(--accent);
+    line-height: 1.6;
+  }
+  .stack-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .stack-list li {
+    padding: var(--space-2);
+    border: 1px solid var(--line);
+    color: var(--muted);
+    font-size: 0.68rem;
+  }
+
+  .project-pagination {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-4);
+    margin-top: var(--space-12);
+  }
+  .project-pagination a {
+    display: grid;
+    gap: var(--space-3);
+    min-height: 110px;
+    padding: var(--space-4);
+    border: 1px solid var(--line);
+    color: var(--text);
+    text-decoration: none;
+  }
+  .project-pagination a:last-child {
+    text-align: right;
+  }
+  .project-pagination a:hover {
+    border-color: var(--accent);
+  }
+  .project-pagination span {
+    color: var(--muted);
+    font-size: 0.68rem;
+    text-transform: uppercase;
+  }
+
+  @media (max-width: 700px) {
+    .case-study {
+      padding-top: var(--space-8);
+    }
+    .case-context,
+    .case-approach,
+    .case-findings,
+    .case-stack {
+      grid-column: 1 / -1;
+      grid-row: auto;
+    }
+    .case-stack {
+      border-left: 0;
+      padding-left: 0;
+    }
+    .project-pagination {
+      grid-template-columns: 1fr;
+    }
+    .project-pagination a:last-child {
+      text-align: left;
+    }
+  }
+</style>

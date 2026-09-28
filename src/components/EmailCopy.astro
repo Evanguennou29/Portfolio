@@ -23,30 +23,30 @@ const { email, label = "Copier l’email", className = "" } = Astro.props;
 </button>
 
 <script>
-  document
-    .querySelectorAll<HTMLButtonElement>("[data-copy-email]")
-    .forEach((button) => {
-      button.addEventListener("click", async () => {
-        const email = button.dataset.copyEmail;
-        if (!email) return;
+  document.addEventListener("click", async (event) => {
+    const target = event.target;
+    if (!(target instanceof Element)) return;
+    const button = target.closest<HTMLButtonElement>("[data-copy-email]");
+    if (!button) return;
+    const email = button.dataset.copyEmail;
+    if (!email) return;
 
-        try {
-          await navigator.clipboard.writeText(email);
-          const label = button.querySelector("span");
-          if (label) {
-            const original =
-              button.dataset.originalLabel ?? label.textContent ?? "";
-            button.dataset.originalLabel = original;
-            label.textContent = button.dataset.copiedLabel ?? "Email copié";
-            window.setTimeout(() => {
-              label.textContent = original;
-            }, 1800);
-          }
-        } catch {
-          window.location.href = `mailto:${email}`;
-        }
-      });
-    });
+    try {
+      await navigator.clipboard.writeText(email);
+      const label = button.querySelector("span");
+      if (label) {
+        const original =
+          button.dataset.originalLabel ?? label.textContent ?? "";
+        button.dataset.originalLabel = original;
+        label.textContent = button.dataset.copiedLabel ?? "Email copié";
+        window.setTimeout(() => {
+          label.textContent = original;
+        }, 1800);
+      }
+    } catch {
+      window.location.href = `mailto:${email}`;
+    }
+  });
 </script>
 
 <style>

@@ -297,6 +297,7 @@ const formatMonth = (date: string) =>
   import { initializeRoleTarget } from "../scripts/role-target";
 
   initializeRoleTarget();
+  document.addEventListener("astro:page-load", initializeRoleTarget);
 </script>
 
 <style>

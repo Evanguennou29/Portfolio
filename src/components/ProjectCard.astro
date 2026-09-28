@@ -14,6 +14,7 @@ const localized = (value: string | { fr: string; en: string } | undefined) =>
   typeof value === "string" ? value : value?.fr;
 const title = localized(project.title);
 const summary = localized(project.summary);
+const base = import.meta.env.BASE_URL;
 const validLink = (value: string) =>
   value && !value.toLowerCase().includes("todo");
 ---
@@ -29,7 +30,11 @@ const validLink = (value: string) =>
     <span>{project.year}</span>
     <span>{project.status.toUpperCase()}</span>
   </div>
-  <div class="project-mark" aria-hidden="true">
+  <div
+    class="project-mark"
+    aria-hidden="true"
+    transition:name={`project-media-${project.slug}`}
+  >
     <div class="mark-frame">
       <span></span>
       <span></span>
@@ -40,7 +45,15 @@ const validLink = (value: string) =>
     </span>
   </div>
   <div class="project-copy">
-    <h3>{title}</h3>
+    <h3>
+      <a
+        class="project-title-link"
+        href={`${base}projets/${project.slug}/`}
+        transition:name={`project-title-${project.slug}`}
+      >
+        {title}
+      </a>
+    </h3>
     {project.question?.fr && (
       <p class="project-question">{project.question.fr}</p>
     )}
@@ -201,6 +214,15 @@ const validLink = (value: string) =>
     max-width: 85%;
     margin-block-end: var(--space-3);
     font-size: clamp(1.55rem, 3vw, 2.1rem);
+  }
+
+  .project-title-link {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .project-title-link:hover {
+    color: var(--accent);
   }
 
   .project-question,

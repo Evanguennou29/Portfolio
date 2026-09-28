@@ -1,0 +1,25 @@
+---
+import data from "../../../content/data.json";
+import ProjectDetail, {
+  type Project,
+} from "../../components/ProjectDetail.astro";
+
+const projects = data.projects as Project[];
+
+export function getStaticPaths() {
+  const staticProjects = data.projects as Project[];
+  return staticProjects.map((project, index) => ({
+    params: { slug: project.slug },
+    props: { index },
+  }));
+}
+
+const { index } = Astro.props;
+const project = projects[index];
+if (!project) throw new Error("Project route has no matching project");
+const previous = projects[(index - 1 + projects.length) % projects.length];
+const next = projects[(index + 1) % projects.length];
+if (!previous || !next) throw new Error("Project navigation is incomplete");
+---
+
+<ProjectDetail project={project} previous={previous} next={next} lang="fr" />
