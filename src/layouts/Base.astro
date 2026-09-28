@@ -1,0 +1,48 @@
+---
+import data from "../../content/data.json";
+import "@fontsource-variable/inter-tight/wght.css";
+import "@fontsource/jetbrains-mono/latin-400.css";
+import "@fontsource/jetbrains-mono/latin-500.css";
+import "../styles/tokens.css";
+import "../styles/base.css";
+import "../styles/grid.css";
+import ThemeToggle from "../components/ThemeToggle.astro";
+
+interface Props {
+  lang?: "fr" | "en";
+  title?: string;
+  description?: string;
+}
+
+const { lang = "fr", title = data.person.name, description } = Astro.props;
+const homeHref = `${import.meta.env.BASE_URL}${lang === "en" ? "en/" : ""}`;
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="theme-color" content="#0b0d10" />
+    {description && <meta name="description" content={description} />}
+    <title>{title}</title>
+    <slot name="head" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">
+      {lang === "fr" ? "Aller au contenu" : "Skip to content"}
+    </a>
+    <div class="blueprint-grid" aria-hidden="true"></div>
+    <div class="site-shell">
+      <header class="site-header">
+        <a class="wordmark" href={homeHref}>
+          {data.person.name}
+        </a>
+        <ThemeToggle lang={lang} />
+      </header>
+      <main id="main" tabindex="-1">
+        <slot />
+      </main>
+    </div>
+  </body>
+</html>

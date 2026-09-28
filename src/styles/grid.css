@@ -1,0 +1,24 @@
+.blueprint-grid {
+  position: fixed;
+  z-index: 0;
+  inset: 0;
+  width: min(var(--max-width), calc(100% - var(--gutter) * 2));
+  margin-inline: auto;
+  pointer-events: none;
+  background-image:
+    linear-gradient(
+      to right,
+      color-mix(in srgb, var(--line) 12%, transparent) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      to bottom,
+      color-mix(in srgb, var(--line) 10%, transparent) 1px,
+      transparent 1px
+    );
+  background-position: left top;
+  background-size:
+    calc(100% / 12) 100%,
+    100% 96px;
+  opacity: 0.4;
+}
