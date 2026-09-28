@@ -1,0 +1,103 @@
+---
+import { existsSync } from "node:fs";
+import { resolve } from "node:path";
+import data from "../../content/data.json";
+
+interface Props {
+  lang?: "fr" | "en";
+}
+
+const { lang = "fr" } = Astro.props;
+const base = import.meta.env.BASE_URL;
+const queryFor = (id: string) => {
+  if (id === "ai-engineer") return "ai";
+  if (id === "ml-engineer") return "ml";
+  return id;
+};
+const fallbackCv = `${base}cv/evan-guennou-ai-engineer-${lang}.pdf`;
+const cvFor = (id: string) => {
+  const filename = `evan-guennou-${id}-${lang}.pdf`;
+  return existsSync(resolve(process.cwd(), "public", "cv", filename))
+    ? `${base}cv/${filename}`
+    : fallbackCv;
+};
+---
+
+<div class="role-switcher" data-role-switcher>
+  <p class="role-label mono">{lang === "fr" ? "Rôle ciblé" : "Target role"}</p>
+  <div
+    class="role-options"
+    role="group"
+    aria-label={
+      lang === "fr" ? "Choisir un rôle cible" : "Choose a target role"
+    }
+  >
+    {data.roles.map((role, index) => (
+      <button
+        class="role-option"
+        type="button"
+        data-target-role
+        data-role-id={role.id}
+        data-role-query={queryFor(role.id)}
+        data-pitch={role.pitch[lang]}
+        data-cv-url={cvFor(role.id)}
+        data-cv-fallback={fallbackCv}
+        aria-pressed={index === 0 ? "true" : "false"}
+      >
+        {role.label}
+      </button>
+    ))}
+  </div>
+</div>
+
+<style>
+  .role-switcher {
+    margin-block: var(--space-6);
+  }
+
+  .role-label {
+    margin-block-end: var(--space-2);
+    color: var(--muted);
+    font-size: 0.65rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .role-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+  }
+
+  .role-option {
+    min-height: 40px;
+    padding: var(--space-2) var(--space-3);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    color: var(--muted);
+    background: var(--surface);
+    cursor: pointer;
+    font-size: 0.78rem;
+    transition:
+      border-color 160ms ease,
+      color 160ms ease,
+      background-color 160ms ease;
+  }
+
+  .role-option:hover {
+    border-color: var(--accent);
+    color: var(--text);
+  }
+
+  .role-option[aria-pressed="true"] {
+    border-color: var(--accent);
+    color: var(--text);
+    background: color-mix(in srgb, var(--accent) 14%, var(--surface));
+    box-shadow: inset 0 -2px 0 var(--accent);
+  }
+
+  .role-option:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
+</style>

@@ -2,13 +2,14 @@ import eslint from "@eslint/js";
 import tsParser from "@typescript-eslint/parser";
 import tsPlugin from "@typescript-eslint/eslint-plugin";
 import astro from "eslint-plugin-astro";
+import globals from "globals";
 
 export default [
   { ignores: ["dist/**", "node_modules/**", ".astro/**"] },
   eslint.configs.recommended,
   ...astro.configs["flat/recommended"],
   {
-    languageOptions: { globals: { process: "readonly" } },
+    languageOptions: { globals: { ...globals.browser, ...globals.node } },
   },
   {
     files: ["**/*.ts"],
