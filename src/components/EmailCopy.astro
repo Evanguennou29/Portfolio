@@ -1,0 +1,80 @@
+---
+interface Props {
+  email: string;
+  label?: string;
+  className?: string;
+}
+
+const { email, label = "Copier l’email", className = "" } = Astro.props;
+---
+
+<button
+  class:list={["email-copy", className]}
+  type="button"
+  data-copy-email={email}
+  data-copied-label="Email copié"
+  aria-live="polite"
+>
+  <span>{label}</span>
+  <svg viewBox="0 0 20 20" aria-hidden="true">
+    <rect x="7" y="7" width="10" height="10" rx="1" />
+    <path d="M13 7V4H4v9h3" />
+  </svg>
+</button>
+
+<script>
+  document
+    .querySelectorAll<HTMLButtonElement>("[data-copy-email]")
+    .forEach((button) => {
+      button.addEventListener("click", async () => {
+        const email = button.dataset.copyEmail;
+        if (!email) return;
+
+        try {
+          await navigator.clipboard.writeText(email);
+          const label = button.querySelector("span");
+          if (label) {
+            const original =
+              button.dataset.originalLabel ?? label.textContent ?? "";
+            button.dataset.originalLabel = original;
+            label.textContent = button.dataset.copiedLabel ?? "Email copié";
+            window.setTimeout(() => {
+              label.textContent = original;
+            }, 1800);
+          }
+        } catch {
+          window.location.href = `mailto:${email}`;
+        }
+      });
+    });
+</script>
+
+<style>
+  .email-copy {
+    display: inline-flex;
+    min-height: 44px;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-2) var(--space-3);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    color: var(--text);
+    background: var(--surface);
+    cursor: pointer;
+    font-size: 0.85rem;
+    text-align: left;
+  }
+
+  .email-copy:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  svg {
+    width: 16px;
+    height: 16px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.4;
+  }
+</style>

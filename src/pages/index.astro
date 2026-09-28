@@ -1,5 +1,957 @@
 ---
+import data from "../../content/data.json";
+import EmailCopy from "../components/EmailCopy.astro";
+import ProjectCard from "../components/ProjectCard.astro";
+import SectionHeading from "../components/SectionHeading.astro";
 import Base from "../layouts/Base.astro";
+
+const featuredProjects = data.projects
+  .filter((project) => project.featured)
+  .slice(0, 3);
+const featuredSet = new Set(featuredProjects.map((project) => project.slug));
+const compactProjects = data.projects.filter(
+  (project) => !featuredSet.has(project.slug),
+);
+const base = import.meta.env.BASE_URL;
+
+const formatMonth = (date: string) =>
+  new Date(`${date}-01T00:00:00Z`).toLocaleDateString("fr-FR", {
+    month: "short",
+    year: "numeric",
+    timeZone: "UTC",
+  });
+
+const validLink = (value: string) =>
+  value && !value.toLowerCase().includes("todo");
 ---
 
-<Base lang="fr" />
+<Base lang="fr">
+  <Fragment slot="head">
+    <meta name="description" content={data.person.tagline.fr} />
+  </Fragment>
+
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="hero-copy">
+      <p class="hero-name mono">{data.person.name}</p>
+      <h1 id="hero-title">{data.person.title.fr}</h1>
+      <p class="hero-tagline">{data.person.tagline.fr}</p>
+      <div class="hero-meta mono">
+        <span>{data.person.experienceSummary.fr}</span>
+        <span>{data.person.availability.fr}</span>
+      </div>
+      <div class="hero-actions">
+        <a
+          class="button button-primary"
+          href={`${base}cv/evan-guennou-ai-engineer-fr.pdf`}
+        >
+          Télécharger mon CV <span aria-hidden="true">↓</span>
+        </a>
+        <a
+          class="button button-secondary"
+          href={data.person.links.github}
+          target="_blank"
+          rel="noreferrer"
+        >
+          GitHub <span aria-hidden="true">↗</span>
+        </a>
+        <a class="button button-text" href="#contact">
+          Me contacter <span aria-hidden="true">↓</span>
+        </a>
+      </div>
+    </div>
+
+    <figure class="process-figure" aria-labelledby="process-title">
+      <figcaption id="process-title" class="mono">
+        Donnée / Modèle / Produit
+      </figcaption>
+      <svg
+        viewBox="0 0 520 270"
+        role="img"
+        aria-labelledby="diagram-title diagram-description"
+      >
+        <title id="diagram-title">De la donnée au produit</title>
+        <desc id="diagram-description">
+          Une ligne relie trois étapes, Donnée, Modèle et Produit.
+        </desc>
+        <path class="process-line" d="M45 142h430" />
+        <path class="process-line process-line-secondary" d="M45 152h430" />
+        <circle class="process-node" cx="65" cy="147" r="20" />
+        <circle class="process-node" cx="260" cy="147" r="20" />
+        <circle class="process-node" cx="455" cy="147" r="20" />
+        <circle class="process-pulse" r="4">
+          <animateMotion
+            dur="4.8s"
+            repeatCount="indefinite"
+            path="M65 147H455"
+          />
+        </circle>
+        <path class="node-tick" d="M65 110v-18m195 18V74m195 36V92" />
+        <text x="65" y="70" text-anchor="middle">
+          Donnée
+        </text>
+        <text x="260" y="52" text-anchor="middle">
+          Modèle
+        </text>
+        <text x="455" y="70" text-anchor="middle">
+          Produit
+        </text>
+        <text class="diagram-index" x="65" y="205" text-anchor="middle">
+          01
+        </text>
+        <text class="diagram-index" x="260" y="205" text-anchor="middle">
+          02
+        </text>
+        <text class="diagram-index" x="455" y="205" text-anchor="middle">
+          03
+        </text>
+      </svg>
+    </figure>
+  </section>
+
+  <section class="quick-facts" aria-label="Informations pratiques">
+    <div class="fact-cell">
+      <p class="fact-label mono">Disponibilité</p>
+      <p>{data.person.availability.fr}</p>
+    </div>
+    <div class="fact-cell">
+      <p class="fact-label mono">Localisation</p>
+      <p>{data.person.location.fr}</p>
+    </div>
+    <div class="fact-cell">
+      <p class="fact-label mono">Mobilité</p>
+      <p>
+        {data.person.mobility.fr.toLowerCase().includes("todo")
+          ? ""
+          : data.person.mobility.fr}
+      </p>
+    </div>
+    <div class="fact-cell">
+      <p class="fact-label mono">Contrat recherché</p>
+      <p>{data.person.contract.fr}</p>
+    </div>
+    <div class="fact-cell fact-languages">
+      <p class="fact-label mono">Langues</p>
+      <ul>
+        {data.person.languages.map((language) => (
+          <li>{language.fr}</li>
+        ))}
+      </ul>
+    </div>
+    <div class="fact-cell fact-email">
+      <p class="fact-label mono">Email</p>
+      <a href={`mailto:${data.person.email}`}>{data.person.email}</a>
+      <EmailCopy email={data.person.email} />
+    </div>
+  </section>
+
+  <section
+    class="content-section projects-section"
+    id="projects"
+    aria-labelledby="projects-title"
+  >
+    <SectionHeading number="01" title="Projets" id="projects-title" />
+    <div class="featured-projects">
+      {featuredProjects.map((project, index) => (
+        <ProjectCard project={project} index={index} />
+      ))}
+    </div>
+    {compactProjects.length > 0 && (
+      <div class="compact-projects" aria-label="Autres projets">
+        {compactProjects.map((project) => (
+          <article class="compact-project">
+            <p class="compact-year mono">{project.year}</p>
+            <div>
+              <h3>
+                {typeof project.title === "string"
+                  ? project.title
+                  : project.title.fr}
+              </h3>
+              <p>
+                {project.summary.fr.toLowerCase().includes("todo")
+                  ? ""
+                  : project.summary.fr}
+              </p>
+            </div>
+            {validLink(project.links.repo) && (
+              <a
+                href={project.links.repo}
+                target="_blank"
+                rel="noreferrer"
+                aria-label={`Voir le dépôt de ${typeof project.title === "string" ? project.title : project.title.fr}`}
+              >
+                Dépôt <span aria-hidden="true">↗</span>
+              </a>
+            )}
+          </article>
+        ))}
+      </div>
+    )}
+  </section>
+
+  <section
+    class="content-section experience-section"
+    id="experience"
+    aria-label="Expérience professionnelle"
+  >
+    <SectionHeading number="02" title="Expérience" />
+    <div class="timeline">
+      {data.experience.map((job) => (
+        <article class="timeline-entry">
+          <div class="timeline-date mono">
+            <span>{formatMonth(job.start)}</span>
+            <span>à {formatMonth(job.end)}</span>
+          </div>
+          <div class="timeline-content">
+            <div class="timeline-heading">
+              <h3>{job.company}</h3>
+              <span class="mono">{job.location}</span>
+            </div>
+            <p class="job-title">{job.role.fr}</p>
+            <p class="job-team">{job.team.fr}</p>
+            {job.context?.fr && <p class="job-context">{job.context.fr}</p>}
+            <ul class="job-points">
+              {job.points.fr.map((point) => (
+                <li>{point}</li>
+              ))}
+            </ul>
+            <ul class="stack-list" aria-label="Technologies">
+              {job.stack.map((item) => (
+                <li class="mono">{item}</li>
+              ))}
+            </ul>
+          </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section
+    class="content-section skills-section"
+    id="skills"
+    aria-labelledby="skills-title"
+  >
+    <SectionHeading number="03" title="Compétences" id="skills-title" />
+    <div class="skills-matrix">
+      {data.skills.map((group, index) => (
+        <article class="skill-group">
+          <p class="skill-index mono">{String(index + 1).padStart(2, "0")}</p>
+          <h3>{group.domain.fr}</h3>
+          <ul class="skill-list">
+            {group.items.map((item) => (
+              <li>{item}</li>
+            ))}
+          </ul>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section
+    class="content-section education-section"
+    id="education"
+    aria-label="Formation et certifications"
+  >
+    <SectionHeading number="04" title="Parcours" />
+    <div class="education-list">
+      {data.education.map((item) => (
+        <article class="education-entry">
+          <p class="education-date mono">
+            {item.start} à {item.end}
+          </p>
+          <div>
+            <h3>{item.school}</h3>
+            <p class="education-degree">{item.degree.fr}</p>
+            {item.details?.fr && (
+              <p class="education-details">{item.details.fr}</p>
+            )}
+          </div>
+        </article>
+      ))}
+    </div>
+    <div class="certifications">
+      <p class="fact-label mono">Certifications</p>
+      <ul class="certification-list">
+        {data.certifications.map((certification) => (
+          <li>{certification}</li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section
+    class="content-section beyond-section"
+    id="beyond"
+    aria-label="Au-delà du code"
+  >
+    <SectionHeading number="05" title="Au-delà du code" />
+    <ul class="beyond-list">
+      {data.beyond.map((item) => (
+        <li>{item.fr}</li>
+      ))}
+    </ul>
+  </section>
+
+  <section class="contact-section" id="contact" aria-labelledby="contact-title">
+    <div>
+      <p class="contact-index mono">Contact /</p>
+      <h2 id="contact-title">{data.person.email}</h2>
+    </div>
+    <div class="contact-actions">
+      <a class="button button-primary" href={`mailto:${data.person.email}`}>
+        Écrire un email <span aria-hidden="true">↗</span>
+      </a>
+      <EmailCopy email={data.person.email} />
+      <div class="social-links">
+        <a href={data.person.links.github} target="_blank" rel="noreferrer">
+          GitHub <span aria-hidden="true">↗</span>
+        </a>
+        <a href={data.person.links.linkedin} target="_blank" rel="noreferrer">
+          LinkedIn <span aria-hidden="true">↗</span>
+        </a>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(280px, 0.85fr);
+    gap: clamp(var(--space-8), 7vw, var(--space-16));
+    align-items: center;
+    padding-block: clamp(64px, 10vw, 128px);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .hero-name,
+  .hero-meta,
+  .process-figure figcaption,
+  .fact-label,
+  .compact-year,
+  .skill-index,
+  .education-date,
+  .contact-index {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .hero-name {
+    margin-block-end: var(--space-4);
+    color: var(--accent);
+  }
+
+  h1 {
+    margin-block-end: var(--space-4);
+    font-size: clamp(3.2rem, 8vw, 7.25rem);
+  }
+
+  .hero-tagline {
+    max-width: 27ch;
+    margin-block-end: var(--space-6);
+    font-size: clamp(1.2rem, 2vw, 1.65rem);
+    line-height: 1.3;
+  }
+
+  .hero-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2) var(--space-6);
+    margin-block-end: var(--space-8);
+    color: var(--muted);
+    text-transform: none;
+  }
+
+  .hero-meta span:first-child {
+    color: var(--signal);
+  }
+
+  .hero-actions,
+  .contact-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-3);
+  }
+
+  .button {
+    display: inline-flex;
+    min-height: 48px;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-3);
+    padding: var(--space-3) var(--space-4);
+    border: 1px solid transparent;
+    border-radius: var(--radius);
+    font-size: 0.87rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition:
+      background-color 160ms ease,
+      border-color 160ms ease,
+      color 160ms ease;
+  }
+
+  .button-primary {
+    border-color: var(--accent);
+    color: #fff;
+    background: var(--accent);
+  }
+
+  :root[data-theme="light"] .button-primary {
+    color: #fff;
+  }
+
+  .button-primary:hover {
+    background: color-mix(in srgb, var(--accent) 82%, var(--text));
+  }
+
+  .button-secondary {
+    border-color: var(--line);
+    background: var(--surface);
+  }
+
+  .button-secondary:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  .button-text {
+    padding-inline: var(--space-2);
+    color: var(--muted);
+  }
+
+  .button-text:hover {
+    color: var(--accent);
+  }
+
+  .process-figure {
+    margin: 0;
+    padding: var(--space-4);
+    border: 1px solid var(--line);
+    background: color-mix(in srgb, var(--surface) 80%, transparent);
+  }
+
+  .process-figure figcaption {
+    color: var(--muted);
+  }
+
+  .process-figure svg {
+    display: block;
+    width: 100%;
+    overflow: visible;
+  }
+
+  .process-figure text {
+    fill: var(--text);
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.02em;
+  }
+
+  .process-figure .diagram-index {
+    fill: var(--muted);
+    font-size: 10px;
+  }
+
+  .process-line {
+    fill: none;
+    stroke: var(--line);
+    stroke-width: 1;
+    stroke-dasharray: 5 6;
+    animation: draw-line 1.2s ease-out both;
+  }
+
+  .process-line-secondary {
+    opacity: 0.55;
+    animation-delay: 100ms;
+  }
+
+  .process-node {
+    fill: var(--bg);
+    stroke: var(--accent);
+    stroke-width: 1.5;
+  }
+
+  .process-pulse {
+    fill: var(--signal);
+    filter: drop-shadow(0 0 5px var(--signal));
+  }
+
+  .node-tick {
+    fill: none;
+    stroke: var(--line);
+    stroke-width: 1;
+  }
+
+  @keyframes draw-line {
+    from {
+      stroke-dashoffset: 120;
+    }
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .process-pulse {
+      display: none;
+    }
+  }
+
+  .quick-facts {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    margin-block: var(--space-16) var(--space-24);
+    border-top: 1px solid var(--line);
+    border-left: 1px solid var(--line);
+  }
+
+  .fact-cell {
+    grid-column: span 4;
+    min-width: 0;
+    min-height: 138px;
+    padding: var(--space-4);
+    border-right: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .fact-label {
+    margin-block-end: var(--space-3);
+    color: var(--muted);
+  }
+
+  .fact-cell > p:not(.fact-label) {
+    margin-block-end: 0;
+  }
+
+  .fact-languages ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-1) var(--space-3);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .fact-languages li {
+    color: var(--text);
+    font-size: 0.9rem;
+  }
+
+  .fact-email > a {
+    display: block;
+    width: fit-content;
+    margin-block-end: var(--space-3);
+    color: var(--accent);
+  }
+
+  .content-section {
+    margin-block-end: var(--space-24);
+    scroll-margin-top: var(--space-8);
+  }
+
+  .featured-projects {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: var(--space-4);
+  }
+
+  .featured-projects > :nth-child(3n + 1) {
+    grid-column: span 7;
+  }
+
+  .featured-projects > :nth-child(3n + 2) {
+    grid-column: span 5;
+  }
+
+  .featured-projects > :nth-child(3n) {
+    grid-column: span 12;
+  }
+
+  .compact-projects {
+    margin-block-start: var(--space-8);
+    border-top: 1px solid var(--line);
+  }
+
+  .compact-project {
+    display: grid;
+    grid-template-columns: 1fr 4fr 1fr;
+    gap: var(--space-6);
+    align-items: start;
+    padding: var(--space-4) 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .compact-year {
+    margin: 0;
+    color: var(--muted);
+  }
+
+  .compact-project h3 {
+    margin: 0 0 var(--space-2);
+    font-size: 1.05rem;
+  }
+
+  .compact-project div > p {
+    max-width: 68ch;
+    margin: 0;
+    color: var(--muted);
+    font-size: 0.9rem;
+  }
+
+  .compact-project > a {
+    justify-self: end;
+    color: var(--accent);
+    font-size: 0.82rem;
+    text-decoration: none;
+  }
+
+  .timeline {
+    border-left: 1px solid var(--line);
+  }
+
+  .timeline-entry {
+    position: relative;
+    display: grid;
+    grid-template-columns: 2fr 10fr;
+    gap: var(--space-8);
+    padding: 0 0 var(--space-12) var(--space-8);
+  }
+
+  .timeline-entry::before {
+    position: absolute;
+    top: 0.35em;
+    left: -4px;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--accent);
+    content: "";
+  }
+
+  .timeline-date {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    color: var(--muted);
+    font-size: 0.67rem;
+  }
+
+  .timeline-heading {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--space-3);
+  }
+
+  .timeline-heading h3 {
+    margin: 0;
+    font-size: 1.6rem;
+  }
+
+  .timeline-heading > span,
+  .job-team {
+    color: var(--muted);
+    font-size: 0.78rem;
+  }
+
+  .job-title {
+    margin: var(--space-2) 0 0;
+    color: var(--accent);
+  }
+
+  .job-team {
+    margin-block: var(--space-1) var(--space-4);
+  }
+
+  .job-context {
+    max-width: 75ch;
+    color: var(--muted);
+  }
+
+  .job-points {
+    display: grid;
+    gap: var(--space-3);
+    max-width: 78ch;
+    margin: var(--space-4) 0;
+    padding-left: 1.2rem;
+  }
+
+  .job-points li::marker {
+    color: var(--accent);
+  }
+
+  .stack-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    margin: var(--space-4) 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .stack-list li {
+    padding: 3px 7px;
+    border: 1px solid var(--line);
+    color: var(--muted);
+    font-size: 0.62rem;
+  }
+
+  .skills-matrix {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    border-top: 1px solid var(--line);
+    border-left: 1px solid var(--line);
+  }
+
+  .skill-group {
+    min-height: 225px;
+    padding: var(--space-4);
+    border-right: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .skill-index {
+    margin-block-end: var(--space-6);
+    color: var(--accent);
+  }
+
+  .skill-group h3 {
+    margin-block-end: var(--space-4);
+    font-size: 1.15rem;
+  }
+
+  .skill-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .skill-list li {
+    color: var(--muted);
+    font-size: 0.86rem;
+  }
+
+  .skill-list li:not(:last-child)::after {
+    margin-inline-start: var(--space-2);
+    color: var(--line);
+    content: "/";
+  }
+
+  .education-list {
+    border-top: 1px solid var(--line);
+  }
+
+  .education-entry {
+    display: grid;
+    grid-template-columns: 3fr 9fr;
+    gap: var(--space-8);
+    padding: var(--space-6) 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .education-date {
+    color: var(--muted);
+  }
+
+  .education-entry h3 {
+    margin: 0 0 var(--space-2);
+    font-size: 1.3rem;
+  }
+
+  .education-degree,
+  .education-details {
+    margin: 0;
+  }
+
+  .education-details {
+    max-width: 74ch;
+    margin-block-start: var(--space-2);
+    color: var(--muted);
+    font-size: 0.9rem;
+  }
+
+  .certifications {
+    display: grid;
+    grid-template-columns: 3fr 9fr;
+    gap: var(--space-8);
+    margin-block-start: var(--space-8);
+  }
+
+  .certification-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .certification-list li {
+    padding: var(--space-2) var(--space-3);
+    border: 1px solid var(--line);
+    font-size: 0.86rem;
+  }
+
+  .beyond-list {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-4);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .beyond-list li {
+    min-height: 140px;
+    padding: var(--space-4);
+    border: 1px solid var(--line);
+    background: var(--surface);
+  }
+
+  .contact-section {
+    display: grid;
+    grid-template-columns: 7fr 5fr;
+    gap: var(--space-8);
+    align-items: end;
+    margin-block: var(--space-24) var(--space-16);
+    padding-block: var(--space-8);
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .contact-index {
+    color: var(--accent);
+  }
+
+  .contact-section h2 {
+    margin: 0;
+    overflow-wrap: anywhere;
+    font-family: var(--font-mono);
+    font-size: clamp(1.25rem, 3.4vw, 2.5rem);
+    font-weight: 400;
+    letter-spacing: -0.06em;
+  }
+
+  .social-links {
+    display: flex;
+    gap: var(--space-4);
+    margin-inline-start: auto;
+  }
+
+  .social-links a {
+    color: var(--muted);
+    font-size: 0.84rem;
+  }
+
+  .social-links a:hover {
+    color: var(--accent);
+  }
+
+  @media (max-width: 800px) {
+    .hero {
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--space-8);
+    }
+
+    .process-figure {
+      max-width: 560px;
+    }
+
+    .skills-matrix {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .contact-section {
+      grid-template-columns: minmax(0, 1fr);
+      align-items: start;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .quick-facts {
+      margin-block: var(--space-12) var(--space-16);
+    }
+
+    .fact-cell {
+      grid-column: span 6;
+      min-height: 124px;
+      padding: var(--space-3);
+    }
+
+    .featured-projects {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .featured-projects > * {
+      grid-column: 1 !important;
+    }
+
+    .compact-project {
+      grid-template-columns: 1fr auto;
+      gap: var(--space-2) var(--space-4);
+    }
+
+    .compact-year {
+      grid-column: 1 / -1;
+    }
+
+    .compact-project div {
+      grid-column: 1;
+    }
+
+    .compact-project > a {
+      grid-column: 2;
+      grid-row: 2;
+    }
+
+    .timeline-entry {
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--space-3);
+      padding-left: var(--space-4);
+    }
+
+    .timeline-date {
+      flex-direction: row;
+      gap: var(--space-2);
+    }
+
+    .skills-matrix,
+    .beyond-list {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .skill-group {
+      min-height: auto;
+    }
+
+    .skill-index {
+      margin-block-end: var(--space-3);
+    }
+
+    .education-entry,
+    .certifications {
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--space-2);
+    }
+
+    .hero-actions {
+      align-items: stretch;
+    }
+
+    .button-primary,
+    .button-secondary {
+      flex: 1 1 auto;
+    }
+
+    .contact-actions {
+      align-items: flex-start;
+    }
+  }
+</style>
