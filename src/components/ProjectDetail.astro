@@ -155,7 +155,12 @@ const image = project.media?.gif;
         transition:name={`project-media-${project.slug}`}
       >
         {image ? (
-          <img src={image} alt={`${labels.visual} : ${title}`} loading="lazy" />
+          <img
+            src={image}
+            alt={`${title}: ${summary}`}
+            loading="lazy"
+            decoding="async"
+          />
         ) : (
           <svg viewBox="0 0 720 300" role="img" aria-label={labels.diagram}>
             <rect
@@ -342,11 +347,16 @@ const image = project.media?.gif;
     border: 1px solid var(--line);
     background: var(--surface);
   }
-  .case-visual img,
   .case-visual svg {
     display: block;
     width: 100%;
     height: auto;
+  }
+  .case-visual img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: contain;
   }
   .case-visual svg {
     color: var(--accent);

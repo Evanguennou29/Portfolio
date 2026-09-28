@@ -10,15 +10,62 @@ import ThemeToggle from "../components/ThemeToggle.astro";
 import CommandPalette from "../components/CommandPalette.astro";
 import LangSwitch from "../components/LangSwitch.astro";
 import { ClientRouter } from "astro:transitions";
+import { absoluteUrl, getRouteKey, seoPages } from "../lib/seo";
 
 interface Props {
   lang?: "fr" | "en";
   title?: string;
   description?: string;
+  noindex?: boolean;
 }
 
-const { lang = "fr", title = data.person.name, description } = Astro.props;
-const homeHref = `${import.meta.env.BASE_URL}${lang === "en" ? "en/" : ""}`;
+const {
+  lang = "fr",
+  title: titleOverride,
+  description: descriptionOverride,
+  noindex = false,
+} = Astro.props;
+const base = import.meta.env.BASE_URL;
+const routeKey = getRouteKey(Astro.url.pathname, base);
+const page = seoPages.find(
+  (item) =>
+    item.lang === lang && item.path.replace(/^\/+|\/+$/g, "") === routeKey,
+);
+const title =
+  titleOverride ??
+  page?.title ??
+  `${data.person.title[lang]} | ${data.person.name}`;
+const description =
+  descriptionOverride ?? page?.description ?? data.person.tagline[lang];
+const homeHref = `${base}${lang === "en" ? "en/" : ""}`;
+const routePath = page?.path ?? routeKey;
+const site = Astro.site;
+const canonical = site ? absoluteUrl(site, base, routePath) : undefined;
+const frenchAlternate =
+  site && page ? absoluteUrl(site, base, page.frenchPath) : undefined;
+const englishAlternate =
+  site && page ? absoluteUrl(site, base, page.englishPath) : undefined;
+const openGraphPath = `og/${page?.image ?? `${lang}-home`}.png`;
+const openGraphImage = site
+  ? absoluteUrl(site, base, openGraphPath)
+  : `${base}${openGraphPath}`;
+const personUrl = site ? absoluteUrl(site, base, "") : undefined;
+const personSchema = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "@id": personUrl ? `${personUrl}#person` : undefined,
+  name: data.person.name,
+  jobTitle: data.person.title[lang],
+  description: data.person.tagline[lang],
+  email: `mailto:${data.person.email}`,
+  url: personUrl,
+  homeLocation: { "@type": "Place", name: data.person.location[lang] },
+  sameAs: [data.person.links.github, data.person.links.linkedin],
+};
+const jsonLd = JSON.stringify(personSchema).replaceAll("<", "\\u003c");
+const isProject = page?.path.startsWith(
+  lang === "fr" ? "projets/" : "en/projects/",
+);
 ---
 
 <!doctype html>
@@ -27,8 +74,36 @@ const homeHref = `${import.meta.env.BASE_URL}${lang === "en" ? "en/" : ""}`;
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <meta name="theme-color" content="#0b0d10" />
-    {description && <meta name="description" content={description} />}
+    <link rel="icon" type="image/svg+xml" href={`${base}favicon.svg`} />
+    <meta name="description" content={description} />
     <title>{title}</title>
+    {canonical && <link rel="canonical" href={canonical} />}
+    {frenchAlternate && (
+      <link rel="alternate" hreflang="fr" href={frenchAlternate} />
+    )}
+    {englishAlternate && (
+      <link rel="alternate" hreflang="en" href={englishAlternate} />
+    )}
+    {frenchAlternate && (
+      <link rel="alternate" hreflang="x-default" href={frenchAlternate} />
+    )}
+    <meta property="og:type" content={isProject ? "article" : "website"} />
+    <meta property="og:locale" content={lang === "fr" ? "fr_FR" : "en_US"} />
+    <meta property="og:site_name" content={data.person.name} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    {canonical && <meta property="og:url" content={canonical} />}
+    <meta property="og:image" content={openGraphImage} />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={title} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={openGraphImage} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
+    {!noindex && <script type="application/ld+json" set:html={jsonLd} />}
     <ClientRouter />
     <slot name="head" />
   </head>
