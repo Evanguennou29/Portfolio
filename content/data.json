@@ -1,0 +1,636 @@
+{
+  "person": {
+    "name": "Evan Guennou",
+    "title": {
+      "fr": "AI Engineer",
+      "en": "AI Engineer"
+    },
+    "experienceSummary": {
+      "fr": "1 an d'expérience",
+      "en": "1 year of experience"
+    },
+    "tagline": {
+      "fr": "Je conçois des produits d'IA générative, de la donnée brute à l'interface.",
+      "en": "I build generative AI products, from raw data to the interface."
+    },
+    "location": {
+      "fr": "Paris, France",
+      "en": "Paris, France"
+    },
+    "email": "evan.guennou@gmail.com",
+    "links": {
+      "github": "https://github.com/Evanguennou29",
+      "linkedin": "https://www.linkedin.com/in/evan-guennou/"
+    },
+    "availability": {
+      "fr": "Disponible à partir d'octobre 2026",
+      "en": "Available from October 2026"
+    },
+    "contract": {
+      "fr": "CDI",
+      "en": "Permanent contract (CDI)"
+    },
+    "mobility": {
+      "fr": "France, avec une préférence pour l’Île-de-France. Mobilité envisageable.",
+      "en": "France, with a preference for the Île-de-France region. Open to relocation."
+    },
+    "languages": [
+      {
+        "fr": "Français (natif)",
+        "en": "French (native)"
+      },
+      {
+        "fr": "Anglais B2+ (TOEFL ITP 570/677)",
+        "en": "English B2+ (TOEFL ITP 570/677)"
+      },
+      {
+        "fr": "Espagnol B1+",
+        "en": "Spanish B1+"
+      }
+    ]
+  },
+  "roles": [
+    {
+      "id": "ai-engineer",
+      "label": "AI Engineer",
+      "pitch": {
+        "fr": "RAG, agents et LLM privés intégrés dans de vrais outils métier, en environnement sécurisé.",
+        "en": "RAG, agents and private LLMs built into real business tools, in a secure environment."
+      }
+    },
+    {
+      "id": "ml-engineer",
+      "label": "ML Engineer",
+      "pitch": {
+        "fr": "Des modèles entraînés, évalués et servis derrière une API, de la recherche sémantique au ranking.",
+        "en": "Models trained, evaluated and served behind an API, from semantic search to ranking."
+      }
+    },
+    {
+      "id": "data-scientist",
+      "label": "Data Scientist",
+      "pitch": {
+        "fr": "De la question métier au modèle prédictif : churn, rétention, segmentation.",
+        "en": "From the business question to a predictive model: churn, retention, segmentation."
+      }
+    },
+    {
+      "id": "data-engineer",
+      "label": "Data Engineer",
+      "pitch": {
+        "fr": "Pipelines ELT reproductibles, testés et orchestrés, de l'API au tableau de bord.",
+        "en": "Reproducible, tested and orchestrated ELT pipelines, from the API to the dashboard."
+      }
+    },
+    {
+      "id": "data-analyst",
+      "label": "Data Analyst",
+      "pitch": {
+        "fr": "Des KPI suivis, des études qui répondent à une question et des restitutions en comité.",
+        "en": "Tracked KPIs, studies that answer a real question and findings presented to committees."
+      }
+    }
+  ],
+  "experience": [
+    {
+      "company": "Thales",
+      "team": {
+        "fr": "Intégration et Livraison des opérations",
+        "en": "Operations Integration and Delivery"
+      },
+      "role": {
+        "fr": "Ingénieur en IA générative (stage de fin d'études)",
+        "en": "Generative AI Engineer (final year internship)"
+      },
+      "location": "Gennevilliers",
+      "start": "2026-02",
+      "end": "2026-08",
+      "context": {
+        "fr": "Conception d'un assistant de pricing IA et pilotage d'un agent de traitement des incidents clients, en environnement sécurisé : aucune sortie de données, aucun service d'IA public.",
+        "en": "Designed an AI pricing assistant and led a customer incident handling agent, in a secure environment: no data leaving the company, no public AI services."
+      },
+      "points": {
+        "fr": [
+          "Assistant de pricing RAG pour les équipes offres : retrouver en quelques secondes des équipements comparables et leurs estimations passées, là où la recherche manuelle prenait plusieurs heures.",
+          "Extraction et restructuration de 20 ans de devis et d'offres (Excel, PDF natifs et numérisés, courriels) dans une base auditable, via un LLM privé guidé par un schéma strict et des contrôles d'ancrage.",
+          "Moteur de recherche sémantique en deux étages avec indice de confiance et document source pour chaque résultat, interface de recherche et chatbot RAG.",
+          "Recueil du besoin, étude comparative GPU dédié contre API LLM internes, documentation et transmission à un architecte système pour le déploiement.",
+          "Référent métier d'un agent IA de traitement des incidents (création de tickets, réponse ou redirection automatique, suggestion d'assignation justifiée), démonstrateur présenté au salon interne de la compétitivité en juin 2026."
+        ],
+        "en": [
+          "RAG pricing assistant for bid teams: find comparable equipment and past estimates in seconds instead of hours of manual search.",
+          "Extracted and restructured 20 years of quotes and offers (Excel, native and scanned PDFs, emails) into an auditable database, using a private LLM guided by a strict schema and grounding checks.",
+          "Two stage semantic search engine returning a confidence score and the source document for each result, plus a search interface and a RAG chatbot.",
+          "Requirements gathering, dedicated GPU versus internal LLM API study, documentation and handover to a system architect for deployment.",
+          "Domain lead on an AI incident handling agent (ticket creation, automatic answer or routing, justified assignment suggestions), demoed at the internal competitiveness fair in June 2026."
+        ]
+      },
+      "stack": [
+        "Python",
+        "FastAPI",
+        "JavaScript",
+        "Angular",
+        "SQL",
+        "Docker",
+        "Kubeflow",
+        "GCP",
+        "AWS",
+        "RAG",
+        "Embeddings",
+        "OCR",
+        "Few-shot",
+        "GitLab"
+      ],
+      "roles": [
+        "ai-engineer",
+        "ml-engineer",
+        "data-engineer"
+      ]
+    },
+    {
+      "company": "CANAL+",
+      "team": {
+        "fr": "Finance et Performance",
+        "en": "Finance and Performance"
+      },
+      "role": {
+        "fr": "Data Scientist (stage)",
+        "en": "Data Scientist (internship)"
+      },
+      "location": "Paris",
+      "start": "2025-04",
+      "end": "2025-08",
+      "context": {
+        "fr": "Machine learning et analyse BI sur le parc d'abonnements sans engagement, plus volatil et stratégique pour la compréhension des comportements clients.",
+        "en": "Machine learning and BI analysis on the no commitment subscription base, more volatile and strategic for understanding customer behaviour."
+      },
+      "points": {
+        "fr": [
+          "Modèle de classification et de ranking (XGBoost) pour recommander la meilleure offre de rétention aux clients sans engagement.",
+          "Construction des jeux d'apprentissage et ingénierie de variables sur les usages, appuyées sur des analyses de survie et de churn.",
+          "Étude menée en autonomie des mouvements internes du parc (upsell, downgrade, options) et de leur impact sur l'ARPU.",
+          "Tableaux de bord KPI automatisés présentés en comité mensuel, dont une restitution orale assurée en remplacement de la tutrice.",
+          "Bilans de performance des campagnes marketing d'upsell."
+        ],
+        "en": [
+          "Classification and ranking model (XGBoost) recommending the best retention offer to no commitment subscribers.",
+          "Built training sets and usage features, supported by survival and churn analyses.",
+          "Independent study of internal subscription moves (upsell, downgrade, options) and their impact on ARPU.",
+          "Automated KPI dashboards presented at the monthly committee, including one presentation delivered in place of my tutor.",
+          "Performance reviews of upsell marketing campaigns."
+        ]
+      },
+      "stack": [
+        "Python",
+        "scikit-learn",
+        "XGBoost",
+        "pandas",
+        "SQL",
+        "Snowflake",
+        "Power BI",
+        "Dataiku",
+        "Excel"
+      ],
+      "roles": [
+        "data-scientist",
+        "data-analyst",
+        "ml-engineer"
+      ]
+    }
+  ],
+  "projects": [
+    {
+      "slug": "eco2mix-elt",
+      "title": "eco2mix-elt",
+      "year": 2026,
+      "status": "live",
+      "featured": true,
+      "question": {
+        "fr": "À quelle heure consommer de l'électricité en France pour émettre le moins de CO2, et la réponse change-t-elle selon la région et la saison ?",
+        "en": "When should you use electricity in France to emit the least CO2, and does the answer change by region and season?"
+      },
+      "summary": {
+        "fr": "Pipeline ELT reproductible sur les données ouvertes éCO2mix de RTE, orchestré avec Dagster et publié dans un tableau de bord en ligne.",
+        "en": "Reproducible ELT pipeline on RTE's open éCO2mix data, orchestrated with Dagster and published as a live dashboard."
+      },
+      "highlights": {
+        "fr": [
+          "Extraction quotidienne paginée depuis l'API ODRÉ, Parquet partitionné, entrepôt DuckDB, modèles dbt (staging puis marts horaire, régional et saisonnier).",
+          "Réingestion des périodes récentes à chaque exécution, car les données temps réel sont révisées en consolidées puis définitives.",
+          "Tableau de bord découplé du pipeline : il ne lit que trois petits fichiers Parquet versionnés, donc il reste en ligne sur un palier gratuit.",
+          "CI GitHub Actions (lint, pytest, dbt build) et lancement complet en une commande avec Docker Compose."
+        ],
+        "en": [
+          "Daily paginated extraction from the ODRÉ API, partitioned Parquet, DuckDB warehouse, dbt models (staging, then hourly, regional and seasonal marts).",
+          "Recent periods are re-ingested on every run, since real time data is later revised into consolidated and final figures.",
+          "Dashboard decoupled from the pipeline: it only reads three small versioned Parquet files, so it stays online on a free tier.",
+          "GitHub Actions CI (lint, pytest, dbt build) and a one command start with Docker Compose."
+        ]
+      },
+      "findings": {
+        "fr": [
+          "Au niveau national, un après-midi de juin est environ 4 fois moins carboné qu'une soirée de janvier.",
+          "La région compte autant que l'heure : les mix d'Auvergne-Rhône-Alpes et de Bretagne n'ont presque rien en commun.",
+          "L'hiver est environ deux fois plus carboné que le printemps."
+        ],
+        "en": [
+          "Nationally, a June afternoon is about 4 times cleaner than a January evening.",
+          "Region matters as much as time: the Auvergne-Rhône-Alpes and Brittany mixes have almost nothing in common.",
+          "Winter is roughly twice as carbon intensive as spring."
+        ]
+      },
+      "stack": [
+        "Python",
+        "DuckDB",
+        "dbt",
+        "Dagster",
+        "Parquet",
+        "Streamlit",
+        "Docker",
+        "GitHub Actions"
+      ],
+      "links": {
+        "repo": "https://github.com/Evanguennou29/eco2mix-elt",
+        "demo": "https://eco2mix-elt-h7xesyj8z8smnyo34ezqhz.streamlit.app/"
+      },
+      "media": {
+        "gif": "https://raw.githubusercontent.com/Evanguennou29/eco2mix-elt/main/docs/eco2mix-dashboard-demo.gif"
+      },
+      "roles": [
+        "data-engineer",
+        "data-analyst",
+        "data-scientist"
+      ]
+    },
+    {
+      "slug": "syntho-crowd",
+      "title": "Syntho Crowd",
+      "year": 2025,
+      "period": {
+        "fr": "Févr. 2025 à janv. 2026",
+        "en": "Feb 2025 to Jan 2026"
+      },
+      "context": {
+        "fr": "Projet entrepreneurial, parcours Start-Up de l'ESILV",
+        "en": "Startup project, ESILV Start-Up track"
+      },
+      "status": "done",
+      "featured": true,
+      "summary": {
+        "fr": "Test UX automatisé par une foule d'utilisateurs synthétiques : des agents IA à personas parcourent un site, interagissent avec l'interface et produisent un rapport d'audit avec la vidéo de session.",
+        "en": "Automated UX testing by a crowd of synthetic users: persona based AI agents browse a site, interact with the interface and produce an audit report with a session video."
+      },
+      "highlights": {
+        "fr": [
+          "Système multi-agents CrewAI, chaque agent recevant un persona paramétrable (profil, objectifs, aisance avec le web).",
+          "Gemini Pro comme moteur de raisonnement, avec des instructions conçues pour ancrer chaque remarque sur les éléments réellement rencontrés dans la page.",
+          "Navigation réelle via Playwright (clics, formulaires, parcours complets) avec captation vidéo.",
+          "Backend FastAPI (création de tests, suivi d'exécution, rapports) et interface Next.js."
+        ],
+        "en": [
+          "CrewAI multi-agent system, each agent receiving a configurable persona (profile, goals, web familiarity).",
+          "Gemini Pro as the reasoning engine, with instructions designed to ground every remark in elements actually met on the page.",
+          "Real browsing through Playwright (clicks, forms, full journeys) with video capture.",
+          "FastAPI backend (test creation, run tracking, reports) and a Next.js interface."
+        ]
+      },
+      "stack": [
+        "Python",
+        "CrewAI",
+        "Gemini API",
+        "Playwright",
+        "FastAPI",
+        "Next.js"
+      ],
+      "links": {
+        "repo": "",
+        "demo": ""
+      },
+      "roles": [
+        "ai-engineer",
+        "ml-engineer"
+      ]
+    },
+    {
+      "slug": "pulv-chatbot",
+      "title": {
+        "fr": "Chatbot du campus, hackathon IBM",
+        "en": "Campus chatbot, IBM hackathon"
+      },
+      "year": 2025,
+      "period": {
+        "fr": "Déc. 2025",
+        "en": "Dec 2025"
+      },
+      "status": "done",
+      "featured": true,
+      "summary": {
+        "fr": "Chatbot RAG sur watsonx.ai qui centralise une information dispersée entre forums, documents et vidéos pour répondre aux questions des étudiants et de l'administration du Pôle Léonard de Vinci.",
+        "en": "RAG chatbot on watsonx.ai that brings together information scattered across forums, documents and videos to answer student and staff questions at the Léonard de Vinci campus."
+      },
+      "highlights": {
+        "fr": [
+          "Base de connaissances construite à partir de forums et de vidéos transcrites automatiquement, nettoyées et découpées en passages.",
+          "Chaîne RAG LangChain, index vectoriel ChromaDB, modèle hébergé sur IBM watsonx.ai.",
+          "Réponses limitées aux sources indexées, avec citation du document ou de la vidéo d'origine.",
+          "Conteneurisation Docker pour une démonstration reproductible."
+        ],
+        "en": [
+          "Knowledge base built from forums and automatically transcribed videos, cleaned and chunked.",
+          "LangChain RAG chain, ChromaDB vector index, model hosted on IBM watsonx.ai.",
+          "Answers restricted to indexed sources, citing the original document or video.",
+          "Docker packaging for a reproducible demo."
+        ]
+      },
+      "stack": [
+        "Python",
+        "watsonx.ai",
+        "LangChain",
+        "ChromaDB",
+        "Docker"
+      ],
+      "links": {
+        "repo": "https://github.com/Evanguennou29/Chatbot-PULV-Hackaton-IBM",
+        "demo": ""
+      },
+      "roles": [
+        "ai-engineer"
+      ]
+    },
+    {
+      "slug": "species-reintroduction",
+      "title": {
+        "fr": "Réintroduction d'espèces menacées",
+        "en": "Endangered species reintroduction"
+      },
+      "year": 2025,
+      "status": "done",
+      "featured": false,
+      "summary": {
+        "fr": "Outil prédictif et cartographique pour aider à choisir des zones de réintroduction d'espèces menacées.",
+        "en": "Predictive and mapping tool to help choose reintroduction areas for endangered species."
+      },
+      "stack": [
+        "Scikit-Learn",
+        "GeoPandas",
+        "Plotly"
+      ],
+      "links": {
+        "repo": "",
+        "demo": ""
+      },
+      "roles": [
+        "data-scientist",
+        "ml-engineer",
+        "data-analyst"
+      ]
+    },
+    {
+      "slug": "signia",
+      "title": "Sign'iA",
+      "year": 2024,
+      "status": "done",
+      "featured": false,
+      "summary": {
+        "fr": "Traduction de la langue des signes française en texte par vision par ordinateur, avec une application mobile.",
+        "en": "French Sign Language to text translation using computer vision, with a mobile app."
+      },
+      "stack": [
+        "PyTorch",
+        "OpenCV",
+        "MediaPipe",
+        "Dart"
+      ],
+      "links": {
+        "repo": "",
+        "demo": ""
+      },
+      "roles": [
+        "ml-engineer",
+        "ai-engineer",
+        "data-scientist"
+      ]
+    },
+    {
+      "title": "DECP Copilot",
+      "stack": [
+        "Python",
+        "DuckDB",
+        "FastAPI",
+        "React",
+        "BM25",
+        "Embeddings"
+      ],
+      "status": "live",
+      "year": 2026,
+      "slug": "decp-copilot",
+      "featured": true,
+      "links": {
+        "repo": "https://github.com/Evanguennou29/decp-copilot",
+        "demo": "https://decp-copilot.vercel.app"
+      },
+      "summary": {
+        "fr": "Recherche hybride dans les marchés publics français, avec filtres structurés et évaluation de la qualité de recherche.",
+        "en": "Hybrid search across French public procurement awards, with structured filters and measured retrieval quality."
+      },
+      "roles": [
+        "ai-engineer",
+        "ml-engineer",
+        "data-engineer",
+        "data-scientist"
+      ]
+    },
+    {
+      "title": "Intelligent Document Processing",
+      "stack": [
+        "Python",
+        "Streamlit",
+        "OCR",
+        "LLM",
+        "Pydantic",
+        "Vertex AI",
+        "Ollama"
+      ],
+      "status": "done",
+      "year": 2025,
+      "slug": "idp-multimodal",
+      "featured": false,
+      "links": {
+        "repo": "https://github.com/Evanguennou29/intelligent-document-processing-multimodal-genai-main",
+        "demo": ""
+      },
+      "summary": {
+        "fr": "Pipeline multimodal de traitement de documents qui combine OCR, extraction structurée par LLM et validation par schémas, avec un moteur cloud ou local.",
+        "en": "Multimodal document processing pipeline combining OCR, LLM-based structured extraction and schema validation, with cloud or local backends."
+      },
+      "roles": [
+        "ai-engineer",
+        "ml-engineer"
+      ]
+    }
+  ],
+  "skills": [
+    {
+      "domain": {
+        "fr": "Intelligence artificielle",
+        "en": "Artificial intelligence"
+      },
+      "items": [
+        "LLM",
+        "RAG",
+        "Agents",
+        "MCP",
+        "Prompt engineering",
+        "LangChain",
+        "CrewAI",
+        "ChromaDB",
+        "Hugging Face Transformers",
+        "Recherche sémantique et encodeurs",
+        "IBM watsonx.ai",
+        "API Gemini"
+      ],
+      "roles": [
+        "ai-engineer",
+        "ml-engineer"
+      ]
+    },
+    {
+      "domain": {
+        "fr": "Machine et deep learning",
+        "en": "Machine and deep learning"
+      },
+      "items": [
+        "PyTorch",
+        "TensorFlow",
+        "Scikit-Learn",
+        "XGBoost",
+        "Computer vision",
+        "Classification et ranking",
+        "Analyse de survie"
+      ],
+      "roles": [
+        "ml-engineer",
+        "data-scientist"
+      ]
+    },
+    {
+      "domain": {
+        "fr": "Data engineering",
+        "en": "Data engineering"
+      },
+      "items": [
+        "SQL",
+        "SQL Server",
+        "Snowflake",
+        "NoSQL",
+        "DuckDB",
+        "dbt",
+        "Dagster",
+        "Parquet"
+      ],
+      "roles": [
+        "data-engineer"
+      ]
+    },
+    {
+      "domain": {
+        "fr": "BI et analyse",
+        "en": "BI and analytics"
+      },
+      "items": [
+        "Power BI",
+        "Dataiku",
+        "Excel avancé",
+        "pandas",
+        "Plotly",
+        "Streamlit"
+      ],
+      "roles": [
+        "data-analyst",
+        "data-scientist"
+      ]
+    },
+    {
+      "domain": {
+        "fr": "Développement et MLOps",
+        "en": "Development and MLOps"
+      },
+      "items": [
+        "Python",
+        "JavaScript",
+        "FastAPI",
+        "Angular",
+        "Next.js",
+        "Docker",
+        "Kubeflow",
+        "Google Cloud Platform",
+        "AWS",
+        "GitLab",
+        "GitHub Actions",
+        "Artifactory"
+      ],
+      "roles": [
+        "ai-engineer",
+        "ml-engineer",
+        "data-engineer"
+      ]
+    },
+    {
+      "domain": {
+        "fr": "Méthodes",
+        "en": "Methods"
+      },
+      "items": [
+        "Agile",
+        "Scrum",
+        "Design Thinking",
+        "Team building"
+      ],
+      "roles": []
+    }
+  ],
+  "education": [
+    {
+      "school": "ESILV",
+      "degree": {
+        "fr": "Diplôme d'ingénieur, majeure Data et Intelligence Artificielle",
+        "en": "Engineering degree (MSc), Data and Artificial Intelligence major"
+      },
+      "start": "2021",
+      "end": "2026",
+      "details": {
+        "fr": "IA générative et LLM, machine learning, deep learning, computer vision, big data, bases de données, pipelines BI, parcours Start-Up.",
+        "en": "Generative AI and LLMs, machine learning, deep learning, computer vision, big data, databases, BI pipelines, Start-Up track."
+      }
+    },
+    {
+      "school": "Riga Technical University",
+      "degree": {
+        "fr": "Échange universitaire, Riga (Lettonie)",
+        "en": "Exchange semester, Riga (Latvia)"
+      },
+      "start": "2023-09",
+      "end": "2024-01"
+    }
+  ],
+  "certifications": [
+    "Dataiku Core Designer",
+    "Dataiku Advanced Designer",
+    "Scrum",
+    "Design Thinking"
+  ],
+  "beyond": [
+    {
+      "fr": "Président de l'association DevinciTrip (culture et patrimoine européen), 2025 à 2026",
+      "en": "President of DevinciTrip, a student association on European culture and heritage (2025 to 2026)"
+    },
+    {
+      "fr": "Responsable communication et événementiel de Leo 4L (4L Trophy)",
+      "en": "Head of communication and events at Leo 4L (4L Trophy charity rally)"
+    },
+    {
+      "fr": "Guitare depuis 8 ans, VTT",
+      "en": "Guitar for 8 years, mountain biking"
+    }
+  ]
+}

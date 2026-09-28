@@ -1,0 +1,26 @@
+{
+  "name": "evan-guennou-portfolio",
+  "type": "module",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check && eslint . && prettier --check \"src/**/*.{astro,ts}\" \"astro.config.mjs\" \"eslint.config.js\" \"tsconfig.json\""
+  },
+  "dependencies": {
+    "@astrojs/check": "^0.9.10",
+    "astro": "^7.3.5",
+    "typescript": "^6.0.3"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@typescript-eslint/eslint-plugin": "^8.70.1",
+    "@typescript-eslint/parser": "^8.70.1",
+    "eslint": "^10.11.0",
+    "eslint-plugin-astro": "^1.7.0",
+    "prettier": "^3.9.9",
+    "prettier-plugin-astro": "^1.1.0"
+  }
+}
