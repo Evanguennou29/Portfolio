@@ -7,11 +7,12 @@ interface Props {
   project: Project;
   index: number;
   featured: boolean;
+  lang?: "fr" | "en";
 }
 
-const { project, index, featured } = Astro.props;
+const { project, index, featured, lang = "fr" } = Astro.props;
 const localized = (value: string | { fr: string; en: string } | undefined) =>
-  typeof value === "string" ? value : value?.fr;
+  typeof value === "string" ? value : value?.[lang];
 const title = localized(project.title);
 const summary = localized(project.summary);
 const base = import.meta.env.BASE_URL;
@@ -48,17 +49,20 @@ const validLink = (value: string) =>
     <h3>
       <a
         class="project-title-link"
-        href={`${base}projets/${project.slug}/`}
+        href={`${base}${lang === "en" ? "en/projects" : "projets"}/${project.slug}/`}
         transition:name={`project-title-${project.slug}`}
       >
         {title}
       </a>
     </h3>
-    {project.question?.fr && (
-      <p class="project-question">{project.question.fr}</p>
+    {project.question?.[lang] && (
+      <p class="project-question">{project.question[lang]}</p>
     )}
     {summary && <p class="project-summary">{summary}</p>}
-    <ul class="stack-list" aria-label="Technologies">
+    <ul
+      class="stack-list"
+      aria-label={lang === "fr" ? "Technologies" : "Technologies"}
+    >
       {project.stack.slice(0, 6).map((item) => (
         <li class="mono">{item}</li>
       ))}
@@ -66,12 +70,14 @@ const validLink = (value: string) =>
     <div class="project-links">
       {validLink(project.links.repo) && (
         <a href={project.links.repo} target="_blank" rel="noreferrer">
-          Voir le dépôt <span aria-hidden="true">↗</span>
+          {lang === "fr" ? "Voir le dépôt" : "View repository"}{" "}
+          <span aria-hidden="true">↗</span>
         </a>
       )}
       {validLink(project.links.demo) && (
         <a href={project.links.demo} target="_blank" rel="noreferrer">
-          Voir la démo <span aria-hidden="true">↗</span>
+          {lang === "fr" ? "Voir la démo" : "View demo"}{" "}
+          <span aria-hidden="true">↗</span>
         </a>
       )}
     </div>

@@ -2,17 +2,23 @@
 interface Props {
   email: string;
   label?: string;
+  copiedLabel?: string;
   className?: string;
 }
 
-const { email, label = "Copier l’email", className = "" } = Astro.props;
+const {
+  email,
+  label = "Copier l’email",
+  copiedLabel = "Email copié",
+  className = "",
+} = Astro.props;
 ---
 
 <button
   class:list={["email-copy", className]}
   type="button"
   data-copy-email={email}
-  data-copied-label="Email copié"
+  data-copied-label={copiedLabel}
   aria-live="polite"
 >
   <span>{label}</span>

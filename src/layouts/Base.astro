@@ -8,6 +8,7 @@ import "../styles/base.css";
 import "../styles/grid.css";
 import ThemeToggle from "../components/ThemeToggle.astro";
 import CommandPalette from "../components/CommandPalette.astro";
+import LangSwitch from "../components/LangSwitch.astro";
 import { ClientRouter } from "astro:transitions";
 
 interface Props {
@@ -42,6 +43,7 @@ const homeHref = `${import.meta.env.BASE_URL}${lang === "en" ? "en/" : ""}`;
           {data.person.name}
         </a>
         <div class="header-tools">
+          <LangSwitch lang={lang} />
           <CommandPalette lang={lang} />
           <ThemeToggle lang={lang} />
         </div>

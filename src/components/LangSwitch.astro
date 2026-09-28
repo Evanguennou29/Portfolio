@@ -1,0 +1,59 @@
+---
+interface Props {
+  lang: "fr" | "en";
+}
+
+const { lang } = Astro.props;
+const base = import.meta.env.BASE_URL;
+const localPath = Astro.url.pathname.startsWith(base)
+  ? Astro.url.pathname.slice(base.length)
+  : Astro.url.pathname.slice(1);
+const normalizedPath = localPath.replace(/^\/+|\/+$/g, "");
+const projectSlug = normalizedPath.startsWith("en/projects/")
+  ? normalizedPath.slice("en/projects/".length)
+  : normalizedPath.startsWith("projets/")
+    ? normalizedPath.slice("projets/".length)
+    : "";
+const targetPath =
+  lang === "fr"
+    ? projectSlug
+      ? `en/projects/${projectSlug}/`
+      : "en/"
+    : projectSlug
+      ? `projets/${projectSlug}/`
+      : "";
+const href = `${base}${targetPath}${Astro.url.search}`;
+const targetLang = lang === "fr" ? "en" : "fr";
+---
+
+<a
+  class="lang-switch mono"
+  href={href}
+  lang={targetLang}
+  aria-label={lang === "fr" ? "English version" : "Version française"}
+>
+  {targetLang.toUpperCase()}
+</a>
+
+<style>
+  .lang-switch {
+    display: inline-grid;
+    min-width: 40px;
+    height: 40px;
+    place-items: center;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    color: var(--muted);
+    background: var(--surface);
+    font-size: 0.68rem;
+    text-decoration: none;
+    transition:
+      border-color 160ms ease,
+      color 160ms ease;
+  }
+
+  .lang-switch:hover {
+    border-color: var(--accent);
+    color: var(--text);
+  }
+</style>
