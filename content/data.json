@@ -116,22 +116,42 @@
         "fr": "Conception d'un assistant de pricing IA et pilotage d'un agent de traitement des incidents clients, en environnement sécurisé : aucune sortie de données, aucun service d'IA public.",
         "en": "Designed an AI pricing assistant and led a customer incident handling agent, in a secure environment: no data leaving the company, no public AI services."
       },
-      "points": {
-        "fr": [
-          "Assistant de pricing RAG pour les équipes offres : retrouver en quelques secondes des équipements comparables et leurs estimations passées, là où la recherche manuelle prenait plusieurs heures.",
-          "Extraction et restructuration de 20 ans de devis et d'offres (Excel, PDF natifs et numérisés, courriels) dans une base auditable, via un LLM privé guidé par un schéma strict et des contrôles d'ancrage.",
-          "Moteur de recherche sémantique en deux étages avec indice de confiance et document source pour chaque résultat, interface de recherche et chatbot RAG.",
-          "Recueil du besoin, étude comparative GPU dédié contre API LLM internes, documentation et transmission à un architecte système pour le déploiement.",
-          "Référent métier d'un agent IA de traitement des incidents (création de tickets, réponse ou redirection automatique, suggestion d'assignation justifiée), démonstrateur présenté au salon interne de la compétitivité en juin 2026."
-        ],
-        "en": [
-          "RAG pricing assistant for bid teams: find comparable equipment and past estimates in seconds instead of hours of manual search.",
-          "Extracted and restructured 20 years of quotes and offers (Excel, native and scanned PDFs, emails) into an auditable database, using a private LLM guided by a strict schema and grounding checks.",
-          "Two stage semantic search engine returning a confidence score and the source document for each result, plus a search interface and a RAG chatbot.",
-          "Requirements gathering, dedicated GPU versus internal LLM API study, documentation and handover to a system architect for deployment.",
-          "Domain lead on an AI incident handling agent (ticket creation, automatic answer or routing, justified assignment suggestions), demoed at the internal competitiveness fair in June 2026."
-        ]
-      },
+      "missionGroups": [
+        {
+          "title": {
+            "fr": "Assistant de pricing IA",
+            "en": "AI pricing assistant"
+          },
+          "points": {
+            "fr": [
+              "Assistant de pricing RAG pour les équipes offres : retrouver en quelques secondes des équipements comparables et leurs estimations passées, là où la recherche manuelle prenait plusieurs heures.",
+              "Extraction et restructuration de 20 ans de devis et d'offres (Excel, PDF natifs et numérisés, courriels) dans une base auditable, via un LLM privé guidé par un schéma strict et des contrôles d'ancrage.",
+              "Moteur de recherche sémantique en deux étages avec indice de confiance et document source pour chaque résultat, interface de recherche et chatbot RAG.",
+              "Recueil du besoin, étude comparative GPU dédié contre API LLM internes, documentation et transmission à un architecte système pour le déploiement."
+            ],
+            "en": [
+              "RAG pricing assistant for bid teams: find comparable equipment and past estimates in seconds instead of hours of manual search.",
+              "Extracted and restructured 20 years of quotes and offers (Excel, native and scanned PDFs, emails) into an auditable database, using a private LLM guided by a strict schema and grounding checks.",
+              "Two stage semantic search engine returning a confidence score and the source document for each result, plus a search interface and a RAG chatbot.",
+              "Requirements gathering, dedicated GPU versus internal LLM API study, documentation and handover to a system architect for deployment."
+            ]
+          }
+        },
+        {
+          "title": {
+            "fr": "Agent de traitement des incidents clients",
+            "en": "Customer incident handling agent"
+          },
+          "points": {
+            "fr": [
+              "Référent métier d'un agent IA de traitement des incidents (création de tickets, réponse ou redirection automatique, suggestion d'assignation justifiée), démonstrateur présenté au salon interne de la compétitivité en juin 2026."
+            ],
+            "en": [
+              "Domain lead on an AI incident handling agent (ticket creation, automatic answer or routing, justified assignment suggestions), demoed at the internal competitiveness fair in June 2026."
+            ]
+          }
+        }
+      ],
       "stack": [
         "Python",
         "FastAPI",
@@ -167,22 +187,42 @@
         "fr": "Machine learning et analyse BI sur le parc d'abonnements sans engagement, plus volatil et stratégique pour la compréhension des comportements clients.",
         "en": "Machine learning and BI analysis on the no commitment subscription base, more volatile and strategic for understanding customer behaviour."
       },
-      "points": {
-        "fr": [
-          "Modèle de classification et de ranking (XGBoost) pour recommander la meilleure offre de rétention aux clients sans engagement.",
-          "Construction des jeux d'apprentissage et ingénierie de variables sur les usages, appuyées sur des analyses de survie et de churn.",
-          "Étude menée en autonomie des mouvements internes du parc (upsell, downgrade, options) et de leur impact sur l'ARPU.",
-          "Tableaux de bord KPI automatisés présentés en comité mensuel, dont une restitution orale assurée en remplacement de la tutrice.",
-          "Bilans de performance des campagnes marketing d'upsell."
-        ],
-        "en": [
-          "Classification and ranking model (XGBoost) recommending the best retention offer to no commitment subscribers.",
-          "Built training sets and usage features, supported by survival and churn analyses.",
-          "Independent study of internal subscription moves (upsell, downgrade, options) and their impact on ARPU.",
-          "Automated KPI dashboards presented at the monthly committee, including one presentation delivered in place of my tutor.",
-          "Performance reviews of upsell marketing campaigns."
-        ]
-      },
+      "missionGroups": [
+        {
+          "title": {
+            "fr": "Machine learning et rétention",
+            "en": "Machine learning and retention"
+          },
+          "points": {
+            "fr": [
+              "Modèle de classification et de ranking (XGBoost) pour recommander la meilleure offre de rétention aux clients sans engagement.",
+              "Construction des jeux d'apprentissage et ingénierie de variables sur les usages, appuyées sur des analyses de survie et de churn."
+            ],
+            "en": [
+              "Classification and ranking model (XGBoost) recommending the best retention offer to no commitment subscribers.",
+              "Built training sets and usage features, supported by survival and churn analyses."
+            ]
+          }
+        },
+        {
+          "title": {
+            "fr": "Analyse de données et BI",
+            "en": "Data analysis and BI"
+          },
+          "points": {
+            "fr": [
+              "Étude menée en autonomie des mouvements internes du parc (upsell, downgrade, options) et de leur impact sur l'ARPU.",
+              "Tableaux de bord KPI automatisés présentés en comité mensuel, dont une restitution orale assurée en remplacement de la tutrice.",
+              "Bilans de performance des campagnes marketing d'upsell."
+            ],
+            "en": [
+              "Independent study of internal subscription moves (upsell, downgrade, options) and their impact on ARPU.",
+              "Automated KPI dashboards presented at the monthly committee, including one presentation delivered in place of my tutor.",
+              "Performance reviews of upsell marketing campaigns."
+            ]
+          }
+        }
+      ],
       "stack": [
         "Python",
         "scikit-learn",

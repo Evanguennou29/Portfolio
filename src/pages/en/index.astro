@@ -29,8 +29,8 @@ const formatMonth = (date: string) =>
           class="hero-portrait"
           src={`${base}${data.person.portrait.src}`}
           alt={data.person.portrait.alt.en}
-          width="76"
-          height="76"
+          width="144"
+          height="144"
           fetchpriority="high"
           decoding="async"
         />
@@ -188,9 +188,13 @@ const formatMonth = (date: string) =>
   <section
     class="content-section experience-section"
     id="experience"
-    aria-label="Professional experience"
+    aria-labelledby="experience-title"
   >
-    <SectionHeading number="02" title="Experience" />
+    <SectionHeading
+      number="02"
+      title="Professional experience"
+      id="experience-title"
+    />
     <div class="timeline">
       {data.experience.map((job) => (
         <article class="timeline-entry">
@@ -200,22 +204,43 @@ const formatMonth = (date: string) =>
           </div>
           <div class="timeline-content">
             <div class="timeline-heading">
-              <h3>{job.company}</h3>
-              <span class="mono">{job.location}</span>
+              <h3>{job.role.en}</h3>
+              <span class="experience-location mono">{job.location}</span>
             </div>
-            <p class="job-title">{job.role.en}</p>
+            <p class="job-title">{job.company}</p>
             <p class="job-team">{job.team.en}</p>
-            {job.context?.en && <p class="job-context">{job.context.en}</p>}
-            <ul class="job-points">
-              {job.points.en.map((point) => (
-                <li>{point}</li>
+            {job.context?.en && (
+              <div class="experience-block context-block">
+                <p class="experience-label mono">Context and objectives</p>
+                <p class="job-context">{job.context.en}</p>
+              </div>
+            )}
+            <div class="experience-block missions-block">
+              <p class="experience-label mono">Missions</p>
+              {job.missionGroups.map((group, groupIndex) => (
+                <section class="mission-group">
+                  <h4>
+                    <span class="mission-index mono">
+                      {String(groupIndex + 1).padStart(2, "0")}
+                    </span>
+                    {group.title.en}
+                  </h4>
+                  <ul class="job-points">
+                    {group.points.en.map((point) => (
+                      <li>{point}</li>
+                    ))}
+                  </ul>
+                </section>
               ))}
-            </ul>
-            <ul class="stack-list" aria-label="Technologies">
-              {job.stack.map((item) => (
-                <li class="mono">{item}</li>
-              ))}
-            </ul>
+            </div>
+            <div class="experience-block technical-block">
+              <p class="experience-label mono">Technical environment</p>
+              <ul class="stack-list" aria-label="Technologies">
+                {job.stack.map((item) => (
+                  <li class="mono">{item}</li>
+                ))}
+              </ul>
+            </div>
           </div>
         </article>
       ))}
@@ -320,6 +345,8 @@ const formatMonth = (date: string) =>
 
 <style>
   .hero {
+    position: relative;
+    isolation: isolate;
     display: grid;
     grid-template-columns: minmax(0, 1.15fr) minmax(280px, 0.85fr);
     gap: clamp(var(--space-8), 7vw, var(--space-16));
@@ -345,6 +372,54 @@ const formatMonth = (date: string) =>
   .hero-name {
     margin-block-end: var(--space-4);
     color: var(--accent);
+  }
+
+  .hero::before,
+  .hero::after {
+    position: absolute;
+    z-index: -1;
+    pointer-events: none;
+    content: "";
+  }
+
+  .hero::before {
+    top: 12%;
+    right: 2%;
+    width: min(38vw, 430px);
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: repeating-radial-gradient(
+      circle,
+      transparent 0 23px,
+      color-mix(in srgb, var(--accent) 16%, transparent) 24px 25px,
+      transparent 26px 49px
+    );
+    mask-image: radial-gradient(circle, #000 28%, transparent 74%);
+    animation: blueprint-drift 48s linear infinite;
+  }
+
+  .hero::after {
+    top: 50%;
+    right: 19%;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 14px color-mix(in srgb, var(--accent) 72%, transparent);
+    transform-origin: -146px 0;
+    animation: blueprint-orbit 20s linear infinite;
+  }
+
+  @keyframes blueprint-drift {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  @keyframes blueprint-orbit {
+    to {
+      transform: rotate(360deg);
+    }
   }
 
   h1 {
@@ -547,7 +622,9 @@ const formatMonth = (date: string) =>
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .process-pulse {
+    .process-pulse,
+    .hero::before,
+    .hero::after {
       display: none;
     }
   }
@@ -619,12 +696,12 @@ const formatMonth = (date: string) =>
     display: grid;
     grid-template-columns: 2fr 10fr;
     gap: var(--space-8);
-    padding: 0 0 var(--space-12) var(--space-8);
+    padding: var(--space-5) 0 var(--space-12) var(--space-8);
   }
 
   .timeline-entry::before {
     position: absolute;
-    top: 0.35em;
+    top: calc(var(--space-5) + 0.5em);
     left: -4px;
     width: 7px;
     height: 7px;
@@ -651,7 +728,7 @@ const formatMonth = (date: string) =>
 
   .timeline-heading h3 {
     margin: 0;
-    font-size: 1.6rem;
+    font-size: 1.45rem;
   }
 
   .timeline-heading > span,
@@ -666,7 +743,52 @@ const formatMonth = (date: string) =>
   }
 
   .job-team {
-    margin-block: var(--space-1) var(--space-4);
+    margin-block: var(--space-1) var(--space-6);
+  }
+
+  .experience-block {
+    position: relative;
+    margin-block-start: var(--space-5);
+    padding: var(--space-4) var(--space-5);
+    border: 1px solid var(--line);
+    background: color-mix(in srgb, var(--surface) 72%, transparent);
+  }
+
+  .experience-label {
+    margin-block-end: var(--space-3);
+    color: var(--accent);
+    font-size: 0.66rem;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+  }
+
+  .context-block {
+    border-left: 2px solid var(--accent);
+  }
+
+  .job-context {
+    margin: 0;
+  }
+
+  .mission-group + .mission-group {
+    margin-block-start: var(--space-5);
+    padding-block-start: var(--space-4);
+    border-top: 1px solid var(--line);
+  }
+
+  .mission-group h4 {
+    display: flex;
+    align-items: baseline;
+    gap: var(--space-3);
+    margin: 0;
+    font-size: 1.05rem;
+    letter-spacing: -0.02em;
+  }
+
+  .mission-index {
+    color: var(--accent);
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
   }
 
   .job-context {
@@ -678,7 +800,7 @@ const formatMonth = (date: string) =>
     display: grid;
     gap: var(--space-3);
     max-width: 78ch;
-    margin: var(--space-4) 0;
+    margin: var(--space-3) 0 0;
     padding-left: 1.2rem;
   }
 
@@ -700,6 +822,10 @@ const formatMonth = (date: string) =>
     border: 1px solid var(--line);
     color: var(--muted);
     font-size: 0.62rem;
+  }
+
+  .technical-block .stack-list {
+    margin-block: 0;
   }
 
   .skills-matrix {
@@ -889,6 +1015,12 @@ const formatMonth = (date: string) =>
   }
 
   @media (max-width: 640px) {
+    .hero::before {
+      top: 4%;
+      right: -4%;
+      width: min(62vw, 280px);
+    }
+
     .quick-facts {
       margin-block: var(--space-12) var(--space-16);
     }

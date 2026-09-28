@@ -126,7 +126,7 @@ a:hover {
 
 .hero-identity {
   display: flex;
-  min-height: 76px;
+  min-height: 132px;
   align-items: center;
   justify-content: space-between;
   gap: var(--space-4);
@@ -138,14 +138,16 @@ a:hover {
 }
 
 .hero-portrait {
-  width: 76px;
-  height: 76px;
+  width: 132px;
+  height: 132px;
   flex: 0 0 auto;
   border: 1px solid var(--accent);
   border-radius: 50%;
   background: var(--surface);
   object-fit: cover;
-  object-position: center 38%;
+  object-position: center 28%;
+  margin-inline-end: -24px;
+  box-shadow: 0 10px 34px color-mix(in srgb, var(--accent) 17%, transparent);
 }
 
 main {
@@ -177,8 +179,9 @@ main {
   }
 
   .hero-portrait {
-    width: 64px;
-    height: 64px;
+    width: 82px;
+    height: 82px;
+    margin-inline-end: 0;
   }
 }
 

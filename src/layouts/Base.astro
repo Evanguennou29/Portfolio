@@ -136,7 +136,10 @@ const isProject = page?.path.startsWith(
               <span>01</span> {lang === "fr" ? "Compétences" : "Skills"}
             </a>
             <a href={`${homeHref}#experience`}>
-              <span>02</span> {lang === "fr" ? "Expériences" : "Experience"}
+              <span>02</span>
+              {lang === "fr"
+                ? "Expériences professionnelles"
+                : "Professional experience"}
             </a>
             <a href={`${homeHref}#projects`}>
               <span>03</span> {lang === "fr" ? "Projets" : "Projects"}
