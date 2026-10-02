@@ -13,11 +13,12 @@ export type Project = {
   summary?: Localized;
   highlights?: { fr: string[]; en: string[] };
   findings?: { fr: string[]; en: string[] };
+  result?: Localized;
   status: string;
   roles: string[];
   stack: string[];
   links: { repo?: string; demo?: string };
-  media?: { gif?: string };
+  media?: { gif?: string; image?: string };
 };
 
 interface Props {
@@ -47,13 +48,13 @@ const labels =
         context: "Contexte et problème",
         approach: "Approche",
         findings: "Constats",
+        result: "Résultat",
         stack: "Technologies",
         repo: "Voir le dépôt",
         demo: "Voir la démo",
         previous: "Projet précédent",
         next: "Projet suivant",
         visual: "Visuel du projet",
-        diagram: "Schéma du projet",
       }
     : {
         all: "All projects",
@@ -62,19 +63,21 @@ const labels =
         context: "Context and problem",
         approach: "Approach",
         findings: "Findings",
+        result: "Outcome",
         stack: "Technologies",
         repo: "View repository",
         demo: "View demo",
         previous: "Previous project",
         next: "Next project",
         visual: "Project visual",
-        diagram: "Project diagram",
       };
 const status = project.status === "live" ? labels.live : labels.done;
 const roles = project.roles
   .map((roleId) => data.roles.find((role) => role.id === roleId)?.label)
   .filter((role): role is string => Boolean(role));
-const image = project.media?.gif;
+const image = project.media?.image
+  ? `${base}${project.media.image}`
+  : project.media?.gif;
 ---
 
 <Base
@@ -123,10 +126,26 @@ const image = project.media?.gif;
       </div>
     </header>
 
+    {image && (
+      <figure
+        class="case-visual"
+        transition:name={`project-media-${project.slug}`}
+      >
+        <img
+          src={image}
+          alt={`${labels.visual}: ${title}`}
+          loading="lazy"
+          decoding="async"
+        />
+        <figcaption class="mono">
+          {labels.visual} / {title}
+        </figcaption>
+      </figure>
+    )}
+
     <div class="case-grid">
       {(project.context || project.question) && (
         <section class="case-section case-context">
-          <p class="section-index mono">01</p>
           <h2>{labels.context}</h2>
           {text(project.context) && <p>{text(project.context)}</p>}
           {text(project.question) && (
@@ -137,63 +156,17 @@ const image = project.media?.gif;
 
       {project.highlights && project.highlights[lang].length > 0 && (
         <section class="case-section case-approach">
-          <p class="section-index mono">02</p>
           <h2>{labels.approach}</h2>
           <ol class="highlight-list">
-            {project.highlights[lang].map((item, index) => (
-              <li>
-                <span class="mono">{String(index + 1).padStart(2, "0")}</span>
-                {item}
-              </li>
+            {project.highlights[lang].map((item) => (
+              <li>{item}</li>
             ))}
           </ol>
         </section>
       )}
 
-      <figure
-        class="case-visual"
-        transition:name={`project-media-${project.slug}`}
-      >
-        {image ? (
-          <img
-            src={image}
-            alt={`${title}: ${summary}`}
-            loading="lazy"
-            decoding="async"
-          />
-        ) : (
-          <svg viewBox="0 0 720 300" role="img" aria-label={labels.diagram}>
-            <rect
-              x="1"
-              y="1"
-              width="718"
-              height="298"
-              fill="none"
-              stroke="currentColor"
-            />
-            <path
-              d="M1 75h718M1 150h718M1 225h718M120 1v298M240 1v298M360 1v298M480 1v298M600 1v298"
-              fill="none"
-              stroke="currentColor"
-              stroke-opacity=".3"
-            />
-            <path
-              d="M32 32h56v43H32zM152 107h56v43h-56zM272 182h56v43h-56zM392 107h56v43h-56zM512 32h56v43h-56zM632 182h56v43h-56z"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-            />
-            <circle cx="360" cy="150" r="8" fill="currentColor" />
-          </svg>
-        )}
-        <figcaption class="mono">
-          {project.slug.toUpperCase()} / {project.year}
-        </figcaption>
-      </figure>
-
       {project.findings && project.findings[lang].length > 0 && (
         <section class="case-section case-findings">
-          <p class="section-index mono">03</p>
           <h2>{labels.findings}</h2>
           <ul>
             {project.findings[lang].map((item) => (
@@ -203,9 +176,15 @@ const image = project.media?.gif;
         </section>
       )}
 
+      {text(project.result) && (
+        <section class="case-section case-result">
+          <h2>{labels.result}</h2>
+          <p>{text(project.result)}</p>
+        </section>
+      )}
+
       {project.stack.length > 0 && (
         <section class="case-section case-stack">
-          <p class="section-index mono">04</p>
           <h2>{labels.stack}</h2>
           <ul class="stack-list">
             {project.stack.map((item) => (
@@ -320,18 +299,14 @@ const image = project.media?.gif;
     margin: var(--space-2) 0 var(--space-4);
     font-size: clamp(1.45rem, 3vw, 2rem);
   }
-  .case-section > p:not(.section-index) {
+  .case-section > p {
     max-width: 68ch;
     line-height: 1.7;
   }
-  .section-index {
-    margin: 0;
-    color: var(--accent);
-    font-size: 0.72rem;
-  }
   .case-context,
   .case-approach,
-  .case-findings {
+  .case-findings,
+  .case-result {
     grid-column: 1 / 9;
   }
   .case-stack {
@@ -341,9 +316,7 @@ const image = project.media?.gif;
     padding-left: var(--space-6);
   }
   .case-visual {
-    grid-column: 1 / -1;
-    grid-row: 3;
-    margin: var(--space-8) 0 0;
+    margin: var(--space-8) 0;
     border: 1px solid var(--line);
     background: var(--surface);
   }
@@ -355,7 +328,7 @@ const image = project.media?.gif;
   .case-visual img {
     display: block;
     width: 100%;
-    aspect-ratio: 16 / 9;
+    max-height: 600px;
     object-fit: contain;
   }
   .case-visual svg {
@@ -383,13 +356,9 @@ const image = project.media?.gif;
     list-style: none;
   }
   .highlight-list li {
-    display: grid;
-    grid-template-columns: 2.5rem minmax(0, 1fr);
-    gap: var(--space-3);
+    padding-left: var(--space-4);
+    border-left: 1px solid var(--accent);
     line-height: 1.65;
-  }
-  .highlight-list li span {
-    color: var(--accent);
   }
   .case-findings li {
     padding-left: var(--space-4);
@@ -445,6 +414,7 @@ const image = project.media?.gif;
     .case-context,
     .case-approach,
     .case-findings,
+    .case-result,
     .case-stack {
       grid-column: 1 / -1;
       grid-row: auto;

@@ -1,18 +1,12 @@
 # Evan Guennou | AI Engineer
 
-A bilingual portfolio for exploring selected AI, machine learning and data projects. It is built with Astro and presents role specific project ordering, CV downloads, detailed project pages and a keyboard accessible command palette.
-
-![Portfolio homepage](docs/homepage.png)
-
-![Featured project cards](docs/project-cards.png)
-
-![Project case study](docs/project-case.png)
+A bilingual portfolio for exploring public AI, machine learning and data projects followed by professional experience. It is built with Astro and includes role specific CV downloads, project case studies and a keyboard accessible command palette.
 
 ## Stack
 
 - Astro with static output
 - TypeScript with strict checks
-- Custom CSS with a responsive editorial blueprint design
+- Custom CSS with a responsive editorial design and reduced motion support
 - Inter Tight and JetBrains Mono, self hosted through Fontsource
 - Sharp for build time Open Graph image generation
 - GitHub Actions for checks, builds and GitHub Pages deployment
@@ -55,7 +49,7 @@ To enable publishing for a repository, open its GitHub settings, choose **Pages*
 
 ## Interface
 
-- Choose one of five target roles to adjust the highlighted skills, project order and CV link.
+- Choose one of five target missions to adjust the highlighted skills, project map, description and CV link. The seven public projects keep a fixed editorial order.
 - Open the command palette with `Ctrl+K` or `Cmd+K` to navigate, search projects, switch role or language, change theme, copy the email, download a CV or open GitHub.
 - French is the default language. English pages are available under `/en/`.
 - The site supports dark and light themes, keyboard navigation and reduced motion preferences.

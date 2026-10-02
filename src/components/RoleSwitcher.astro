@@ -24,12 +24,14 @@ const cvFor = (id: string) => {
 ---
 
 <div class="role-switcher" data-role-switcher>
-  <p class="role-label mono">{lang === "fr" ? "Rôle ciblé" : "Target role"}</p>
+  <p class="role-label mono">
+    {lang === "fr" ? "Missions ciblées" : "Target missions"}
+  </p>
   <div
     class="role-options"
     role="group"
     aria-label={
-      lang === "fr" ? "Choisir un rôle cible" : "Choose a target role"
+      lang === "fr" ? "Choisir une mission cible" : "Choose a target mission"
     }
   >
     {data.roles.map((role, index) => (
@@ -44,7 +46,12 @@ const cvFor = (id: string) => {
         data-cv-fallback={fallbackCv}
         aria-pressed={index === 0 ? "true" : "false"}
       >
-        {role.label}
+        <span class="role-mark" aria-hidden="true">
+          <i></i>
+          <i></i>
+          <i></i>
+        </span>
+        <span>{role.label}</span>
       </button>
     ))}
   </div>
@@ -52,12 +59,12 @@ const cvFor = (id: string) => {
 
 <style>
   .role-switcher {
-    margin-block: var(--space-6);
+    margin: 0;
   }
 
   .role-label {
-    margin-block-end: var(--space-2);
-    color: var(--muted);
+    margin-block-end: 15px;
+    color: var(--text);
     font-size: 0.65rem;
     letter-spacing: 0.08em;
     text-transform: uppercase;
@@ -66,38 +73,74 @@ const cvFor = (id: string) => {
   .role-options {
     display: flex;
     flex-wrap: wrap;
-    gap: var(--space-2);
+    gap: 7px;
   }
 
   .role-option {
-    min-height: 40px;
-    padding: var(--space-2) var(--space-3);
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    min-height: 42px;
+    padding: 8px 12px;
     border: 1px solid var(--line);
-    border-radius: var(--radius);
+    border-radius: 0;
     color: var(--muted);
     background: var(--surface);
     cursor: pointer;
-    font-size: 0.78rem;
+    font-size: 0.76rem;
     transition:
-      border-color 160ms ease,
+      border-color 220ms ease,
       color 160ms ease,
-      background-color 160ms ease;
+      transform 160ms ease,
+      background 220ms ease;
   }
 
   .role-option:hover {
-    border-color: var(--accent);
     color: var(--text);
+    transform: translateY(-1px);
   }
 
   .role-option[aria-pressed="true"] {
     border-color: var(--accent);
-    color: var(--text);
-    background: color-mix(in srgb, var(--accent) 14%, var(--surface));
-    box-shadow: inset 0 -2px 0 var(--accent);
+    color: var(--bg);
+    background: var(--accent);
   }
 
   .role-option:focus-visible {
     outline: 2px solid var(--accent);
     outline-offset: 3px;
+  }
+  .role-mark {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    height: 18px;
+  }
+  .role-mark i {
+    display: block;
+    width: 2px;
+    height: 5px;
+    background: currentColor;
+    opacity: 0.8;
+    transition: height 250ms ease;
+  }
+  .role-mark i:nth-child(2) {
+    height: 13px;
+  }
+  .role-mark i:nth-child(3) {
+    height: 8px;
+  }
+  .role-option:hover .role-mark i:first-child,
+  .role-option[aria-pressed="true"] .role-mark i:first-child {
+    height: 13px;
+  }
+  .role-option:hover .role-mark i:nth-child(2),
+  .role-option[aria-pressed="true"] .role-mark i:nth-child(2) {
+    height: 7px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .role-mark i {
+      transition: none;
+    }
   }
 </style>

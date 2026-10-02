@@ -1,0 +1,269 @@
+---
+interface Props {
+  slug: string;
+}
+const { slug } = Astro.props;
+---
+
+<svg
+  class:list={["project-signal", slug]}
+  viewBox="0 0 240 120"
+  aria-hidden="true"
+>
+  <path class="axis" d="M0 110H240M0 60H240M0 10H240" />
+  {slug === "syntho-crowd" && (
+    <g class="signal-mark">
+      <path
+        class="branches"
+        d="M24 60H84M84 60C112 60 112 22 148 22H216M84 60C116 60 113 60 148 60H216M84 60C112 60 112 98 148 98H216"
+      />
+      <circle cx="24" cy="60" r="5" />
+      <circle cx="84" cy="60" r="5" />
+      <circle cx="216" cy="22" r="5" />
+      <circle cx="216" cy="60" r="5" />
+      <circle cx="216" cy="98" r="5" />
+    </g>
+  )}
+  {slug === "signia" && (
+    <g class="signal-mark">
+      <path
+        class="hand-links"
+        d="M72 100L80 67 67 34M80 67L100 39 102 18M80 67L124 50 133 17M80 67L146 70 168 34M80 67L130 91 180 77"
+      />
+      <circle cx="72" cy="100" r="4" />
+      <circle cx="80" cy="67" r="5" />
+      <circle cx="67" cy="34" r="4" />
+      <circle cx="102" cy="18" r="4" />
+      <circle cx="133" cy="17" r="4" />
+      <circle cx="168" cy="34" r="4" />
+      <circle cx="180" cy="77" r="4" />
+    </g>
+  )}
+  {slug === "anomaly-city" && (
+    <g class="signal-mark">
+      <path class="threshold" d="M15 49H225" />
+      <path
+        class="anomaly-wave"
+        d="M15 85L40 79 62 83 84 71 106 77 128 68 143 20 158 75 180 70 202 82 225 72"
+      />
+      <circle class="signal-hot" cx="143" cy="20" r="6" />
+    </g>
+  )}
+  {slug === "idp-multimodal" && (
+    <g class="signal-mark">
+      <path
+        class="document-lines"
+        d="M20 22H94M20 39H82M20 56H94M20 73H73M20 90H90M100 60H154M154 60L142 49M154 60L142 71M165 22H220M165 39H205M165 56H220M165 73H198M165 90H215"
+      />
+      <circle cx="154" cy="60" r="4" />
+      <path class="scan-line" d="M20 14V100" />
+    </g>
+  )}
+  {slug === "eco2mix-elt" && (
+    <g class="signal-mark">
+      <path
+        class="bars"
+        d="M20 100V68H42V100M52 100V50H74V100M84 100V73H106V100M116 100V36H138V100M148 100V54H170V100M180 100V28H202V100M212 100V44H230V100"
+      />
+      <path
+        class="signal-secondary"
+        d="M20 48L63 67 95 44 127 60 159 29 191 45 230 18"
+      />
+    </g>
+  )}
+  {slug === "pulv-chatbot" && (
+    <g class="signal-mark">
+      <path
+        class="chat-lines"
+        d="M23 29H126M23 46H95M23 63H116M23 18C10 18 10 78 23 78H127L142 92V78M142 78C155 78 155 18 142 18H23M160 55H217M171 73H217M190 91H217"
+      />
+      <circle cx="165" cy="91" r="4" />
+    </g>
+  )}
+  {slug === "decp-copilot" && (
+    <g class="signal-mark">
+      <path class="results" d="M18 28H172M18 50H149M18 72H185M18 94H124" />
+      <circle cx="172" cy="28" r="5" />
+      <circle cx="149" cy="50" r="5" />
+      <circle cx="185" cy="72" r="5" />
+      <circle cx="124" cy="94" r="5" />
+      <path class="signal-secondary" d="M204 14V108M193 42H218M193 79H218" />
+    </g>
+  )}
+</svg>
+
+<style>
+  .project-signal {
+    display: block;
+    width: 100%;
+    height: auto;
+    overflow: visible;
+  }
+  .axis {
+    fill: none;
+    stroke: var(--line);
+    stroke-width: 0.65;
+    stroke-dasharray: 2 5;
+  }
+  .signal-mark {
+    fill: none;
+    stroke: var(--accent);
+    stroke-width: 1.9;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .signal-mark path {
+    stroke-dasharray: 600;
+    stroke-dashoffset: 0;
+    transition:
+      stroke-dashoffset 0.8s cubic-bezier(0.2, 0.8, 0.2, 1),
+      transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1),
+      opacity 0.5s;
+  }
+  .signal-mark circle {
+    transition:
+      transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1),
+      opacity 0.5s;
+    transform-box: fill-box;
+    transform-origin: center;
+  }
+  .signal-mark circle {
+    fill: var(--surface);
+    stroke: var(--signal);
+    stroke-width: 2;
+  }
+  .signal-mark .signal-hot {
+    fill: var(--signal);
+  }
+  .signal-mark .threshold,
+  .signal-mark .signal-secondary {
+    stroke: var(--signal);
+    stroke-width: 1.3;
+    stroke-dasharray: 5 5;
+  }
+  :global(.case-study:is(:hover, :focus-within)) .syntho-crowd .branches {
+    stroke-dashoffset: -85;
+  }
+  :global(.case-study:is(:hover, :focus-within))
+    .syntho-crowd
+    circle:nth-of-type(n + 3) {
+    animation: endpoint-pulse 1.5s ease-in-out infinite alternate;
+  }
+  :global(.case-study:is(:hover, :focus-within))
+    .syntho-crowd
+    circle:nth-of-type(4) {
+    animation-delay: 0.25s;
+  }
+  :global(.case-study:is(:hover, :focus-within))
+    .syntho-crowd
+    circle:nth-of-type(5) {
+    animation-delay: 0.5s;
+  }
+  :global(.case-study:is(:hover, :focus-within)) .signia .hand-links {
+    stroke-dashoffset: -48;
+  }
+  :global(.case-study:is(:hover, :focus-within)) .signia circle {
+    animation: sign-trace 1.8s ease-in-out infinite alternate;
+  }
+  :global(.case-study:is(:hover, :focus-within))
+    .signia
+    circle:nth-of-type(2n) {
+    animation-delay: 0.32s;
+  }
+  :global(.case-study:is(:hover, :focus-within))
+    .signia
+    circle:nth-of-type(3n) {
+    animation-delay: 0.65s;
+  }
+  :global(.case-study:is(:hover, :focus-within)) .anomaly-city .anomaly-wave {
+    transform: translateY(4px);
+  }
+  :global(.case-study:is(:hover, :focus-within)) .anomaly-city .signal-hot {
+    animation: anomaly-ping 1.4s ease-out infinite;
+  }
+  .idp-multimodal .scan-line {
+    opacity: 0;
+    stroke: var(--signal);
+    stroke-width: 1.5;
+    stroke-dasharray: none;
+  }
+  :global(.case-study:is(:hover, :focus-within)) .idp-multimodal .scan-line {
+    opacity: 0.9;
+    animation: document-scan 1.8s ease-in-out infinite;
+  }
+  :global(.case-study:is(:hover, :focus-within)) .eco2mix-elt .bars {
+    transform: scaleY(0.84);
+    transform-origin: 50% 100%;
+  }
+  :global(.case-study:is(:hover, :focus-within))
+    .eco2mix-elt
+    .signal-secondary {
+    stroke-dashoffset: -48;
+  }
+  :global(.case-study:is(:hover, :focus-within)) .pulv-chatbot .chat-lines {
+    stroke-dashoffset: -70;
+  }
+  :global(.case-study:is(:hover, :focus-within)) .pulv-chatbot circle {
+    transform: translateY(-5px);
+  }
+  :global(.case-study:is(:hover, :focus-within)) .decp-copilot .results {
+    stroke-dashoffset: -64;
+  }
+  :global(.case-study:is(:hover, :focus-within)) .decp-copilot circle {
+    animation: result-scan 1.8s ease-in-out infinite;
+  }
+  :global(.case-study:is(:hover, :focus-within))
+    .decp-copilot
+    circle:nth-of-type(2) {
+    animation-delay: 0.25s;
+  }
+  :global(.case-study:is(:hover, :focus-within))
+    .decp-copilot
+    circle:nth-of-type(3) {
+    animation-delay: 0.5s;
+  }
+  :global(.case-study:is(:hover, :focus-within))
+    .decp-copilot
+    circle:nth-of-type(4) {
+    animation-delay: 0.75s;
+  }
+  @keyframes endpoint-pulse {
+    to {
+      transform: scale(1.6);
+      opacity: 0.45;
+    }
+  }
+  @keyframes sign-trace {
+    to {
+      transform: scale(1.5);
+      fill: var(--signal);
+    }
+  }
+  @keyframes anomaly-ping {
+    to {
+      transform: scale(2);
+      opacity: 0.25;
+    }
+  }
+  @keyframes document-scan {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(199px);
+    }
+  }
+  @keyframes result-scan {
+    50% {
+      transform: scale(1.5);
+      fill: var(--signal);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .signal-mark path,
+    .signal-mark circle {
+      transition: none;
+      animation: none !important;
+    }
+  }
+</style>

@@ -1,0 +1,341 @@
+---
+import data from "../../content/data.json";
+import Base from "../layouts/Base.astro";
+import RoleSwitcher from "./RoleSwitcher.astro";
+import EmailCopy from "./EmailCopy.astro";
+import CaseStudy from "./CaseStudy.astro";
+import DataAtlas from "./DataAtlas.astro";
+import FlowBridge from "./FlowBridge.astro";
+import "./Home.css";
+import "./HomeRefresh.css";
+import "./HomeMotion.css";
+
+interface Props {
+  lang: "fr" | "en";
+}
+const { lang } = Astro.props;
+const base = import.meta.env.BASE_URL;
+const fr = lang === "fr";
+const formatMonth = (date: string) =>
+  new Date(`${date}-01T00:00:00Z`).toLocaleDateString(fr ? "fr-FR" : "en-GB", {
+    month: "short",
+    year: "numeric",
+    timeZone: "UTC",
+  });
+const labels = fr
+  ? {
+      cv: "Télécharger le CV",
+      contact: "Prendre contact",
+      skills: "Compétences",
+      skillsIntro: "Méthodes, langages et outils utilisés dans mes projets.",
+      experience: "Expériences professionnelles",
+      experienceIntro: "Thales et CANAL+.",
+      context: "Contexte",
+      contributions: "Contributions",
+      tools: "Environnement",
+      projects: "Projets",
+      projectsIntro: "Sept projets publics, du prototype à l'application.",
+      publicWork:
+        "Ces travaux publics regroupent des projets personnels, académiques et des prototypes de hackathon. Mes projets professionnels les plus significatifs restent privés pour des raisons de confidentialité.",
+      moreProjects: "Explorer tous les projets sur GitHub",
+      education: "Parcours",
+      certifications: "Certifications",
+      contactTitle: "Contact.",
+      contactIntro: "Une idée, une équipe ou une mission à partager ?",
+      email: "Écrire un email",
+    }
+  : {
+      cv: "Download résumé",
+      contact: "Get in touch",
+      skills: "Capabilities",
+      skillsIntro: "Methods, languages and tools used in my projects.",
+      experience: "Professional experience",
+      experienceIntro: "Thales and CANAL+.",
+      context: "Context",
+      contributions: "Contributions",
+      tools: "Tooling",
+      projects: "Projects",
+      projectsIntro: "Seven public projects, from prototype to application.",
+      publicWork:
+        "This public selection brings together personal and academic projects, plus hackathon prototypes. My most significant professional projects remain private due to confidentiality requirements.",
+      moreProjects: "Explore all projects on GitHub",
+      education: "Education",
+      certifications: "Certifications",
+      contactTitle: "Contact.",
+      contactIntro: "Have an idea, a team or a mission to share?",
+      email: "Send an email",
+    };
+---
+
+<Base lang={lang}>
+  <div class="home-page">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-profile">
+        <p class="hero-meta mono">{data.person.title[lang]}</p>
+        <h1 id="hero-title">
+          Evan
+          <br />
+          <span>Guennou</span>
+        </h1>
+        <div class="hero-facts mono">
+          <span>DATA / AI / SOFTWARE</span>
+        </div>
+      </div>
+      <div class="hero-graphic">
+        <DataAtlas lang={lang} />
+      </div>
+      <div class="hero-portrait">
+        <img
+          src={`${base}${data.person.portrait.src}`}
+          alt={data.person.portrait.alt[lang]}
+          width="150"
+          height="170"
+          fetchpriority="high"
+          decoding="async"
+        />
+      </div>
+      <div class="hero-controls">
+        <div class="mission-control">
+          <RoleSwitcher lang={lang} />
+          <p class="role-pitch" aria-hidden="true">
+            <span data-pitch-visual>{data.roles[0]?.pitch[lang]}</span>
+          </p>
+          <span
+            class="visually-hidden"
+            data-pitch-accessible
+            aria-live="polite"
+          >
+            {data.roles[0]?.pitch[lang]}
+          </span>
+        </div>
+        <div class="hero-actions">
+          <a
+            class="button button-primary cv-download"
+            data-cv-download
+            href={`${base}cv/evan-guennou-ai-engineer-${lang}.pdf`}
+          >
+            {labels.cv}
+            <span aria-hidden="true">↗</span>
+          </a>
+          <a class="button button-outline" href="#contact">
+            {labels.contact}
+            <span aria-hidden="true">↗</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <FlowBridge index={1} />
+
+    <section
+      class="section skills-section"
+      id="skills"
+      aria-labelledby="skills-title"
+    >
+      <div class="section-intro">
+        <h2 id="skills-title">
+          {labels.skills}
+          <span>.</span>
+        </h2>
+        <p>{labels.skillsIntro}</p>
+      </div>
+      <div class="skills-grid">
+        {data.skills.map((group) => (
+          <article
+            class="skill-group"
+            data-skill-group
+            data-roles={group.roles.join(" ")}
+          >
+            <div class="skill-heading">
+              <span class="skill-orbit" aria-hidden="true">
+                <i></i>
+              </span>
+              <h3>{group.domain[lang]}</h3>
+            </div>
+            <ul>
+              {group.items.map((item) => (
+                <li>{item}</li>
+              ))}
+            </ul>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <FlowBridge index={2} />
+
+    <section
+      class="section projects-section"
+      id="projects"
+      aria-labelledby="projects-title"
+    >
+      <div class="section-intro">
+        <h2 id="projects-title">
+          {labels.projects}
+          <span>.</span>
+        </h2>
+        <p>{labels.projectsIntro}</p>
+      </div>
+      <p class="project-disclosure">{labels.publicWork}</p>
+      <div class="project-collection" data-project-collection>
+        {data.projects.map((project, index) => (
+          <CaseStudy project={project} lang={lang} featured={index < 3} />
+        ))}
+      </div>
+      <a
+        class="github-cta"
+        href={data.person.links.github}
+        target="_blank"
+        rel="noreferrer"
+      >
+        <span>{labels.moreProjects}</span>
+        <span aria-hidden="true">↗</span>
+      </a>
+    </section>
+
+    <FlowBridge index={3} />
+
+    <section
+      class="section experience-section"
+      id="experience"
+      aria-labelledby="experience-title"
+    >
+      <div class="section-intro">
+        <h2 id="experience-title">
+          {labels.experience}
+          <span>.</span>
+        </h2>
+        <p>{labels.experienceIntro}</p>
+      </div>
+      <div class="experience-list">
+        {data.experience.map((job) => (
+          <article class="experience-card">
+            <div class="experience-rail">
+              <p class="experience-date mono">
+                {formatMonth(job.start)} · {formatMonth(job.end)}
+              </p>
+              <h3>{job.company}</h3>
+              <p class="experience-location mono">{job.location}</p>
+            </div>
+            <div class="experience-main">
+              <p class="experience-role">{job.role[lang]}</p>
+              <p class="experience-team">{job.team[lang]}</p>
+              <div class="experience-context">
+                <span class="meta-label mono">{labels.context}</span>
+                <p>{job.context[lang]}</p>
+              </div>
+              <div class="experience-missions">
+                <span class="meta-label mono">{labels.contributions}</span>
+                <div class="mission-grid">
+                  {job.missionGroups.map((group) => (
+                    <details class="mission">
+                      <summary>
+                        <span>{group.title[lang]}</span>
+                        <span aria-hidden="true">+</span>
+                      </summary>
+                      <ul>
+                        {group.points[lang].map((point) => (
+                          <li>{point}</li>
+                        ))}
+                      </ul>
+                    </details>
+                  ))}
+                </div>
+              </div>
+              <div class="experience-tools">
+                <span class="meta-label mono">{labels.tools}</span>
+                <ul>
+                  {job.stack.map((item) => (
+                    <li>{item}</li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <FlowBridge index={4} />
+
+    <section
+      class="section education-section"
+      id="education"
+      aria-labelledby="education-title"
+    >
+      <div class="section-intro">
+        <h2 id="education-title">
+          {labels.education}
+          <span>.</span>
+        </h2>
+      </div>
+      <div class="education-list">
+        {data.education.map((item) => (
+          <article>
+            <span class="education-year" aria-hidden="true">
+              {item.start.slice(0, 4)}
+            </span>
+            <p class="mono">
+              {item.start} · {item.end}
+            </p>
+            <div>
+              <h3>{item.school}</h3>
+              <p>{item.degree[lang]}</p>
+              {item.details?.[lang] && (
+                <p class="education-detail">{item.details[lang]}</p>
+              )}
+            </div>
+          </article>
+        ))}
+      </div>
+      <div class="certifications">
+        <p class="meta-label mono">{labels.certifications}</p>
+        <ul>
+          {data.certifications.map((item) => (
+            <li>{item}</li>
+          ))}
+        </ul>
+      </div>
+    </section>
+
+    <FlowBridge index={5} />
+
+    <section
+      class="contact-section"
+      id="contact"
+      aria-labelledby="contact-title"
+    >
+      <div>
+        <h2 id="contact-title">{labels.contactTitle}</h2>
+        <p>{labels.contactIntro}</p>
+      </div>
+      <div class="contact-details">
+        <a class="contact-email" href={`mailto:${data.person.email}`}>
+          {data.person.email}
+          <span aria-hidden="true">↗</span>
+        </a>
+        <div>
+          <a class="button button-primary" href={`mailto:${data.person.email}`}>
+            {labels.email}
+            <span aria-hidden="true">↗</span>
+          </a>
+          <EmailCopy email={data.person.email} />
+        </div>
+        <div class="social-links">
+          <a href={data.person.links.github} target="_blank" rel="noreferrer">
+            GitHub ↗
+          </a>
+          <a href={data.person.links.linkedin} target="_blank" rel="noreferrer">
+            LinkedIn ↗
+          </a>
+        </div>
+      </div>
+    </section>
+  </div>
+</Base>
+
+<script>
+  import { initializeRoleTarget } from "../scripts/role-target";
+  initializeRoleTarget();
+  document.addEventListener("astro:page-load", initializeRoleTarget);
+</script>

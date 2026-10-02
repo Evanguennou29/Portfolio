@@ -29,10 +29,6 @@ export function initializeRoleTarget() {
         collection.querySelectorAll<HTMLElement>("[data-project-card]"),
       )
     : [];
-  const originalProjectOrder = new Map(
-    projectCards.map((card, index) => [card, index]),
-  );
-  let pitchAnimation = 0;
 
   function readSavedRole() {
     try {
@@ -52,62 +48,34 @@ export function initializeRoleTarget() {
 
   function updatePitch(text: string) {
     if (!pitchVisual || !pitchAccessible) return;
-    window.cancelAnimationFrame(pitchAnimation);
     pitchAccessible.textContent = text;
+    pitchVisual.textContent = text;
 
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      pitchVisual.textContent = text;
       return;
     }
-
-    const startedAt = performance.now();
-    const duration = 400;
-    const glyphs = "ABCDEFGHJKLMNPQRSTUVWXYZ0123456789";
-    const renderFrame = (now: number) => {
-      const progress = Math.min((now - startedAt) / duration, 1);
-      const revealed = Math.floor(progress * text.length);
-      pitchVisual.textContent = [...text]
-        .map((character, index) => {
-          if (index < revealed || character === " ") return character;
-          return glyphs[Math.floor(Math.random() * glyphs.length)] ?? character;
-        })
-        .join("");
-
-      if (progress < 1) {
-        pitchAnimation = window.requestAnimationFrame(renderFrame);
-      } else {
-        pitchVisual.textContent = text;
-        pitchAnimation = 0;
-      }
-    };
-
-    pitchAnimation = window.requestAnimationFrame(renderFrame);
+    pitchVisual.animate(
+      [
+        { opacity: 0, transform: "translateY(5px)" },
+        { opacity: 1, transform: "translateY(0)" },
+      ],
+      { duration: 360, easing: "cubic-bezier(.2,.8,.2,1)" },
+    );
   }
 
   function updateProjects(roleId: string) {
-    if (!collection) return;
-    const sorted = [...projectCards].sort((left, right) => {
-      const leftMatches = left.dataset.roles?.split(" ").includes(roleId)
-        ? 1
-        : 0;
-      const rightMatches = right.dataset.roles?.split(" ").includes(roleId)
-        ? 1
-        : 0;
-      return (
-        rightMatches - leftMatches ||
-        (originalProjectOrder.get(left) ?? 0) -
-          (originalProjectOrder.get(right) ?? 0)
+    projectCards.forEach((card) => {
+      card.dataset.relevant = String(
+        card.dataset.roles?.split(" ").includes(roleId) ?? false,
       );
     });
-
-    sorted.forEach((card, index) => {
-      const displayIndex = String(index + 1).padStart(2, "0");
-      card.dataset.cardIndex = displayIndex;
-      const coordinate = card.querySelector<HTMLElement>(".mark-coordinate");
-      if (coordinate) coordinate.textContent = displayIndex;
-      card.dataset.featured = String(index < 3);
-      collection.append(card);
-    });
+    document
+      .querySelectorAll<HTMLElement>("[data-atlas-node]")
+      .forEach((node) => {
+        node.dataset.relevant = String(
+          node.dataset.roles?.split(" ").includes(roleId) ?? false,
+        );
+      });
   }
 
   function updateSkills(roleId: string) {

@@ -63,32 +63,31 @@ function createSvg(props: OgProps) {
   return `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
     <defs>
       <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
-        <path d="M40 0H0V40" fill="none" stroke="#232833" stroke-width="1"/>
+        <circle cx="20" cy="20" r="1" fill="#d3d5e3"/>
       </pattern>
       <linearGradient id="fade" x1="0" y1="0" x2="1" y2="1">
-        <stop offset="0" stop-color="#12151a"/>
-        <stop offset="1" stop-color="#0b0d10"/>
+        <stop offset="0" stop-color="#ffffff"/>
+        <stop offset="1" stop-color="#eef0fa"/>
       </linearGradient>
     </defs>
     <rect width="1200" height="630" fill="url(#fade)"/>
     <rect width="1200" height="630" fill="url(#grid)" opacity=".45"/>
-    <path d="M64 76H1136M64 552H1136" stroke="#232833"/>
-    <path d="M850 76V552" stroke="#232833"/>
+    <path d="M64 76H1136M64 552H1136" stroke="#d3d5e3"/>
     <text x="82" y="58" class="label">EVAN GUENNOU / ${indexLabel}</text>
     <text x="1080" y="58" text-anchor="end" class="label">${coordinate}</text>
     ${titleMarkup}
     ${descriptionMarkup}
-    <g transform="translate(900 184)">
-      <rect width="180" height="180" fill="none" stroke="#4c8dff" stroke-width="2"/>
-      <path d="M60 0V180M120 0V180M0 60H180M0 120H180" stroke="#4c8dff" opacity=".4"/>
-      <path d="M28 28h32v32H28zM120 120h32v32h-32z" fill="none" stroke="#4c8dff" stroke-width="2"/>
-      <circle cx="90" cy="90" r="7" fill="#7cffb2"/>
+    <g transform="translate(842 212)">
+      <path d="M0 144C42 144 48 12 114 12S191 139 285 46" fill="none" stroke="#6452a6" stroke-width="4"/>
+      <path d="M0 171C67 171 62 79 151 79S205 194 285 114" fill="none" stroke="#5a82ca" stroke-width="3" opacity=".65"/>
+      <circle cx="114" cy="12" r="9" fill="#ffffff" stroke="#6452a6" stroke-width="3"/>
+      <circle cx="151" cy="79" r="6" fill="#5a82ca"/>
     </g>
     <text x="82" y="592" class="label">${escapeXml(profile)}</text>
     <style>
-      .title{fill:#e8eaed;font:600 66px Arial,sans-serif;letter-spacing:-2px}
-      .description{fill:#aeb5c1;font:400 24px Arial,sans-serif}
-      .label{fill:#4c8dff;font:500 14px monospace;letter-spacing:2px}
+      .title{fill:#1b2031;font:600 66px Arial,sans-serif;letter-spacing:-2px}
+      .description{fill:#5d657a;font:400 24px Arial,sans-serif}
+      .label{fill:#6452a6;font:500 14px monospace;letter-spacing:2px}
     </style>
   </svg>`;
 }

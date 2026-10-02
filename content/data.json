@@ -17,8 +17,8 @@
       "en": "1 year of experience"
     },
     "tagline": {
-      "fr": "Je conçois des produits à base d'intelligence artificielle, de la donnée brute à l'interface.",
-      "en": "I build products powered by artificial intelligence, from raw data to the interface."
+      "fr": "Portfolio d'Evan Guennou, ingénieur IA à Paris. Projets publics en agents, machine learning, data engineering et analyse.",
+      "en": "Evan Guennou's portfolio, AI engineer in Paris. Public projects in agents, machine learning, data engineering and analytics."
     },
     "location": {
       "fr": "Paris, France",
@@ -63,6 +63,10 @@
       "pitch": {
         "fr": "RAG, agents et LLM privés intégrés dans de vrais outils métier, en environnement sécurisé.",
         "en": "RAG, agents and private LLMs built into real business tools, in a secure environment."
+      },
+      "mission": {
+        "fr": "Applications IA",
+        "en": "AI applications"
       }
     },
     {
@@ -71,6 +75,10 @@
       "pitch": {
         "fr": "Des modèles entraînés, évalués et servis derrière une API, de la recherche sémantique au ranking.",
         "en": "Models trained, evaluated and served behind an API, from semantic search to ranking."
+      },
+      "mission": {
+        "fr": "Modèles ML",
+        "en": "ML models"
       }
     },
     {
@@ -79,6 +87,10 @@
       "pitch": {
         "fr": "De la question métier au modèle prédictif : churn, rétention, segmentation.",
         "en": "From the business question to a predictive model: churn, retention, segmentation."
+      },
+      "mission": {
+        "fr": "Analyse prédictive",
+        "en": "Predictive analysis"
       }
     },
     {
@@ -87,6 +99,10 @@
       "pitch": {
         "fr": "Pipelines ELT reproductibles, testés et orchestrés, de l'API au tableau de bord.",
         "en": "Reproducible, tested and orchestrated ELT pipelines, from the API to the dashboard."
+      },
+      "mission": {
+        "fr": "Pipelines de données",
+        "en": "Data pipelines"
       }
     },
     {
@@ -95,6 +111,10 @@
       "pitch": {
         "fr": "Des KPI suivis, des études qui répondent à une question et des restitutions en comité.",
         "en": "Tracked KPIs, studies that answer a real question and findings presented to committees."
+      },
+      "mission": {
+        "fr": "Analyse et BI",
+        "en": "Analytics and BI"
       }
     }
   ],
@@ -168,7 +188,11 @@
         "Few-shot",
         "GitLab"
       ],
-      "roles": ["ai-engineer", "ml-engineer", "data-engineer"]
+      "roles": [
+        "ai-engineer",
+        "ml-engineer",
+        "data-engineer"
+      ]
     },
     {
       "company": "CANAL+",
@@ -177,8 +201,8 @@
         "en": "Finance and Performance"
       },
       "role": {
-        "fr": "Data Scientist (stage)",
-        "en": "Data Scientist (internship)"
+        "fr": "Data Analyst et Data Scientist (stage)",
+        "en": "Data Analyst and Data Scientist (internship)"
       },
       "location": "Paris",
       "start": "2025-04",
@@ -234,13 +258,244 @@
         "Dataiku",
         "Excel"
       ],
-      "roles": ["data-scientist", "data-analyst", "ml-engineer"]
+      "roles": [
+        "data-scientist",
+        "data-analyst",
+        "ml-engineer"
+      ]
     }
   ],
   "projects": [
     {
+      "slug": "syntho-crowd",
+      "title": "Syntho Crowd",
+      "year": 2025,
+      "period": {
+        "fr": "Févr. 2025 à janv. 2026",
+        "en": "Feb 2025 to Jan 2026"
+      },
+      "context": {
+        "fr": "Projet entrepreneurial, parcours Start-Up de l'ESILV. La présentation publique illustre le produit avec des exemples et un rapport fictif.",
+        "en": "Startup project in the ESILV Start-Up track. The public presentation illustrates the product with examples and a fictional report."
+      },
+      "status": "done",
+      "featured": true,
+      "summary": {
+        "fr": "Des agents à personas testent des parcours web et regroupent leurs constats dans un rapport accompagné de sessions vidéo.",
+        "en": "Persona based agents test web journeys and gather their findings in a report with session videos."
+      },
+      "highlights": {
+        "fr": [
+          "Système multi-agents CrewAI, chaque agent recevant un persona paramétrable (profil, objectifs, aisance avec le web).",
+          "Gemini Pro comme moteur de raisonnement, avec des instructions conçues pour ancrer chaque remarque sur les éléments réellement rencontrés dans la page.",
+          "Navigation réelle via Playwright (clics, formulaires, parcours complets) avec captation vidéo.",
+          "Backend FastAPI (création de tests, suivi d'exécution, rapports) et interface Next.js."
+        ],
+        "en": [
+          "CrewAI multi-agent system, each agent receiving a configurable persona (profile, goals, web familiarity).",
+          "Gemini Pro as the reasoning engine, with instructions designed to ground every remark in elements actually met on the page.",
+          "Real browsing through Playwright (clicks, forms, full journeys) with video capture.",
+          "FastAPI backend (test creation, run tracking, reports) and a Next.js interface."
+        ]
+      },
+      "stack": [
+        "Python",
+        "CrewAI",
+        "Gemini API",
+        "Playwright",
+        "FastAPI",
+        "Next.js"
+      ],
+      "links": {
+        "repo": "https://github.com/Evanguennou29/Syntho-Crowd",
+        "demo": "https://evanguennou29.github.io/Syntho-Crowd/"
+      },
+      "roles": [
+        "ai-engineer",
+        "ml-engineer"
+      ],
+      "media": {
+        "image": "img/projects/syntho-crowd.jpg"
+      },
+      "result": {
+        "fr": "Un rapport d'audit rassemble les constats, les sessions et les vidéos disponibles.",
+        "en": "An audit report brings together findings, sessions and available videos."
+      },
+      "demoLabel": {
+        "fr": "Voir la présentation",
+        "en": "View presentation"
+      }
+    },
+    {
+      "slug": "signia",
+      "title": "Sign'iA",
+      "year": 2024,
+      "status": "done",
+      "featured": false,
+      "summary": {
+        "fr": "Reconnaissance locale de signes LSF isolés à partir des mouvements filmés par la caméra.",
+        "en": "Local recognition of isolated French Sign Language signs from camera motion."
+      },
+      "stack": [
+        "TypeScript",
+        "MediaPipe",
+        "DTW",
+        "Web Workers"
+      ],
+      "links": {
+        "repo": "https://github.com/Evanguennou29/SignIA",
+        "demo": "https://evanguennou29.github.io/SignIA/"
+      },
+      "roles": [
+        "ml-engineer",
+        "ai-engineer",
+        "data-scientist"
+      ],
+      "context": {
+        "fr": "Explorer une interface de reconnaissance de signes sans transmettre la vidéo à un serveur.",
+        "en": "Explore sign recognition without sending camera video to a server."
+      },
+      "highlights": {
+        "fr": [
+          "Suivi MediaPipe dans un Web Worker et comparaison temporelle par DTW.",
+          "Texte modifiable et exportable, avec calibrage facultatif de signes.",
+          "Huit instants d'une fenêtre de 32 images sont comparés aux références temporelles du dictionnaire, sans serveur."
+        ],
+        "en": [
+          "MediaPipe tracking in a Web Worker and temporal comparison with DTW.",
+          "Editable, exportable text with optional sign calibration.",
+          "Eight instants from a 32 frame window are compared with temporal dictionary references, without a server."
+        ]
+      },
+      "media": {
+        "image": "img/projects/signia.png"
+      },
+      "findings": {
+        "fr": ["Le modèle de base utilise au plus une vidéo par classe. Le dépôt ne revendique pas de précision linguistique évaluée sur des signants indépendants."],
+        "en": ["The base model uses at most one video per class. The repository does not claim linguistic accuracy measured on independent signers."]
+      },
+      "result": {
+        "fr": "L'interface affiche des libellés de signes isolés, éditables et exportables.",
+        "en": "The interface displays editable, exportable labels for isolated signs."
+      },
+      "demoLabel": {
+        "fr": "Ouvrir l'interface",
+        "en": "Open interface"
+      }
+    },
+    {
+      "slug": "anomaly-city",
+      "year": 2026,
+      "status": "live",
+      "featured": false,
+      "roles": [
+        "ai-engineer",
+        "data-scientist"
+      ],
+      "title": "Anomaly City",
+      "summary": {
+        "fr": "Une ville simulée rend visibles les signaux, les incidents et les alertes d'un modèle de détection d'anomalies.",
+        "en": "A simulated city makes signals, incidents and anomaly detection alerts visible."
+      },
+      "context": {
+        "fr": "Rendre la détection d'anomalies compréhensible dans une expérience interactive exécutée dans le navigateur.",
+        "en": "Make anomaly detection understandable through an interactive browser experience."
+      },
+      "highlights": {
+        "fr": [
+          "Autoencodeur TensorFlow.js entraîné localement sur des données normales simulées.",
+          "Incidents déclenchables, score d'anomalie et seuil visualisés en direct.",
+          "Le seuil est calibré au 99e centile des erreurs sur un jeu normal distinct de l'entraînement, puis les capteurs contributeurs sont affichés."
+        ],
+        "en": [
+          "TensorFlow.js autoencoder trained locally on simulated normal data.",
+          "Triggerable incidents, anomaly score and threshold visualised live.",
+          "The threshold is calibrated at the 99th percentile of errors on a separate normal validation set, then contributing sensors are shown."
+        ]
+      },
+      "findings": {
+        "fr": ["Les six quartiers simulent la consommation électrique, le trafic et la latence réseau. Toutes les données sont simulées."],
+        "en": ["Six districts simulate electricity use, traffic and network latency. All data is simulated."]
+      },
+      "stack": [
+        "TypeScript",
+        "TensorFlow.js",
+        "Canvas 2D"
+      ],
+      "links": {
+        "repo": "https://github.com/Evanguennou29/Anomaly-City",
+        "demo": "https://evanguennou29.github.io/Anomaly-City/"
+      },
+      "media": {
+        "image": "img/projects/anomaly-city.png"
+      },
+      "result": {
+        "fr": "La simulation relie chaque alerte aux quartiers et signaux qui y contribuent.",
+        "en": "The simulation connects each alert to the districts and signals behind it."
+      },
+      "demoLabel": {
+        "fr": "Ouvrir l'interface",
+        "en": "Open interface"
+      }
+    },
+    {
+      "title": "Intelligent Document Processing / IDP",
+      "stack": [
+        "Python",
+        "Streamlit",
+        "OCR",
+        "LLM",
+        "Pydantic",
+        "Vertex AI",
+        "Ollama"
+      ],
+      "status": "done",
+      "year": 2025,
+      "slug": "idp-multimodal",
+      "featured": false,
+      "links": {
+        "repo": "https://github.com/Evanguennou29/intelligent-document-processing-multimodal-genai-main",
+        "demo": "https://evanguennou29.github.io/intelligent-document-processing-multimodal-genai-main/"
+      },
+      "summary": {
+        "fr": "Pipeline multimodal de traitement de documents qui combine OCR, extraction structurée par LLM et validation par schémas, avec un moteur cloud ou local.",
+        "en": "Multimodal document processing pipeline combining OCR, LLM-based structured extraction and schema validation, with cloud or local backends."
+      },
+      "roles": [
+        "ai-engineer",
+        "ml-engineer"
+      ],
+      "context": {
+        "fr": "Transformer scans, photos et PDF en données structurées et validées.",
+        "en": "Turn scans, photos and PDFs into validated structured data."
+      },
+      "highlights": {
+        "fr": [
+          "OCR et extraction par modèle de vision, puis validation du JSON avec Pydantic.",
+          "Choix entre Vertex AI dans le cloud et Ollama en local.",
+          "Un même pipeline reçoit scans, photos et PDF, puis associe les champs extraits à un schéma documenté."
+        ],
+        "en": [
+          "OCR and vision model extraction, then JSON validation with Pydantic.",
+          "Choice of cloud Vertex AI or local Ollama.",
+          "One pipeline accepts scans, photos and PDFs, then maps extracted fields to a documented schema."
+        ]
+      },
+      "media": {
+        "image": "img/projects/idp-multimodal.png"
+      },
+      "result": {
+        "fr": "Le pipeline produit un JSON structuré et validé à partir des documents.",
+        "en": "The pipeline produces validated structured JSON from documents."
+      },
+      "demoLabel": {
+        "fr": "Voir la présentation",
+        "en": "View presentation"
+      }
+    },
+    {
       "slug": "eco2mix-elt",
-      "title": "eco2mix-elt",
+      "title": "Eco2Mix ELT",
       "year": 2026,
       "status": "live",
       "featured": true,
@@ -293,62 +548,29 @@
         "demo": "https://eco2mix-elt-h7xesyj8z8smnyo34ezqhz.streamlit.app/"
       },
       "media": {
-        "gif": "https://raw.githubusercontent.com/Evanguennou29/eco2mix-elt/main/docs/eco2mix-dashboard-demo.gif"
+        "image": "img/projects/eco2mix.png"
       },
-      "roles": ["data-engineer", "data-analyst", "data-scientist"]
-    },
-    {
-      "slug": "syntho-crowd",
-      "title": "Syntho Crowd",
-      "year": 2025,
-      "period": {
-        "fr": "Févr. 2025 à janv. 2026",
-        "en": "Feb 2025 to Jan 2026"
-      },
-      "context": {
-        "fr": "Projet entrepreneurial, parcours Start-Up de l'ESILV",
-        "en": "Startup project, ESILV Start-Up track"
-      },
-      "status": "done",
-      "featured": true,
-      "summary": {
-        "fr": "Test UX automatisé par une foule d'utilisateurs synthétiques : des agents IA à personas parcourent un site, interagissent avec l'interface et produisent un rapport d'audit avec la vidéo de session.",
-        "en": "Automated UX testing by a crowd of synthetic users: persona based AI agents browse a site, interact with the interface and produce an audit report with a session video."
-      },
-      "highlights": {
-        "fr": [
-          "Système multi-agents CrewAI, chaque agent recevant un persona paramétrable (profil, objectifs, aisance avec le web).",
-          "Gemini Pro comme moteur de raisonnement, avec des instructions conçues pour ancrer chaque remarque sur les éléments réellement rencontrés dans la page.",
-          "Navigation réelle via Playwright (clics, formulaires, parcours complets) avec captation vidéo.",
-          "Backend FastAPI (création de tests, suivi d'exécution, rapports) et interface Next.js."
-        ],
-        "en": [
-          "CrewAI multi-agent system, each agent receiving a configurable persona (profile, goals, web familiarity).",
-          "Gemini Pro as the reasoning engine, with instructions designed to ground every remark in elements actually met on the page.",
-          "Real browsing through Playwright (clicks, forms, full journeys) with video capture.",
-          "FastAPI backend (test creation, run tracking, reports) and a Next.js interface."
-        ]
-      },
-      "stack": [
-        "Python",
-        "CrewAI",
-        "Gemini API",
-        "Playwright",
-        "FastAPI",
-        "Next.js"
+      "roles": [
+        "data-engineer",
+        "data-analyst",
+        "data-scientist"
       ],
-      "links": {
-        "repo": "",
-        "demo": ""
+      "context": {
+        "fr": "Explorer les variations horaires, régionales et saisonnières de l'intensité carbone de l'électricité française.",
+        "en": "Explore hourly, regional and seasonal changes in the carbon intensity of French electricity."
       },
-      "roles": ["ai-engineer", "ml-engineer"]
+      "result": {
+        "fr": "Un tableau de bord explore les profils horaires, les régions et les saisons.",
+        "en": "A dashboard explores hourly patterns, regions and seasons."
+      },
+      "demoLabel": {
+        "fr": "Ouvrir l'interface",
+        "en": "Open interface"
+      }
     },
     {
       "slug": "pulv-chatbot",
-      "title": {
-        "fr": "Chatbot du campus, hackathon IBM",
-        "en": "Campus chatbot, IBM hackathon"
-      },
+      "title": "LeoChat",
       "year": 2025,
       "period": {
         "fr": "Déc. 2025",
@@ -357,108 +579,109 @@
       "status": "done",
       "featured": true,
       "summary": {
-        "fr": "Chatbot RAG sur watsonx.ai qui centralise une information dispersée entre forums, documents et vidéos pour répondre aux questions des étudiants et de l'administration du Pôle Léonard de Vinci.",
-        "en": "RAG chatbot on watsonx.ai that brings together information scattered across forums, documents and videos to answer student and staff questions at the Léonard de Vinci campus."
+        "fr": "Prototype de chatbot pour un hackathon IBM, alimenté par watsonx.ai et un jeu de questions et réponses.",
+        "en": "IBM hackathon chatbot prototype powered by watsonx.ai and a question and answer dataset."
       },
       "highlights": {
         "fr": [
-          "Base de connaissances construite à partir de forums et de vidéos transcrites automatiquement, nettoyées et découpées en passages.",
-          "Chaîne RAG LangChain, index vectoriel ChromaDB, modèle hébergé sur IBM watsonx.ai.",
-          "Réponses limitées aux sources indexées, avec citation du document ou de la vidéo d'origine.",
-          "Conteneurisation Docker pour une démonstration reproductible."
+          "Prototype Python utilisant IBM watsonx.ai.",
+          "Présentation statique publique, sans clé ni service IA requis.",
+          "L'application Flask lit son jeu de questions et réponses depuis un fichier CSV local."
         ],
         "en": [
-          "Knowledge base built from forums and automatically transcribed videos, cleaned and chunked.",
-          "LangChain RAG chain, ChromaDB vector index, model hosted on IBM watsonx.ai.",
-          "Answers restricted to indexed sources, citing the original document or video.",
-          "Docker packaging for a reproducible demo."
+          "Python prototype using IBM watsonx.ai.",
+          "Public static presentation requiring no key or AI service.",
+          "The Flask application reads its question and answer dataset from a local CSV file."
         ]
       },
-      "stack": ["Python", "watsonx.ai", "LangChain", "ChromaDB", "Docker"],
+      "media": {
+        "image": "img/projects/leochat.png"
+      },
+      "stack": [
+        "Python",
+        "Flask",
+        "IBM watsonx.ai",
+        "HTML"
+      ],
       "links": {
-        "repo": "https://github.com/Evanguennou29/Chatbot-PULV-Hackaton-IBM",
-        "demo": ""
+        "repo": "https://github.com/Evanguennou29/Chatbot-PULV-Hackaton-IBM-v2",
+        "demo": "https://evanguennou29.github.io/Chatbot-PULV-Hackaton-IBM-v2/"
       },
-      "roles": ["ai-engineer"]
-    },
-    {
-      "slug": "species-reintroduction",
-      "title": {
-        "fr": "Réintroduction d'espèces menacées",
-        "en": "Endangered species reintroduction"
+      "roles": [
+        "ai-engineer"
+      ],
+      "context": {
+        "fr": "Présenter un assistant conversationnel pour les questions du campus Léonard de Vinci.",
+        "en": "Present a conversational assistant for Léonard de Vinci campus questions."
       },
-      "year": 2025,
-      "status": "done",
-      "featured": false,
-      "summary": {
-        "fr": "Outil prédictif et cartographique pour aider à choisir des zones de réintroduction d'espèces menacées.",
-        "en": "Predictive and mapping tool to help choose reintroduction areas for endangered species."
+      "result": {
+        "fr": "Le prototype répond à partir de son jeu de questions et réponses.",
+        "en": "The prototype answers using its question and answer dataset."
       },
-      "stack": ["Scikit-Learn", "GeoPandas", "Plotly"],
-      "links": {
-        "repo": "",
-        "demo": ""
-      },
-      "roles": ["data-scientist", "ml-engineer", "data-analyst"]
-    },
-    {
-      "slug": "signia",
-      "title": "Sign'iA",
-      "year": 2024,
-      "status": "done",
-      "featured": false,
-      "summary": {
-        "fr": "Traduction de la langue des signes française en texte par vision par ordinateur, avec une application mobile.",
-        "en": "French Sign Language to text translation using computer vision, with a mobile app."
-      },
-      "stack": ["PyTorch", "OpenCV", "MediaPipe", "Dart"],
-      "links": {
-        "repo": "",
-        "demo": ""
-      },
-      "roles": ["ml-engineer", "ai-engineer", "data-scientist"]
+      "demoLabel": {
+        "fr": "Voir la présentation",
+        "en": "View presentation"
+      }
     },
     {
       "title": "DECP Copilot",
-      "stack": ["Python", "DuckDB", "FastAPI", "React", "BM25", "Embeddings"],
+      "stack": [
+        "Python",
+        "DuckDB",
+        "FastAPI",
+        "React",
+        "BM25",
+        "Embeddings"
+      ],
       "status": "live",
       "year": 2026,
       "slug": "decp-copilot",
       "featured": true,
       "links": {
         "repo": "https://github.com/Evanguennou29/decp-copilot",
-        "demo": "https://decp-copilot.vercel.app"
+        "demo": "https://decp-copilot.vercel.app/"
       },
       "summary": {
         "fr": "Recherche hybride dans les marchés publics français, avec filtres structurés et évaluation de la qualité de recherche.",
         "en": "Hybrid search across French public procurement awards, with structured filters and measured retrieval quality."
       },
-      "roles": ["ai-engineer", "ml-engineer", "data-engineer", "data-scientist"]
-    },
-    {
-      "title": "Intelligent Document Processing",
-      "stack": [
-        "Python",
-        "Streamlit",
-        "OCR",
-        "LLM",
-        "Pydantic",
-        "Vertex AI",
-        "Ollama"
+      "roles": [
+        "ai-engineer",
+        "ml-engineer",
+        "data-engineer",
+        "data-scientist"
       ],
-      "status": "done",
-      "year": 2025,
-      "slug": "idp-multimodal",
-      "featured": false,
-      "links": {
-        "repo": "https://github.com/Evanguennou29/intelligent-document-processing-multimodal-genai-main",
-        "demo": ""
+      "media": {
+        "image": "img/projects/decp-copilot.gif"
       },
-      "summary": {
-        "fr": "Pipeline multimodal de traitement de documents qui combine OCR, extraction structurée par LLM et validation par schémas, avec un moteur cloud ou local.",
-        "en": "Multimodal document processing pipeline combining OCR, LLM-based structured extraction and schema validation, with cloud or local backends."
+      "context": {
+        "fr": "Retrouver et comparer des marchés publics français attribués à partir de critères précis et de texte libre.",
+        "en": "Find and compare awarded French public contracts using precise filters and free text."
       },
-      "roles": ["ai-engineer", "ml-engineer"]
+      "highlights": {
+        "fr": [
+          "Recherche hybride, filtres sur les montants, dates et codes CPV.",
+          "Résultats sourcés, statistiques et API utilisable séparément.",
+          "Filtres SQL exacts, BM25 et embeddings fusionnés par rang réciproque. Sans clé LLM, la recherche et les statistiques restent disponibles."
+        ],
+        "en": [
+          "Hybrid search with amount, date and CPV filters.",
+          "Sourced results, statistics and a separately usable API.",
+          "Exact SQL filters, BM25 and embeddings are fused by reciprocal rank. Search and statistics remain available without an LLM key."
+        ]
+      },
+      "findings": {
+        "fr": ["Sur 45 questions vérifiées, le dépôt rapporte un rappel à 10 de 0,60 en recherche hybride contre 0,18 pour la base sémantique seule. Ces chiffres dépendent du corpus indexé et de ce jeu d'évaluation."],
+        "en": ["On 45 verified questions, the repository reports recall at 10 of 0.60 for hybrid search versus 0.18 for the semantic baseline. These figures depend on the indexed corpus and evaluation set."]
+      },
+      "result": {
+        "fr": "L'application retourne des marchés sourcés, comparables et filtrables.",
+        "en": "The app returns sourced, comparable and filterable contracts."
+      },
+      "demoLabel": {
+        "fr": "Ouvrir l'interface",
+        "en": "Open interface"
+      }
     }
   ],
   "skills": [
@@ -481,7 +704,10 @@
         "IBM watsonx.ai",
         "API Gemini"
       ],
-      "roles": ["ai-engineer", "ml-engineer"]
+      "roles": [
+        "ai-engineer",
+        "ml-engineer"
+      ]
     },
     {
       "domain": {
@@ -497,7 +723,10 @@
         "Classification et ranking",
         "Analyse de survie"
       ],
-      "roles": ["ml-engineer", "data-scientist"]
+      "roles": [
+        "ml-engineer",
+        "data-scientist"
+      ]
     },
     {
       "domain": {
@@ -514,7 +743,9 @@
         "Dagster",
         "Parquet"
       ],
-      "roles": ["data-engineer"]
+      "roles": [
+        "data-engineer"
+      ]
     },
     {
       "domain": {
@@ -529,7 +760,10 @@
         "Plotly",
         "Streamlit"
       ],
-      "roles": ["data-analyst", "data-scientist"]
+      "roles": [
+        "data-analyst",
+        "data-scientist"
+      ]
     },
     {
       "domain": {
@@ -550,14 +784,23 @@
         "GitHub Actions",
         "Artifactory"
       ],
-      "roles": ["ai-engineer", "ml-engineer", "data-engineer"]
+      "roles": [
+        "ai-engineer",
+        "ml-engineer",
+        "data-engineer"
+      ]
     },
     {
       "domain": {
         "fr": "Méthodes",
         "en": "Methods"
       },
-      "items": ["Agile", "Scrum", "Design Thinking", "Team building"],
+      "items": [
+        "Agile",
+        "Scrum",
+        "Design Thinking",
+        "Team building"
+      ],
       "roles": []
     }
   ],
@@ -590,19 +833,5 @@
     "Dataiku Advanced Designer",
     "Scrum",
     "Design Thinking"
-  ],
-  "beyond": [
-    {
-      "fr": "Président de l'association DevinciTrip (culture et patrimoine européen), 2025 à 2026",
-      "en": "President of DevinciTrip, a student association on European culture and heritage (2025 to 2026)"
-    },
-    {
-      "fr": "Responsable communication et événementiel de Leo 4L (4L Trophy)",
-      "en": "Head of communication and events at Leo 4L (4L Trophy charity rally)"
-    },
-    {
-      "fr": "Guitare depuis 8 ans, VTT",
-      "en": "Guitar for 8 years, mountain biking"
-    }
   ]
 }

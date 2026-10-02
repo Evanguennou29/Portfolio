@@ -1,0 +1,214 @@
+---
+interface Props {
+  index: number;
+}
+const { index } = Astro.props;
+---
+
+<div class:list={["flow-bridge", `flow-bridge-${index}`]} aria-hidden="true">
+  {index === 1 && (
+    <>
+      <svg viewBox="0 0 1200 170" preserveAspectRatio="none" focusable="false">
+        <path
+          class="trace"
+          d="M0 43C170 43 190 85 400 85H586M614 85H800C935 85 995 35 1200 35"
+        />
+        <path
+          class="trace secondary"
+          d="M0 120C220 120 275 85 400 85H586M614 85H800C980 85 1035 132 1200 132"
+        />
+        <circle cx="400" cy="85" r="3" />
+        <circle class="transition-node" cx="600" cy="85" r="9" />
+        <circle class="transition-ring" cx="600" cy="85" r="22" />
+        <circle cx="800" cy="85" r="3" />
+      </svg>
+    </>
+  )}
+  {index === 2 && (
+    <svg viewBox="0 0 1200 170" preserveAspectRatio="none" focusable="false">
+      <path class="trace" d="M0 24H255L415 85H785L940 40H1200" />
+      <path
+        class="trace secondary"
+        d="M0 85H415M0 146H255L415 85M785 85L945 130H1200"
+      />
+      <path
+        class="trace faint"
+        d="M415 85L520 38H680L785 85M415 85L520 132H680L785 85"
+      />
+      <g class="nodes">
+        <circle cx="255" cy="24" r="4" />
+        <circle cx="255" cy="146" r="4" />
+        <circle cx="415" cy="85" r="5" />
+        <circle cx="600" cy="85" r="7" />
+        <circle cx="785" cy="85" r="5" />
+        <circle cx="945" cy="40" r="4" />
+        <circle cx="945" cy="130" r="4" />
+      </g>
+    </svg>
+  )}
+  {index === 3 && (
+    <svg viewBox="0 0 1200 170" preserveAspectRatio="none" focusable="false">
+      <path class="trace faint" d="M0 28H300C420 28 455 85 545 85" />
+      <path class="trace" d="M0 85H545M0 142H300C420 142 455 85 545 85H1200" />
+      <path class="trace secondary" d="M720 85V31M970 85V139" />
+      <g class="nodes">
+        <circle cx="545" cy="85" r="5" />
+        <circle cx="720" cy="85" r="7" />
+        <circle cx="970" cy="85" r="7" />
+        <circle cx="720" cy="31" r="3" />
+        <circle cx="970" cy="139" r="3" />
+      </g>
+    </svg>
+  )}
+  {index === 4 && (
+    <svg viewBox="0 0 1200 170" preserveAspectRatio="none" focusable="false">
+      <path
+        class="trace"
+        d="M0 85H340C440 85 458 28 540 28C622 28 635 142 735 142C830 142 855 85 940 85H1200"
+      />
+      <path class="trace faint" d="M0 85H1200" />
+      <circle class="orbit" cx="540" cy="85" r="54" />
+      <circle class="orbit orbit-two" cx="735" cy="85" r="54" />
+      <g class="nodes">
+        <circle cx="540" cy="28" r="5" />
+        <circle cx="735" cy="142" r="5" />
+      </g>
+    </svg>
+  )}
+  {index === 5 && (
+    <svg viewBox="0 0 1200 170" preserveAspectRatio="none" focusable="false">
+      <path class="trace faint" d="M0 24H235C450 24 485 85 710 85" />
+      <path class="trace" d="M0 85H815" />
+      <path class="trace secondary" d="M0 146H235C450 146 485 85 710 85" />
+      <path class="outgoing" d="M810 85H1160M1130 58L1160 85L1130 112" />
+      <g class="nodes">
+        <circle cx="710" cy="85" r="6" />
+        <circle cx="815" cy="85" r="4" />
+      </g>
+    </svg>
+  )}
+</div>
+
+<style>
+  .flow-bridge {
+    position: relative;
+    width: 100%;
+    height: clamp(112px, 12vw, 170px);
+    margin: -8px 0 15px;
+    overflow: hidden;
+    pointer-events: none;
+  }
+  svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+  path,
+  .orbit {
+    fill: none;
+    vector-effect: non-scaling-stroke;
+  }
+  .trace {
+    stroke: var(--accent);
+    stroke-width: 1.25;
+    opacity: 0.67;
+    stroke-dasharray: 1600;
+    stroke-dashoffset: 0;
+    transition: stroke-dashoffset 1.5s cubic-bezier(0.2, 0.75, 0.2, 1);
+  }
+  .secondary {
+    stroke: var(--signal);
+    opacity: 0.52;
+    transition-delay: 130ms;
+  }
+  .faint {
+    opacity: 0.24;
+  }
+  .nodes circle,
+  svg > circle:not(.orbit) {
+    fill: var(--bg);
+    stroke: var(--accent);
+    stroke-width: 1.5;
+    vector-effect: non-scaling-stroke;
+  }
+  .nodes circle:nth-child(2n) {
+    stroke: var(--signal);
+  }
+  .orbit {
+    stroke: var(--accent);
+    stroke-width: 1;
+    opacity: 0.42;
+  }
+  .orbit-two {
+    stroke: var(--signal);
+  }
+  .outgoing {
+    fill: none;
+    stroke: var(--signal);
+    stroke-width: 2;
+    stroke-dasharray: 1600;
+    stroke-dashoffset: 0;
+    transition: stroke-dashoffset 1.5s 220ms cubic-bezier(0.2, 0.75, 0.2, 1);
+  }
+  .nodes circle,
+  .orbit {
+    transition:
+      opacity 0.5s ease,
+      transform 0.8s cubic-bezier(0.2, 0.75, 0.2, 1);
+    transform-origin: center;
+  }
+  :root[data-motion-enabled="true"] .flow-bridge[data-revealed="false"] .trace,
+  :root[data-motion-enabled="true"]
+    .flow-bridge[data-revealed="false"]
+    .outgoing {
+    stroke-dashoffset: 1600;
+  }
+  :root[data-motion-enabled="true"]
+    .flow-bridge[data-revealed="false"]
+    .nodes
+    circle,
+  :root[data-motion-enabled="true"] .flow-bridge[data-revealed="false"] .orbit {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  .flow-bridge-4 .orbit {
+    animation: orbit-breathe 6s ease-in-out infinite alternate;
+  }
+  .flow-bridge-4 .orbit-two {
+    animation-delay: -3s;
+  }
+  .flow-bridge-5 .outgoing {
+    animation: outgoing-pulse 4s ease-in-out infinite;
+  }
+  svg > circle.transition-node {
+    fill: var(--signal);
+    stroke: var(--accent);
+  }
+  svg > circle.transition-ring {
+    fill: none;
+    stroke: var(--accent);
+    stroke-width: 1;
+    opacity: 0.5;
+    animation: orbit-breathe 5s ease-in-out infinite alternate;
+  }
+  @keyframes orbit-breathe {
+    to {
+      opacity: 0.7;
+    }
+  }
+  @keyframes outgoing-pulse {
+    50% {
+      opacity: 0.45;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .trace,
+    .outgoing,
+    .nodes circle,
+    .orbit,
+    .transition-ring {
+      transition: none;
+      animation: none;
+    }
+  }
+</style>

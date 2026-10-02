@@ -1,0 +1,278 @@
+---
+import data from "../../content/data.json";
+import ProjectSignal from "./ProjectSignal.astro";
+type Project = (typeof data.projects)[number];
+interface Props {
+  project: Project;
+  lang: "fr" | "en";
+  featured?: boolean;
+}
+const { project, lang, featured = false } = Astro.props;
+const base = import.meta.env.BASE_URL;
+const localized = (value: string | { fr: string; en: string }) =>
+  typeof value === "string" ? value : value[lang];
+const path = `${base}${lang === "fr" ? "projets" : "en/projects"}/${project.slug}/`;
+const detail = lang === "fr" ? "Voir le détail" : "View details";
+---
+
+<article
+  id={`project-${project.slug}`}
+  class:list={["case-study", featured ? "is-featured" : "is-row"]}
+  data-project-card
+  data-roles={project.roles.join(" ")}
+>
+  <div class="case-head">
+    <span class="case-meta mono">
+      {project.year} / {project.stack.slice(0, 2).join(" · ")}
+    </span>
+    <div class="case-signal" aria-hidden="true">
+      <ProjectSignal slug={project.slug} />
+    </div>
+  </div>
+  <div class="case-copy">
+    <h3>
+      <a href={path} transition:name={`project-title-${project.slug}`}>
+        {localized(project.title)}
+      </a>
+    </h3>
+    <p>{localized(project.summary)}</p>
+  </div>
+  <div class="case-links">
+    <a class="detail-link" href={path}>
+      {detail}
+      <span aria-hidden="true">↗</span>
+    </a>
+    <a
+      class="demo-link"
+      href={project.links.demo}
+      target="_blank"
+      rel="noreferrer"
+    >
+      {project.demoLabel[lang]}
+      <span aria-hidden="true">↗</span>
+    </a>
+  </div>
+</article>
+<style>
+  .case-study {
+    position: relative;
+    min-width: 0;
+    scroll-margin-top: 120px;
+    border: 1px solid var(--line);
+    background: var(--surface);
+    overflow: hidden;
+    border-radius: 20px;
+    transition:
+      background 300ms,
+      border-color 300ms,
+      transform 400ms,
+      opacity 400ms;
+  }
+  .case-study::before {
+    content: "";
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: 3px;
+    background: var(--accent);
+    transform: scaleY(0);
+    transform-origin: bottom;
+    transition: transform 400ms;
+  }
+  .case-study:hover,
+  .case-study:focus-within {
+    border-color: var(--accent);
+    background: color-mix(in srgb, var(--accent) 5%, var(--surface));
+    transform: translateY(-4px);
+  }
+  .case-study:hover::before,
+  .case-study:focus-within::before,
+  .case-study[data-relevant="true"]::before {
+    transform: scaleY(1);
+  }
+  .case-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 10px;
+  }
+  .case-meta {
+    color: var(--accent);
+    font-size: 0.63rem;
+    letter-spacing: 0.045em;
+    text-transform: uppercase;
+  }
+  .case-signal {
+    width: 70px;
+    min-width: 70px;
+    opacity: 0.9;
+  }
+  h3 {
+    margin: 0 0 11px;
+    font-size: clamp(1.45rem, 2.1vw, 2.45rem);
+    line-height: 1.02;
+    letter-spacing: -0.055em;
+  }
+  h3 a {
+    color: var(--text);
+    text-decoration: none;
+  }
+  h3 a:hover {
+    color: var(--accent);
+  }
+  .case-copy p {
+    margin: 0;
+    color: var(--muted);
+    font-size: 0.81rem;
+    line-height: 1.5;
+  }
+  .case-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 16px;
+    align-items: center;
+  }
+  .case-links a {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 34px;
+    font-size: 0.7rem;
+    font-weight: 650;
+    text-decoration: none;
+  }
+  .case-links a span {
+    transition: transform 250ms;
+  }
+  .case-links a:hover span {
+    transform: translate(3px, -3px);
+  }
+  .detail-link {
+    color: var(--text);
+  }
+  .demo-link {
+    color: var(--accent);
+  }
+  .is-featured {
+    display: flex;
+    flex-direction: column;
+    min-height: 350px;
+    aspect-ratio: 1;
+    padding: 21px;
+  }
+  .is-featured .case-head {
+    min-height: 91px;
+  }
+  .is-featured .case-signal {
+    position: absolute;
+    top: 73px;
+    right: 23px;
+    width: min(66%, 220px);
+    opacity: 0.58;
+    pointer-events: none;
+  }
+  .is-featured .case-copy {
+    margin: auto 0;
+  }
+  .is-featured .case-copy p {
+    max-width: 38ch;
+  }
+  .is-featured .case-links {
+    padding-top: 18px;
+    border-top: 1px solid var(--line);
+  }
+  .is-featured:nth-child(2) {
+    background: color-mix(in srgb, var(--accent) 7%, var(--surface));
+  }
+  .is-featured:nth-child(3) {
+    background: color-mix(in srgb, var(--signal) 7%, var(--surface));
+  }
+  .is-row {
+    grid-column: 1/-1;
+    display: grid;
+    grid-template-columns: 140px 125px minmax(0, 1fr) auto;
+    gap: 18px;
+    align-items: center;
+    min-height: 142px;
+    padding: 16px 22px;
+  }
+  .is-row .case-head {
+    display: contents;
+  }
+  .is-row .case-signal {
+    display: block;
+    width: 120px;
+    min-width: 0;
+    opacity: 0.75;
+  }
+  .is-row .case-copy {
+    display: block;
+  }
+  .is-row h3 {
+    margin: 0 0 5px;
+    font-size: clamp(1.5rem, 2vw, 2.2rem);
+  }
+  .is-row .case-links {
+    justify-content: flex-end;
+    min-width: 210px;
+  }
+  .is-row:hover {
+    transform: translateX(5px);
+  }
+  @media (max-width: 1000px) {
+    .is-featured {
+      min-height: 330px;
+    }
+    .is-row {
+      grid-template-columns: 125px 110px minmax(0, 1fr);
+    }
+    .is-row .case-links {
+      grid-column: 3;
+      justify-content: flex-start;
+      min-width: 0;
+    }
+  }
+  @media (max-width: 760px) {
+    .is-featured {
+      min-height: 300px;
+    }
+    .is-row {
+      grid-column: auto;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      min-height: 0;
+      padding: 21px;
+      border-top: 1px solid var(--line);
+    }
+    .is-row .case-copy {
+      display: block;
+    }
+    .is-row .case-head {
+      display: flex;
+      min-height: 0;
+      align-items: center;
+    }
+    .is-row .case-signal {
+      width: 90px;
+    }
+    .is-row .case-links {
+      justify-content: flex-start;
+      min-width: 0;
+    }
+  }
+  @media (max-width: 550px) {
+    .is-featured .case-signal {
+      top: 42px;
+      right: 16px;
+      width: 145px;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .case-study,
+    .case-study::before,
+    .case-signal,
+    .case-links a span {
+      transition: none;
+    }
+  }
+</style>

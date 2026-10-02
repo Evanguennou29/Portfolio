@@ -74,7 +74,7 @@ const isProject = page?.path.startsWith(
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta name="theme-color" content="#0b0d10" />
+    <meta name="theme-color" content="#f4f5fa" />
     <link rel="icon" type="image/svg+xml" href={`${base}favicon.svg`} />
     <meta name="description" content={description} />
     <title>{title}</title>
@@ -116,9 +116,6 @@ const isProject = page?.path.startsWith(
     <div class="site-shell">
       <header class="site-header">
         <div class="header-main">
-          <a class="wordmark" href={homeHref}>
-            {data.person.name}
-          </a>
           <div class="header-tools">
             <LangSwitch lang={lang} />
             <CommandPalette lang={lang} />
@@ -133,16 +130,15 @@ const isProject = page?.path.startsWith(
             }
           >
             <a href={`${homeHref}#skills`}>
-              <span>01</span> {lang === "fr" ? "Compétences" : "Skills"}
+              {lang === "fr" ? "Compétences" : "Skills"}
+            </a>
+            <a href={`${homeHref}#projects`}>
+              {lang === "fr" ? "Projets" : "Projects"}
             </a>
             <a href={`${homeHref}#experience`}>
-              <span>02</span>
               {lang === "fr"
                 ? "Expériences professionnelles"
                 : "Professional experience"}
-            </a>
-            <a href={`${homeHref}#projects`}>
-              <span>03</span> {lang === "fr" ? "Projets" : "Projects"}
             </a>
           </nav>
         )}

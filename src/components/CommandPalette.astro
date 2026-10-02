@@ -47,14 +47,13 @@ const labels =
         hint: "Flèches pour naviguer, Entrée pour ouvrir, Échap pour fermer",
         sections: [
           "Compétences",
-          "Expérience",
           "Projets",
+          "Expérience",
           "Parcours",
-          "Au-delà du code",
           "Contact",
         ],
         allProjects: "Tous les projets",
-        switchRole: "Rôle",
+        switchRole: "Mission",
         language: "Langue",
         nextLanguage: "English",
         theme: "Basculer le thème",
@@ -64,7 +63,7 @@ const labels =
         cv: "Télécharger le CV",
         github: "Ouvrir GitHub",
         project: "Projet",
-        role: "Rôle cible",
+        role: "Mission cible",
         section: "Section",
         action: "Action",
       }
@@ -75,16 +74,9 @@ const labels =
         search: "Search the command palette",
         close: "Close",
         hint: "Arrow keys to navigate, Enter to open, Escape to close",
-        sections: [
-          "Skills",
-          "Experience",
-          "Projects",
-          "Education",
-          "Beyond code",
-          "Contact",
-        ],
+        sections: ["Skills", "Projects", "Experience", "Education", "Contact"],
         allProjects: "All projects",
-        switchRole: "Role",
+        switchRole: "Mission",
         language: "Language",
         nextLanguage: "Français",
         theme: "Toggle theme",
@@ -94,18 +86,11 @@ const labels =
         cv: "Download CV",
         github: "Open GitHub",
         project: "Project",
-        role: "Target role",
+        role: "Target mission",
         section: "Section",
         action: "Action",
       };
-const sectionIds = [
-  "skills",
-  "experience",
-  "projects",
-  "education",
-  "beyond",
-  "contact",
-];
+const sectionIds = ["skills", "projects", "experience", "education", "contact"];
 const commands = [
   ...labels.sections.map((label, index) => ({
     kind: labels.section,
@@ -122,7 +107,7 @@ const commands = [
   })),
   ...data.roles.map((role) => ({
     kind: labels.role,
-    label: role.label,
+    label: role.mission[lang],
     href: `${homeHref}?role=${queryFor(role.id)}`,
   })),
   { kind: labels.language, label: labels.nextLanguage, href: localeHref },
@@ -154,7 +139,31 @@ const commands = [
     aria-keyshortcuts="Control+K Meta+K"
     data-command-open
   >
-    <span aria-hidden="true">Ctrl / ⌘ K</span>
+    <svg
+      aria-hidden="true"
+      viewBox="0 0 28 28"
+      width="24"
+      height="24"
+      fill="none"
+    >
+      <path
+        d="M5 14h18M14 5v18M7.5 7.5l13 13M20.5 7.5l-13 13"
+        stroke="currentColor"
+        stroke-width="1.2"
+      />
+      <circle
+        cx="14"
+        cy="14"
+        r="3.4"
+        fill="var(--bg)"
+        stroke="currentColor"
+        stroke-width="1.3"
+      />
+      <circle cx="5" cy="14" r="1.7" fill="currentColor" />
+      <circle cx="23" cy="14" r="1.7" fill="currentColor" />
+      <circle cx="14" cy="5" r="1.7" fill="currentColor" />
+      <circle cx="14" cy="23" r="1.7" fill="currentColor" />
+    </svg>
   </button>
   <dialog
     class="command-dialog"
@@ -471,9 +480,17 @@ const commands = [
     cursor: pointer;
   }
   .command-trigger {
-    min-width: 52px;
+    min-width: 42px;
     padding: 0 var(--space-2);
     font-size: 0.7rem;
+  }
+  .command-trigger svg {
+    display: block;
+    margin: auto;
+    transition: transform 350ms ease;
+  }
+  .command-trigger:hover svg {
+    transform: rotate(45deg);
   }
   .command-trigger:hover,
   .command-close:hover {

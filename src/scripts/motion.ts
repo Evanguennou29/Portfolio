@@ -5,7 +5,7 @@ export function initializeMotion() {
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
   const targets = Array.from(
     document.querySelectorAll<HTMLElement>(
-      ".hero, .quick-facts, .content-section, .contact-section, .case-section, .case-visual, .project-pagination, .timeline-entry, .project-card",
+      ".hero-profile, .hero-graphic, .hero-controls, .hero-portrait, .section-intro, .skill-group, .project-disclosure, .case-study, .github-cta, .experience-rail, .experience-main, .education-list article, .contact-section, .case-section, .case-visual, .project-pagination, .flow-bridge",
     ),
   );
 
@@ -36,9 +36,10 @@ export function initializeMotion() {
       },
       { threshold: 0.08, rootMargin: "0px 0px -32px 0px" },
     );
-    targets.forEach((target) => {
+    targets.forEach((target, index) => {
       target.setAttribute("data-reveal", "true");
       target.setAttribute("data-revealed", "false");
+      target.style.setProperty("--reveal-delay", `${(index % 4) * 70}ms`);
       revealObserver?.observe(target);
     });
   } else {
@@ -47,23 +48,4 @@ export function initializeMotion() {
       target.setAttribute("data-revealed", "true");
     });
   }
-
-  document
-    .querySelectorAll<HTMLElement>("[data-project-card]")
-    .forEach((card) => {
-      if (card.dataset.spotlightReady) return;
-      card.dataset.spotlightReady = "true";
-      card.addEventListener(
-        "pointermove",
-        (event) => {
-          if (event.pointerType === "touch") return;
-          const bounds = card.getBoundingClientRect();
-          const x = ((event.clientX - bounds.left) / bounds.width) * 100;
-          const y = ((event.clientY - bounds.top) / bounds.height) * 100;
-          card.style.setProperty("--spot-x", `${x}%`);
-          card.style.setProperty("--spot-y", `${y}%`);
-        },
-        { passive: true },
-      );
-    });
 }

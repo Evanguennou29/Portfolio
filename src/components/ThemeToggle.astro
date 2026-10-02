@@ -27,7 +27,6 @@ const labels =
 </button>
 
 <script>
-  const root = document.documentElement;
   const preferenceKey = "portfolio-theme";
   const systemTheme = window.matchMedia("(prefers-color-scheme: dark)");
 
@@ -40,7 +39,10 @@ const labels =
   }
 
   function currentTheme() {
-    return root.dataset.theme ?? (systemTheme.matches ? "dark" : "light");
+    return (
+      document.documentElement.dataset.theme ??
+      (systemTheme.matches ? "dark" : "light")
+    );
   }
 
   function updateToggle(
@@ -59,25 +61,26 @@ const labels =
 
   const savedTheme = readPreference();
   if (savedTheme === "dark" || savedTheme === "light") {
-    root.dataset.theme = savedTheme;
+    document.documentElement.dataset.theme = savedTheme;
   }
   function initializeThemeToggle() {
-    updateToggle();
-  }
-
-  document.addEventListener("click", (event) => {
-    const target = event.target;
-    if (!(target instanceof Element) || !target.closest(".theme-toggle"))
-      return;
-    const nextTheme = currentTheme() === "dark" ? "light" : "dark";
-    root.dataset.theme = nextTheme;
-    try {
-      window.localStorage.setItem(preferenceKey, nextTheme);
-    } catch {
-      // Keep the current theme when storage is unavailable.
+    const toggle = document.querySelector<HTMLButtonElement>(".theme-toggle");
+    if (!toggle) return;
+    if (toggle.dataset.themeBound !== "true") {
+      toggle.dataset.themeBound = "true";
+      toggle.addEventListener("click", () => {
+        const nextTheme = currentTheme() === "dark" ? "light" : "dark";
+        document.documentElement.dataset.theme = nextTheme;
+        try {
+          window.localStorage.setItem(preferenceKey, nextTheme);
+        } catch {
+          // Keep the current theme when storage is unavailable.
+        }
+        updateToggle(toggle);
+      });
     }
-    updateToggle();
-  });
+    updateToggle(toggle);
+  }
   initializeThemeToggle();
   document.addEventListener("astro:page-load", initializeThemeToggle);
 
