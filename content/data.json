@@ -61,8 +61,8 @@
       "id": "ai-engineer",
       "label": "AI Engineer",
       "pitch": {
-        "fr": "RAG, agents et LLM privés intégrés dans de vrais outils métier, en environnement sécurisé.",
-        "en": "RAG, agents and private LLMs built into real business tools, in a secure environment."
+        "fr": "RAG, agents et LLM intégrés dans de vrais outils métier.",
+        "en": "RAG, agents and LLMs integrated into real business tools."
       },
       "mission": {
         "fr": "Applications IA",
@@ -73,8 +73,8 @@
       "id": "ml-engineer",
       "label": "ML Engineer",
       "pitch": {
-        "fr": "Des modèles entraînés, évalués et servis derrière une API, de la recherche sémantique au ranking.",
-        "en": "Models trained, evaluated and served behind an API, from semantic search to ranking."
+        "fr": "Des modèles entraînés et évalués, de la recherche sémantique au ranking.",
+        "en": "Trained and evaluated models, from semantic search to ranking."
       },
       "mission": {
         "fr": "Modèles ML",
@@ -85,8 +85,8 @@
       "id": "data-scientist",
       "label": "Data Scientist",
       "pitch": {
-        "fr": "De la question métier au modèle prédictif : churn, rétention, segmentation.",
-        "en": "From the business question to a predictive model: churn, retention, segmentation."
+        "fr": "De la question métier au modèle prédictif.",
+        "en": "From a business question to a predictive model."
       },
       "mission": {
         "fr": "Analyse prédictive",
@@ -109,8 +109,8 @@
       "id": "data-analyst",
       "label": "Data Analyst",
       "pitch": {
-        "fr": "Des KPI suivis, des études qui répondent à une question et des restitutions en comité.",
-        "en": "Tracked KPIs, studies that answer a real question and findings presented to committees."
+        "fr": "Des KPI de suivi et des études de Business Intelligence.",
+        "en": "KPI tracking and Business Intelligence studies."
       },
       "mission": {
         "fr": "Analyse et BI",
